@@ -164,11 +164,7 @@ $row_Recordset2 = mysqli_fetch_assoc($Recordset2);
 										                </div>
 										            </div>
 
-
-
-
-
-
+                                                    
 										        </div>
 
 										</div>
