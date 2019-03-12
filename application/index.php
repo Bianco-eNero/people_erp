@@ -53,11 +53,9 @@ $use_bootstrap='0';
                     
 					<ul <?php if($_SESSION['language']=='AR') { ?>style="padding-left: 0px;
     padding-right: 0px;
-    width: 2000px;
-    height: 400px;" <?php } else { ?>style="padding-left: 0px;
+	margin: auto;" <?php } else { ?>style="padding-left: 0px;
     padding-right: 0px;
-    width: 2000px;
-    height: 400px;" <?php } ?> >
+	margin: auto;" <?php } ?> >
 						<li><a href="<?php echo $server; ?>application/human_resource/" class="arabic"><img src="<?php echo $server; ?>assets/images/employees.png" /><br /><?php echo $vHumanResource; ?></a></li>
 						<li style="display: none"><a href="<?php echo $server; ?>application/safety/" class="arabic"><img src="<?php echo $server; ?>assets/images/helmet.png" /><br /><?php echo $vSafety; ?></a></li>
 						<li style="display: none"><a href="<?php echo $server; ?>application/my/" class="arabic"><img src="<?php echo $server; ?>assets/images/apps.png" /><br /><?php echo $v5adamaty; ?></a></li>
