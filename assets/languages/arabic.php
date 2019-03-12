@@ -2654,4 +2654,5 @@ $vObservation='ملاحظات';
 $vCategories='الاقسام';
 $vFilter='بحث';
 $vEarningPer='نسب الحوافز';
+$vTitlePer='نسب علي حسب الوظيفة';
 ?>

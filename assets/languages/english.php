@@ -2341,4 +2341,5 @@ $v5adamaty='My';
 $vFilter='Filter';
 $vCategories='Categories';
 $vEarningPer='Earning Percentages';
+$vTitlePer='Percentage By Title';
 ?>

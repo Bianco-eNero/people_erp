@@ -169,9 +169,9 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="spPer/?case_id=96&case_filter=&ref=">
+                                                <a href="titlePer/?case_id=96&case_filter=&ref=">
                                                     <i class="fas fa-folder fa-fw fa-5x"></i>
-                                                    <span class="glyphicon-class"><?php echo $vEarningPer;?></span>
+                                                    <span class="glyphicon-class"><?php echo $vTitlePer;?></span>
                                                 </a>
                                             </li>
                                         </ul>
