@@ -1,0 +1,168 @@
+
+* {direction: rtl; text-align: right}
+
+.login-box .main .login input {
+	text-align: center;
+}
+
+.header .account {
+	float: left;
+	width: 30%;
+}
+
+.header .sections {
+	float: right;
+}
+
+.header .sections figure {
+	padding-right: 18px;
+}
+
+.header .account #conversations {
+	direction: ltr
+}
+
+.header .account #conversations .circle {
+	margin-right: -5px;
+}
+
+.header .account #customization img {
+	margin-left: 6px;
+	margin-right: 0;
+}
+
+.header .account #avatar {
+	padding-left: 15px;
+}
+
+.header .account #avatar img {
+	margin-left: 2px;
+	margin-right: 0
+}
+
+.header .account #avatar i {
+	margin-right: 5px;
+	margin-left: 0
+}
+
+.main-menu .main nav ul {
+	padding-right: 265px;
+	padding-left: 0
+}
+
+.header .account #avatar .dropdown {
+	left: 0;
+	right: auto;
+}
+
+.header .sections h1 {
+	padding: 12px 16px 7px 9px;
+	margin-right: 5px;
+	margin-left: 0
+}
+
+.header .sections ul {
+	margin-left: 0;
+	margin-right: 34px;
+}
+
+.employees .main .control .action {
+	float: right;
+}
+
+.employees .main .control .navigation .search #search_go {
+	padding: 0 10px 0 0px;
+}
+
+.employees .main .control .navigation .refine {
+	float: right;
+}
+
+.employees .main .control .navigation .view {
+	float: left;
+}
+
+.employees .main .control .navigation .refine button {
+	padding: 0 0px 0 11px;
+}
+
+.employees .main .control .navigation .refine button i:first-child {
+	margin-left: 2px;
+	margin-right: 0
+}
+
+.employees .main .control .navigation .refine button i:last-child {
+	margin-right: 5px;
+	margin-left: 0
+}
+
+.employees .main .control .navigation .view .count {
+	margin-left: 6px;
+	margin-right: 0
+}
+
+.employees .main .control .navigation .view .layout {
+	margin-right: 20px;
+	margin-left: 0
+}
+
+.employees .main .body .grid .employee figure {
+	float: right;
+	margin-left: 10px;
+	margin-right: 0
+}
+
+.employees .main .body .employee-create header #active {
+	border-right: solid 1px #cccccc;
+	float: left;
+	text-align: right;
+	padding-right: 16px;
+	padding-left: 0;
+	border-left: none
+}
+
+.employees .main .body .employee-create header #active i {
+	margin-left: 11px;
+	margin-right: 0;
+}
+
+.employees .main .body .employee-create .title figure {
+	float: left;
+}
+
+.employees .main .body .employee-create .title fieldset #part-time + i {
+	left: 0;
+	right: -6px;
+}
+
+.employees .main .body .employee-create .information header {
+	padding-right: 35px;
+	padding-left: 0;
+}
+
+.employees .main .body .employee-create .information header h2:first-child + h2 {
+	right: -1px;
+	left: auto
+}
+
+.employees .main .body .employee-create .information header h2:first-child + h2 + h2 {
+	right: -2px;
+	left: auto
+}
+
+.employees .main .body .employee-create .information main section fieldset input {
+	margin-right: 144px;
+	margin-left: 0;
+}
+
+.employees .main .body .employee-create .information main section fieldset > i {
+	right: -6px;
+	left: auto;
+	position: relative;
+}
+
+.employees .main .body .employee-create .information main section fieldset > button {
+	right: -6px;
+	left: auto;
+	position: relative;
+}

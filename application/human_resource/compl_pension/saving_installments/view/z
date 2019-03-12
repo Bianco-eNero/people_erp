@@ -1,0 +1,25 @@
+[05-Nov-2018 22:06:16 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[05-Nov-2018 22:07:13 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[05-Nov-2018 22:08:11 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[05-Nov-2018 22:09:42 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[05-Nov-2018 22:10:20 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[05-Nov-2018 22:15:16 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:15:53 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:15:54 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:25:18 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:27:18 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:29:12 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:30:55 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 22:39:53 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 23:01:02 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 23:04:23 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[05-Nov-2018 23:06:24 Africa/Cairo] PHP Notice:  Undefined variable: vCumulatedInvReturs in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 180
+[05-Nov-2018 23:06:24 Africa/Cairo] PHP Notice:  Undefined variable: vCumulatedInvReturs in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 182
+[05-Nov-2018 23:11:59 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 34
+[07-Nov-2018 15:32:22 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[12-Dec-2018 13:49:37 Africa/Cairo] PHP Warning:  ini_set(): A session is active. You cannot change the session module's ini settings at this time in /Applications/MAMP/htdocs/people_erp/assets/config.php on line 37
+[12-Dec-2018 13:49:37 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 38
+[12-Dec-2018 13:49:37 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 24
+[12-Dec-2018 13:50:12 Africa/Cairo] PHP Notice:  Undefined variable: chart_page in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 15
+[12-Dec-2018 13:50:12 Africa/Cairo] PHP Notice:  Undefined variable: this_is_pop in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 581
+[12-Dec-2018 13:50:12 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/saving_installments/view/index.php on line 157
