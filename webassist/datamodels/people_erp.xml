@@ -1,0 +1,10 @@
+<wa_datamodel>
+  <wa_table>
+    <index>0</index>
+    <table_name>attachment</table_name>
+    <table_alias>attachment</table_alias>
+    <columns>attachment_id,attachment_title,attachment_file,attachment_added_by,control_id,object_id</columns>
+    <position>264px,154px</position>
+    <connections></connections>
+  </wa_table>
+</wa_datamodel>

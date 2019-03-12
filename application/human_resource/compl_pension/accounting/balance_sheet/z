@@ -1,0 +1,4 @@
+[12-Nov-2018 04:18:18 Africa/Cairo] PHP Deprecated:  mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /Applications/MAMP/htdocs/people_erp/Connections/localhost.php on line 10
+[12-Nov-2018 04:18:18 Africa/Cairo] PHP Notice:  Undefined index: t in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/accounting/balance_sheet/index.php on line 236
+[12-Nov-2018 04:18:18 Africa/Cairo] PHP Notice:  Undefined variable: form_text in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/accounting/balance_sheet/index.php on line 245
+[12-Nov-2018 04:18:18 Africa/Cairo] PHP Warning:  mysql_free_result() expects parameter 1 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/accounting/balance_sheet/index.php on line 285

@@ -1,0 +1,4 @@
+age_on_date,employee_id,emp_basic_le,excluded_incentive_le,production_incentive_le,emp_portion_le,co_portion_le,egpc_portion_le
+31,G564,2050,129.1,307.5,1325.88,2486.64,621.6
+31,G563,1805.17,116.2,270.78,1168.8,2192.16,548.04
+59,G61,5637.21,626.45,845.58,4561.92,6845.64,"1,711.44"

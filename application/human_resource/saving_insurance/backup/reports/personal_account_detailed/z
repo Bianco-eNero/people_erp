@@ -1,0 +1,8 @@
+[30-Nov-2018 08:53:39 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 38
+[30-Nov-2018 08:53:39 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/reports/personal_account_detailed/index.php on line 24
+[30-Nov-2018 08:53:39 Africa/Cairo] PHP Notice:  Undefined variable: chart_page in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 15
+[30-Nov-2018 08:53:39 Africa/Cairo] PHP Notice:  Undefined variable: this_is_pop in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 564
+[30-Nov-2018 08:54:15 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 38
+[30-Nov-2018 08:54:15 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/reports/personal_account_detailed/index.php on line 24
+[30-Nov-2018 08:54:15 Africa/Cairo] PHP Notice:  Undefined variable: chart_page in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 15
+[30-Nov-2018 08:54:15 Africa/Cairo] PHP Notice:  Undefined variable: this_is_pop in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 564

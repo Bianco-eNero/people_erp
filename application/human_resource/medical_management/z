@@ -1,0 +1,6 @@
+[12-Dec-2018 13:38:36 Africa/Cairo] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/medical_management/index.php on line 34
+[12-Dec-2018 13:38:36 Africa/Cairo] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/medical_management/index.php on line 36
+[12-Dec-2018 13:38:39 Africa/Cairo] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/medical_management/index.php on line 34
+[12-Dec-2018 13:38:39 Africa/Cairo] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/medical_management/index.php on line 36
+[12-Dec-2018 13:39:32 Africa/Cairo] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/medical_management/index.php on line 34
+[12-Dec-2018 13:39:32 Africa/Cairo] PHP Warning:  mysql_query() expects parameter 2 to be resource, object given in /Applications/MAMP/htdocs/people_erp/application/human_resource/medical_management/index.php on line 36

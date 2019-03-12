@@ -1,0 +1,7 @@
+[12-Nov-2018 01:38:38 Africa/Cairo] PHP Notice:  Undefined variable: row_Recordset2 in /Applications/MAMP/htdocs/people_erp/application/human_resource/compl_pension/accounting/index.php on line 135
+[12-Nov-2018 12:34:18 Africa/Cairo] PHP Notice:  Undefined index: national_id_card_no in /Applications/MAMP/htdocs/people_erp/assets/config.php on line 47
+[13-Nov-2018 16:41:02 Africa/Cairo] PHP Notice:  Undefined index: national_id_card_no in /Applications/MAMP/htdocs/people_erp/assets/config.php on line 47
+[13-Nov-2018 16:41:14 Africa/Cairo] PHP Notice:  Undefined index: national_id_card_no in /Applications/MAMP/htdocs/people_erp/assets/config.php on line 47
+[16-Nov-2018 15:35:39 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 6
+[16-Nov-2018 15:35:53 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 6
+[16-Nov-2018 15:36:01 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 6

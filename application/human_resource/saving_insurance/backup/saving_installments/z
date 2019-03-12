@@ -1,0 +1,19 @@
+[05-Nov-2018 22:00:40 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:00:40 Africa/Cairo] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, boolean given in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 28
+[05-Nov-2018 22:01:17 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:04:45 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:06:05 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:08:48 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:08:57 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:09:33 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 22:10:03 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 23:04:17 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[05-Nov-2018 23:11:53 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[07-Nov-2018 14:50:43 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[07-Nov-2018 15:32:18 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[12-Dec-2018 13:49:35 Africa/Cairo] PHP Warning:  ini_set(): A session is active. You cannot change the session module's ini settings at this time in /Applications/MAMP/htdocs/people_erp/assets/config.php on line 37
+[12-Dec-2018 13:49:35 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 38
+[12-Dec-2018 13:49:35 Africa/Cairo] PHP Notice:  Undefined index: search in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 24
+[12-Dec-2018 13:49:35 Africa/Cairo] PHP Notice:  Undefined variable: chart_page in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 15
+[12-Dec-2018 13:49:35 Africa/Cairo] PHP Notice:  Undefined variable: this_is_pop in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 581
+[12-Dec-2018 13:49:35 Africa/Cairo] PHP Notice:  Undefined variable: row_crud_case in /Applications/MAMP/htdocs/people_erp/application/human_resource/saving_insurance/saving_installments/index.php on line 104

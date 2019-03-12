@@ -1,0 +1,4 @@
+[12-Dec-2018 13:40:27 Africa/Cairo] PHP Notice:  Undefined variable: vEndServiceType in /Applications/MAMP/htdocs/people_erp/assets/languages/arabic.php on line 38
+[12-Dec-2018 13:40:27 Africa/Cairo] PHP Notice:  Undefined variable: chart_page in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 15
+[12-Dec-2018 13:40:27 Africa/Cairo] PHP Notice:  Undefined variable: this_is_pop in /Applications/MAMP/htdocs/people_erp/assets/header.php on line 581
+[12-Dec-2018 13:40:27 Africa/Cairo] PHP Notice:  Undefined variable: row_crud_case in /Applications/MAMP/htdocs/people_erp/application/human_resource/personnel/employees/index.php on line 116

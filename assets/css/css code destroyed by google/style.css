@@ -1,0 +1,792 @@
+
+@font-face {
+	font-family: "Roboto";
+	src: url(Roboto-Regular-webfont.woff);
+	font-style: normal;
+	font-weight: 400;
+}
+
+.clear {clear: both;}
+
+html {
+	height:100%;
+	position: relative;
+	width: 100%;
+	overflow: hidden
+}
+
+body {
+	background: linear-gradient(to right bottom, #77717e, #c9a8a9);
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: left;
+	display: flex;
+	flex-flow: column nowrap;
+	direction: ltr;
+	margin: 0;
+}
+
+body::before {
+	content:'';
+	background: url(background.svg);
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: -100;
+}
+
+
+
+.login-box {
+	padding:20px;
+	background-color:#fff;
+	max-width:260px;
+	margin:48px auto 0
+}
+
+.login-box > header {
+	border-bottom: solid #dee2e6 1px;
+	margin-bottom: 13px;
+	padding-bottom: 11px;
+}
+
+.login-box header figure {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.login-box .main {
+	border-bottom: solid #dee2e6 1px;
+	margin-bottom: 20px;
+}
+
+.login-box .main fieldset {
+	padding: 10px 0;
+	border: none;
+	text-align: right;
+}
+
+.login-box .main .email input, .login-box .main .password input {
+	border: solid 1px #ced4da;
+	box-shadow: none;
+	border-radius: 6px;
+	height: 36px;
+	width: calc(100% - 20px);
+	margin-top: 9px;
+	padding: 0 10px;
+}
+
+.login-box .main .login {
+	margin-top:20px
+}
+
+.login-box .main .login input {
+	width: 100%;
+	background-color: #00A09D;
+	border-color: #00A09D;
+	color: #fff;
+	border-radius: 4px;
+	border-style: solid;
+	height: 36px;
+	cursor: pointer
+}
+
+.login-box .main .login .question {
+	color: #00A09D;
+	font-size: 11px;
+}
+
+.login-box .footer h3 {
+	color: #00A09D;
+	font-size: 10px;
+	text-align: center;
+	font-weight: normal;
+}
+
+.employees {height: 100%}
+
+.header {
+	background: #875a7b;
+	border-bottom: solid 1px #68465f;
+	height: 45px;
+}
+
+.header.menu-header {
+	background: transparent;
+	border-bottom-color: transparent;
+
+}
+
+.header .sections {
+	display: flex;
+	height: 100%;
+	float: left;
+}
+
+.header .sections a {
+	text-decoration: none
+}
+
+.header .sections figure {
+	margin: 0;
+	height: 17px;
+	padding: 13px 12px 15px;
+	padding-left: 18px;
+}
+
+.header .sections figure i {
+	color: #fff;
+	font-size: 17px;
+}
+
+.header.menu-header .sections figure.back {
+
+}
+
+.header.menu-header .sections figure.back:hover {
+	background: transparent
+}
+
+.header.menu-header .sections figure.back i {
+	color: #fff
+}
+
+.header .sections h1 {
+	color: #fff;
+	margin: 0;
+	font-size: 22px;
+	line-height: 23px;
+	font-weight: normal;
+	height: 26px;
+	padding: 12px 9px 7px 16px;
+	margin-left: 5px;
+}
+
+.header .sections ul {
+	margin: 0;
+	padding: 0;
+	margin-left: 34px;
+}
+
+.header .sections ul li {
+	color: #fff;
+	display: inline-block;
+	margin: 0;
+	font-size: 13px;
+	height: 100%;
+	line-height: 45px;
+	padding: 0 9px;
+}
+
+.header .sections figure:hover,
+.header .sections h1:hover,
+.header .sections ul li:hover
+ {
+	background-color: #68465f
+}
+
+.header .account {
+	float: right;
+	height: 46px;
+}
+
+.header .account > ul {
+	padding: 0;
+	border: none;
+	line-height: 10px;
+	height: 100%;
+	margin: 0
+}
+
+.header .account > ul > li {
+	height: 100%;
+	vertical-align: middle;
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	font-size: 13px;
+	line-height: 46px;
+	padding: 0px 10px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.header .account > ul > li > a {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	position: absolute;
+}
+
+.header .account > ul > li:hover {
+	background-color: #774f6c;
+}
+
+.header.menu-header .account > ul > li:hover {
+	background-color: transparent;
+}
+
+.header .account #avatar {
+	padding-right: 15px;
+}
+
+.header .account  > ul > li img {
+	height: 17px;
+	border-radius: 50%;
+}
+
+.header .account #activities i {
+	color: #c3adbd
+}
+
+.header .account #conversations .circle {
+	width: 17px;
+	height: 15px;
+	background-color: #51bbcb;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 15px;
+	border-radius: 50%;
+	font-size: 9px;
+	margin-bottom: 6px;
+	margin-left: -5px;
+	text-align: center;
+}
+
+.header .account #customization img {
+	height: 13px;
+	margin-right: 6px;
+	vertical-align: middle;
+}
+
+.header .account #customization i {
+	font-size: 9px;
+	bottom: 1px;
+	position: relative;
+}
+
+.header .account #avatar {
+
+}
+
+.header .account #avatar #avatar-menu {
+	display: none;
+}
+
+.header .account #avatar img {
+	vertical-align: middle;
+	margin-bottom: 5px;
+	margin-right: 2px;
+}
+
+.header .account #avatar i {
+	margin-left: 5px;
+	font-size: 9px;
+	bottom: 1px;
+	position: relative;
+}
+
+.header .account #avatar .dropdown {
+	background: #fff;
+	position: absolute;
+	right: 0;
+	margin-top: 46px;
+	box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.25);
+	border: 1px solid #dee2e6;
+}
+
+.header .account #avatar .dropdown ul {
+	padding: 7px 0;
+
+}
+
+.header .account #avatar .dropdown  li {
+	list-style: none;
+	text-align: left;
+	line-height: 10px;
+}
+
+.header .account #avatar .dropdown li a {
+	color: #666666;
+	text-decoration: none;
+	display: block;
+	padding: 7.5px 20px;
+}
+
+.header .account #avatar .dropdown  li a:hover {
+	color: #4d4c4c;
+	background-color: #e9ecef;
+}
+
+.header .account #avatar .dropdown hr {
+	margin: 0;
+	border: none;
+	border-top: solid 1px #dee2e6;
+}
+
+.employees .main {
+	height: calc(100% - 46px);
+}
+
+
+.employees .main .control {
+	background: #ffffff;
+	border-bottom: solid 1px #cccccc;
+	height: 87px;
+}
+
+.employees .main .control .action {
+	float: left;
+	padding: 10px 16px;
+}
+
+.employees .main .control .action h1 {
+	color: #8f8f8f;
+	margin: 0;
+	font-weight: normal;
+	font-size: 18px
+}
+
+.employees .main .control .action h1 .root {
+	color: #008784
+}
+
+.employees .main .control .action h1 .slash {
+	color: #6c7599;
+	padding: 0 2px;
+}
+
+.employees .main .control .action fieldset {
+	padding: 8px 0px 0px;
+	margin: 0;
+	border: navajowhite;
+}
+
+.employees .main .control .action fieldset input {
+	border: none;
+	font-size: 13px;
+	padding: 9px 11px;
+	color: #00a09d;
+	background-color: #fff;
+	cursor: pointer
+}
+
+.employees .main .control .action fieldset input.focus {
+	background: #00a09d;
+	color: #fff;
+}
+
+.employees .main .control .action fieldset input.no-focus {
+	color: #00a09d;
+	background-color: #fff;
+}
+
+.employees .main .control .navigation {
+	float: right;
+	width: 669px;
+	padding: 9px 14px 0px;
+	position:absolute;
+	height: 87px;
+	margin-left: 400px;
+}
+
+.employees .main .control .navigation .search {
+	border: none;
+	border-bottom: solid 1px #8f8f8f;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 6px;
+}
+
+.employees .main .control .navigation .search #search {
+	border: none;
+	width: calc(100% - 37px);
+	font-size: 13px;
+	padding: 0px 0 6px;
+}
+
+.employees .main .control .navigation .search #search::placeholder {
+	color: #8f8f8f;
+	opacity: 0.5;
+}
+
+.employees .main .control .navigation .search #search_go {
+	border: none;
+	background: transparent;
+	padding: 0 0px 0 10px;
+	width: 30px;
+	color: #6a6a66;
+	vertical-align: bottom;
+	margin: 2px 2px;
+}
+
+.employees .main .control .navigation .refine {
+	float: left;
+	border: none;
+	padding: 10px 1px 12px;
+}
+
+.employees .main .control .navigation .refine button {
+	border: none;
+	background: transparent;
+	color: #666666;
+	padding: 0 11px 0 0px;
+	font-size: 13px;
+}
+
+.employees .main .control .navigation .refine button i:first-child {
+	font-size: 10px;
+	margin-right: 2px;
+}
+
+.employees .main .control .navigation .refine button i:last-child {
+	font-size: 10px;
+	vertical-align: top;
+	padding-top: 2px;
+	margin-left: 5px;
+}
+
+.employees .main .control .navigation .view {
+	float: right;
+	border: none;
+	padding: 5px 0;
+}
+
+.employees .main .control .navigation .view button {
+	border: none;
+	background-color: transparent
+}
+
+.employees .main .control .navigation .view .count {
+	color: #666666;
+	font-size: 13px;
+	margin-right: 6px;
+}
+
+.employees .main .control .navigation .view .directions {
+
+}
+
+.employees .main .control .navigation .view .directions button {
+	color: #9fa4aa;
+	font-size: 14px;
+}
+.employees .main .control .navigation .view .layout {
+	margin-left: 20px
+}
+
+.employees .main .control .navigation .view .layout button {
+	color: #6c757d;
+	font-size: 12px;
+	padding: 9px;
+}
+
+.employees .main .control .navigation .view button.active {
+	color: #212529;
+	background-color: #ebebeb
+}
+
+.employees .main .body {
+	background: #f9f9f9;
+	padding: 10px 17px;
+	overflow-y: auto;
+	height: calc(100% - 87px - 20px);
+}
+
+.employees .main .body .grid {
+	display: flex
+}
+
+.employees .main .body .grid .employee {
+	background: #ffffff;
+	border: 1px solid #ced4da;
+	width: 319.5px;
+	height: 95px;
+}
+
+.employees .main .body .grid .employee figure {
+	margin: 0;
+	height: 100%;
+	float: left;
+	margin-right: 10px;
+}
+
+.employees .main .body .grid .employee figure img {
+	height: 100%;
+}
+
+.employees .main .body .grid .employee h3 {
+	font-size: 11.5px;
+	margin: 0;
+	margin-top: 8px;
+}
+
+.employees .main .body .employee-create {
+	max-width: 1138px;
+	background-color: #ffffff;
+	margin: 3px auto;
+	border: solid 1px #cccccc;
+	box-shadow: 0 5px 20px -15px black;
+}
+
+.employees .main .body .employee-create header {
+	border-bottom: solid 1px #cccccc;
+}
+
+.employees .main .body .employee-create header #active {
+	color: #58b26e;
+	background: transparent;
+	border: none;
+	border-left: solid 1px #cccccc;
+	float: right;
+	text-align: left;
+	width: 134.25px;
+	height: 42px;
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 16px;
+	line-height: 22px;
+}
+
+.employees .main .body .employee-create header #active i {
+	color: #848484;
+	font-size: 20px;
+	margin-right: 11px;
+	vertical-align: middle;
+}
+
+.employees .main .body .employee-create .title {
+	padding: 26px 33px 5px;
+}
+
+.employees .main .body .employee-create .title figure {
+	margin: 0;
+	padding: 0;
+	float: right;
+	border: solid 1px #a8a8a8;
+	text-align: center;
+	width: 88px;
+	height: 88px;
+}
+
+.employees .main .body .employee-create .title figure img {
+	width: 100%;
+	height: 100%;
+}
+
+.employees .main .body .employee-create .title fieldset {
+	max-width: 587px;
+	padding: 0;
+	border: none;
+	line-height: 10px;
+}
+
+.employees .main .body .employee-create .title fieldset label {
+	font-weight: bold;
+	color: #212529;
+	font-size: 12px;
+}
+
+.employees .main .body .employee-create .title fieldset #name {
+	border: none;
+	border-bottom: solid 2px #666666;
+	width: 100%;
+	font-size: 30px;
+	padding: 11px 1px 7px;
+}
+
+.employees .main .body .employee-create .title fieldset #name::placeholder,
+.employees .main .body .employee-create .title fieldset #part-time::placeholder
+ {
+	color: #8f8f8f;
+	opacity: 0.5;
+}
+
+.employees .main .body .employee-create .title fieldset #part-time {
+	border: none;
+	border-bottom: 1px solid #cfcfcf;
+	width: 162px;
+	padding-top: 8px;
+	font-size: 13px;
+	padding-bottom: 2px;
+	position: relative;
+	z-index: 10;
+	background: transparent;
+}
+
+.employees .main .body .employee-create .title fieldset #part-time + i {
+	color: #666666;
+	font-size: 10px;
+	z-index: 5;
+	position: relative;
+	left: -6px;
+}
+
+.employees .main .body .employee-create  .information {
+	margin-top:10px
+}
+
+.employees .main .body .employee-create .information header {
+	border-bottom: solid 1px #ced4da;
+	padding-left: 35px;
+}
+
+.employees .main .body .employee-create .information header h2 {
+	border: solid 1px #ced4da;
+	display: inline-block;
+	margin: 0;
+	position: relative;
+	top: 1px;
+	font-weight: normal;
+	font-size: 13px;
+	padding: 6px 11px;
+	color: #6f6f74;
+}
+
+.employees .main .body .employee-create  .information header h2:first-child + h2 {
+	left:	-1px
+}
+
+.employees .main .body .employee-create  .information header h2:first-child + h2 + h2 {
+	left:	-2px
+}
+
+.employees .main .body .employee-create  .information header h2.active {
+	border-bottom-color: #fff;
+	border-top-color: #875a7b;
+}
+
+.employees .main .body .employee-create .information main {
+	padding: 29px 34px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.employees .main .body .employee-create .information main .left, .employees .main .body .employee-create .information main .right {
+	width: 49%;
+}
+
+.employees .main .body .employee-create .information main section h3 {
+	margin: 0;
+	color: #666666;
+	font-weight: normal;
+	font-size: 20px;
+}
+
+.employees .main .body .employee-create .information main section fieldset {
+	border: none;
+	padding: 0;
+	position: relative;
+}
+
+.employees .main .body .employee-create .information main section fieldset label {
+	color: #666666;
+	font-weight: bold;
+	font-size: 12px;
+	margin-top: 7px;
+	display: inline-block;
+	position: absolute;
+}
+
+.employees .main .body .employee-create .information main section fieldset input {
+	margin-left: 144px;
+	margin-top: 7px;
+	width: 63%;
+	font-size: 13px;
+	padding: 1px 0 4px;
+}
+
+.employees .main .body .employee-create .information main section fieldset input {
+	border: none;
+	border-bottom: solid 1px #cfcfcf;
+}
+
+.employees .main .body .employee-create .information main section fieldset > i {
+	color: #6a6666;
+	font-size: 10px;
+}
+
+.employees .main .body .employee-create .information main section fieldset > button {
+	border: none;
+	background: transparent;
+	color: #6a6666;
+	font-size: 12px
+}
+
+.employees .main .body .employee-create .information main section fieldset > button i {
+}
+
+.employees .main .body .employee-create .information main section.other {
+	width: 100%;
+	margin-top: 60px;
+	margin-bottom: 12px;
+}
+
+.employees .main .body .employee-create .information main section.other textarea {
+	width: 100%;
+	border: none;
+	border-bottom: solid 1px #cfcfcf;
+	resize: none;
+}
+
+.employees .main .body .employee-create .information main section.other textarea::placeholder {
+	color: #8f8f8f;
+	opacity: 0.5;
+}
+
+.main-menu {height: 100%}
+
+.main-menu .main {
+	height: calc(100% - 46px - 10px - 75px);
+	padding-top: 10px;
+}
+
+.main-menu .main nav {
+	margin-top: 90px;
+}
+
+.main-menu .main nav ul {
+	display: flex;
+	width: 560px;
+	padding-left: 265px;
+}
+
+.main-menu .main nav ul li {
+	display: inline-block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.main-menu .main nav ul li a {
+	color: #fff;
+	text-decoration: navajowhite;
+	text-shadow: 0px 1px 1px #222;
+	position: relative;
+	z-index: 10
+}
+
+.main-menu .main nav ul li a img {
+	width: 70px;
+}
+
+.main-menu .main nav ul li a img:hover {
+	box-shadow: 0px 11px 16px -5px #444;
+	position: relative;
+	z-index: 5;
+	top: -1px;
+}
+
+.main-menu footer figure {text-align: center}
+
+.main-menu footer figure img {
+	width: 100px;
+}
