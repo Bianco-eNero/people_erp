@@ -908,7 +908,6 @@ if(isset($_GET['delete_now']))
                                                             }
                                                         }
                                                     }
-//                                              test1
                                                 }
                                                 ?>
                                             </td>
