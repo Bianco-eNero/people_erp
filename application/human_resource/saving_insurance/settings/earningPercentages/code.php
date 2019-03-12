@@ -15,7 +15,7 @@ $table='sp_percentages';
 $id_field='sp_percentages_id';
 
 //// FK for sub table ////
-$fkey='sp_percentages';
+$fkey='sp_percentages_id';
 
 
 
@@ -44,7 +44,7 @@ VALUES
 
 //// arabic update ////
 $insertSQL3='UPDATE '.$table.' SET
-title="'.$_GET['vtitle'].'"
+title="'.$_GET['vtitle'].'",
 percentage="'.$_GET['vpercentage'].'"
 WHERE '.$id_field.'="'.$id.'"';
 
@@ -54,7 +54,7 @@ WHERE '.$id_field.'="'.$id.'"';
 
 //// english update ////
 $insertSQL4='UPDATE '.$table.' SET
-title_en="'.$_GET['vtitle'].'"
+title_en="'.$_GET['vtitle'].'",
 percentage="'.$_GET['vpercentage'].'"
 WHERE '.$id_field.'="'.$id.'"';
 
