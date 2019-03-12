@@ -45,8 +45,8 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
     <!------ Include the above in your HEAD tag ---------->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+<?php if ($_SESSION['language']=='AR')
+{ ?><style>.bs-glyphicons li{float: right}</style><?php } ?>
 </head>
 <body style="height:100%;font-weight: 100!important;">
 <section class="employees">
@@ -162,9 +162,11 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
                                     <div class="widget-body">
 
                                         <ul class="bs-glyphicons" style="padding: 10px;margin: 0">
-                                            <li style="    float: initial;">
-                                                <span class="glyphicon glyphicon-adjust"></span>
-                                                <span class="glyphicon-class">.glyphicon .glyphicon-adjust</span>
+                                            <li>
+                                                <a href="earningPercentages/?case_id=95&case_filter=&ref=">
+                                                    <i class="fas fa-folder fa-fw fa-5x"></i>
+                                                    <span class="glyphicon-class"><?php echo $vEarningPercentages;?></span>
+                                                </a>
                                             </li>
                                         </ul>
 

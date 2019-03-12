@@ -2653,4 +2653,5 @@ $v5adamaty='خدماتي';
 $vObservation='ملاحظات';
 $vCategories='الاقسام';
 $vFilter='بحث';
+$vEarningPercentages='نسب الحوافز';
 ?>

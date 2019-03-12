@@ -2340,4 +2340,5 @@ $vMyObservation='My Observation';
 $v5adamaty='My';
 $vFilter='Filter';
 $vCategories='Categories';
+$vEarningPercentages='Earning Percentages';
 ?>
