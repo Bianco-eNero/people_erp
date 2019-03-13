@@ -17,8 +17,7 @@ include ('../../languages/english.php');
 }
 //// End Language ////
 
-//// for not displaying the chat ///
-$this_is_pop='1';
+
 $use_bootstrap='1';
 
 
@@ -54,7 +53,7 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 	</head>
 	<body style="height:100%">
 		<section class="employees">
-			<header class="header dont_print_me">
+			<header class="header">
 				<nav class="sections">
 					<a href="<?php echo $server; ?>application/" style="height: 100%;">
 						<figure style="height: 100%;">
@@ -81,8 +80,8 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 
 				<div class="clear"></div>
 			</header>
-			<main class="main" >
-				<section class="control dont_print_me">
+			<main class="main" style="height:100%">
+				<section class="control">
 					<section class="action">
 						<h1><?php echo $vHome; ?></h1>
 						<form method="post" action="../../../application/human_resource/compl_pension/create" style="display:none">
@@ -129,7 +128,7 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 										<section>
 										<div class="container_">
 										<!-- Start Content -->
-										<div id="content" style="font-size:12px; z-index:1">
+										<div id="content" style="font-size:12px">
 
 
 											<!-- widget grid -->
@@ -140,14 +139,14 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 											<div>
 
 												<!-- widget edit box -->
-												<div class="jarviswidget-editbox" >
+												<div class="jarviswidget-editbox">
 													<!-- This area used as dropdown edit box -->
 
 												</div>
 												<!-- end widget edit box -->
 
 												<!-- widget content -->
-												<div class="widget-body no-padding" >
+												<div class="widget-body no-padding">
 
 													<table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
 														<thead>
@@ -1064,11 +1063,6 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 															</tr>
 														</tbody>
 													</table>
-<br><br><br><br><br>
-
-
-																							<br/> <br/> <br/> <br/><br/>
-
 
 												</div>
 												<!-- end widget content -->
@@ -1199,17 +1193,12 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 
 										</script>
 
-
-
-
 				</section>
 			</main>
 		</section>
         <?php
          include('../../footer_smart.php');
         ?>
-
-
 
 
 	</body>
