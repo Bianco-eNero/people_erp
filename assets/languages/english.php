@@ -2342,4 +2342,5 @@ $vFilter='Filter';
 $vCategories='Categories';
 $vEarningPer='Earning Percentages';
 $vTitlePer='Percentage By Title';
+$vMaxNoMaturity='Maximum number of maturity months';
 ?>

@@ -174,6 +174,12 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
                                                     <span class="glyphicon-class"><?php echo $vTitlePer;?></span>
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="maxNoMaturity/?case_id=98&case_filter=&ref=">
+                                                    <i class="fas fa-folder fa-fw fa-5x"></i>
+                                                    <span class="glyphicon-class"><?php echo $vMaxNoMaturity;?></span>
+                                                </a>
+                                            </li>
                                         </ul>
 
                                     </div>

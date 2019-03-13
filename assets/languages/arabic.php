@@ -2653,6 +2653,7 @@ $v5adamaty='خدماتي';
 $vObservation='ملاحظات';
 $vCategories='الاقسام';
 $vFilter='بحث';
-$vEarningPer='نسب الحوافز';
-$vTitlePer='نسب علي حسب الوظيفة';
+$vEarningPer='نسب شهور الاستحقاق';
+$vTitlePer='حافز الانتاج علي حسب الوظيفة';
+$vMaxNoMaturity='الحد الاقصي من شهور الاستحقاق';
 ?>
