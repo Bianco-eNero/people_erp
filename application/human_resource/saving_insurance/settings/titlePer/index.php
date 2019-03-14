@@ -223,8 +223,6 @@ if(isset($_GET['delete_now']))
 
 							<fieldset>
 								<a class="focus" href="../../settings/earningPercentages/?add_now=1&case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter']; ?>&ref=" style="text-decoration:none;"><input type="submit" name="create" id="create" value="<?php echo $vAdd; ?>" class="focus" /></a>
-
-
 							</fieldset>
 
 					</section>

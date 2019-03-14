@@ -21,20 +21,26 @@ $fkey='sp_perc_title_id';
 
 /// arabic insert ///
 $insertSQL1='INSERT INTO '.$table.'
-(title,percentage)
+(title,percentage,basic_Remuneration,special_guaranteed_premiums,special_unsecured_premiums)
 VALUES
 (
 "'.$_GET['vtitle'].'",
-"'.$_GET['vpercentage'].'"
+"'.$_GET['vpercentage'].'",
+"'.$_GET['vbasic_Remuneration'].'",
+"'.$_GET['vspecial_guaranteed_premiums'].'",
+"'.$_GET['vspecial_unsecured_premiums'].'"
 )';
 
 //// english insert ////
 $insertSQL2='INSERT INTO '.$table.'
-(title_en,percentage)
+(title_en,percentage,basic_Remuneration,special_guaranteed_premiums,special_unsecured_premiums)
 VALUES
 (
 "'.$_GET['vtitle'].'",
-"'.$_GET['vpercentage'].'"
+"'.$_GET['vpercentage'].'",
+"'.$_GET['vbasic_Remuneration'].'",
+"'.$_GET['vspecial_guaranteed_premiums'].'",
+"'.$_GET['vspecial_unsecured_premiums'].'"
 )';
 
 
@@ -45,7 +51,10 @@ VALUES
 //// arabic update ////
 $insertSQL3='UPDATE '.$table.' SET
 title="'.$_GET['vtitle'].'",
-percentage="'.$_GET['vpercentage'].'"
+percentage="'.$_GET['vpercentage'].'",
+basic_Remuneration="'.$_GET['vbasic_Remuneration'].'",
+special_guaranteed_premiums="'.$_GET['vspecial_guaranteed_premiums'].'",
+special_unsecured_premiums="'.$_GET['vspecial_unsecured_premiums'].'"
 WHERE '.$id_field.'="'.$id.'"';
 
 
@@ -55,7 +64,10 @@ WHERE '.$id_field.'="'.$id.'"';
 //// english update ////
 $insertSQL4='UPDATE '.$table.' SET
 title_en="'.$_GET['vtitle'].'",
-percentage="'.$_GET['vpercentage'].'"
+percentage="'.$_GET['vpercentage'].'",
+basic_Remuneration="'.$_GET['vbasic_Remuneration'].'",
+special_guaranteed_premiums="'.$_GET['vspecial_guaranteed_premiums'].'",
+special_unsecured_premiums="'.$_GET['vspecial_unsecured_premiums'].'"
 WHERE '.$id_field.'="'.$id.'"';
 
 

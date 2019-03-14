@@ -2341,6 +2341,6 @@ $v5adamaty='My';
 $vFilter='Filter';
 $vCategories='Categories';
 $vEarningPer='Earning Percentages';
-$vTitlePer='Percentage By Title';
+$vTitlePer='Production Incentive And The Fees Determined By The Commission According To The Job';
 $vMaxNoMaturity='Maximum number of maturity months';
 ?>
