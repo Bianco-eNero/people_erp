@@ -226,37 +226,35 @@ function MM_jumpMenu2(targ,selObj,restore){ //v3.0
 
                 <?php if(isset($_GET['emp_id'])) { ?>
 
-							  <select name="end_service" id="jumpMenu2" onChange="MM_jumpMenu2('parent',this,0)">
+                  <select name="end_service" id="jumpMenu2" onChange="MM_jumpMenu2('parent',this,0)">
 
-								  <option value=""><?php echo $vSelectEndServiceType ; ?></option>
-							    <?php
-do {
-?>
-							    <option <?php if($row_employees32a['sp_end_server_type_id']==$row_employees32['sp_end_server_type_id']) { ?> selected <?php } ?> value="index.php?emp_id=<?php echo $row_employees2['employee_id']?>&end_type=<?php echo $row_employees32['sp_end_server_type_id']; ?>&sector_join_date=<?php echo $row_employees2['sector_join_date']; ?>&emp_dob=<?php echo $row_employees2['birth_date'] ?>&end_date=<?php echo $_GET['end_date']?>&membership_start=<?php echo $row_employees2['sp_member_start_date'] ?>">
-							      <?php
-							if($_SESSION['language']=='AR') {
-								echo $row_employees32['sp_end_server_type_a'];
-							}
+                      <option value=""><?php echo $vSelectEndServiceType ; ?></option>
+                    <?php do { ?>
+                    <option <?php if($row_employees32a['sp_end_server_type_id']==$row_employees32['sp_end_server_type_id']) { ?> selected <?php } ?> value="index.php?emp_id=<?php echo $row_employees2['employee_id']?>&end_type=<?php echo $row_employees32['sp_end_server_type_id']; ?>&sector_join_date=<?php echo $row_employees2['sector_join_date']; ?>&emp_dob=<?php echo $row_employees2['birth_date'] ?>&end_date=<?php echo $_GET['end_date']?>&membership_start=<?php echo $row_employees2['sp_member_start_date'] ?>">
+                              <?php
+                        if($_SESSION['language']=='AR') {
+                            echo $row_employees32['sp_end_server_type_a'];
+                        }
 
-							if($_SESSION['language']=='EN') {
-								echo $row_employees32['sp_end_server_type_e'];
-							}
+                        if($_SESSION['language']=='EN') {
+                            echo $row_employees32['sp_end_server_type_e'];
+                        }
 
-									?>
-						        </option>
-							    <?php
-} while ($row_employees32 = mysql_fetch_assoc($employees32));
-  $rows = mysql_num_rows($employees32);
-  if($rows > 0) {
-      mysql_data_seek($employees32, 0);
-	  $row_employees32 = mysql_fetch_assoc($employees32);
-  }
-?>
-						      </select>
+                                ?>
+                    </option>
+                    <?php
+                    } while ($row_employees32 = mysql_fetch_assoc($employees32));
+                      $rows = mysql_num_rows($employees32);
+                      if($rows > 0) {
+                          mysql_data_seek($employees32, 0);
+                          $row_employees32 = mysql_fetch_assoc($employees32);
+                      }
+                    ?>
+                  </select>
 
                 <?php } ?>
 
-<?php if(isset($_GET['emp_id'])) { ?>
+                <?php if(isset($_GET['emp_id'])) { ?>
 
 								<br>
 								<form method="get" action="index.php">
@@ -269,13 +267,33 @@ do {
 
 
 
+                                    <select name="title">
+
+                                        <option selected hidden><?php echo $vSelect ; ?></option>
+                                        <?php
+                                        $title_query=mysql_query("SELECT * FROM sp_perc_title", $localhost);
+                                        $title = mysql_fetch_assoc($title_query);
+                                        do {
+                                            ?>
+                                            <option <?php if($title['sp_perc_title_id']==$_GET['title']){echo 'selected';} ?> value="<?php echo $title['sp_perc_title_id'] ; ?>">
+                                                <?php
+                                                if($_SESSION['language']=='AR') {
+                                                    echo $title['title'];
+                                                }
+                                                if($_SESSION['language']=='EN') {
+                                                    echo $title['title_en'];
+                                                }
+
+                                                ?>
+                                            </option>
+                                            <?php
+                                        } while (mysql_fetch_assoc($title_query));
+                                        ?>
+                                    </select>
 
 
-								 <input name="end_date" value="<?php echo $_GET['end_date']; ?>" type="date" id="part-time" placeholder="<?php echo $vDateOfEndService ; ?>" />
-								<br>
-
-
-
+								    <input name="end_date" value="<?php echo $_GET['end_date']; ?>" type="date" id="part-time" placeholder="<?php echo $vDateOfEndService ; ?>" />
+								    <br>
 									<button style="margin: 10px; font-size: 16px; background-color: #00a09d; color: white" type="submit" class="btn "><?php echo $vPreviewBasicData; ?></button>
 
 								</form>
@@ -471,7 +489,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     <?php if(isset($_GET['emp_id']) && isset($_GET['end_type']) && $_GET['end_date']<>"") { ?>
 
 
-    <a href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1">
+    <a href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&title=<?php echo $_GET['title'] ; ?>&calculate=1">
   <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="button" class="btn dont_print_me"><?php echo $vCalculate; ?></button>
 </a>
 
@@ -487,307 +505,187 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     if($_GET['end_type']=='6' && $_GET['calculate']=='1')
     {
 
-      $id=$_GET['emp_id'];
-      mysql_select_db($database_localhost, $localhost);
-    $query_employees2ss4 = "SELECT (SUM(emp_portion_le)) AS EMP_P, (SUM(inv_emp_portion_le)) AS EMP_P_INV, (SUM(co_portion_le)) AS CO_P, (SUM(inv_co_portion_le)) AS CO_P_INV FROM sp_transaction, sp_installment_period WHERE sp_installment_period.sp_installment_period_id=sp_transaction.sp_installment_period_id AND employee_id='$id' AND sp_installment_period_closed='1'";
-    $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
-    $row_employees2ss4 = mysql_fetch_assoc($employees2ss4);
-    $totalRows_employees2ss4 = mysql_num_rows($employees2ss4);
-
-
-           $id=$_GET['emp_id'];
-          mysql_select_db($database_localhost, $localhost);
-        $query_employees2ss43 = "SELECT cp_basic_salary_total_last_july, total_excluded_increases_le, cp_mandatoryPeriodLe, current_production_inc_le  FROM employee WHERE employee_id='$id'";
-        $employees2ss43 = mysql_query($query_employees2ss43, $localhost) or die(mysql_error());
-        $row_employees2ss43 = mysql_fetch_assoc($employees2ss43);
-
-
-        mysql_select_db($database_localhost, $localhost);
-        $query_employees2ss43a = "SELECT *  FROM sp_settings";
-        $employees2ss43a = mysql_query($query_employees2ss43a, $localhost) or die(mysql_error());
-        $row_employees2ss43a = mysql_fetch_assoc($employees2ss43a);
-
-
-        $max_of_social_salary=$row_employees2ss43a['max_of_social_salary_le'];
-        $last_july_salary=$row_employees2ss43['cp_basic_salary_total_last_july'];
-        $total_excluded_increases=$row_employees2ss43['total_excluded_increases_le'];
-
-       ///  $mandatory_period_amount=$row_employees2ss43['cp_mandatoryPeriodLe'];
-
-        //// New mandatory calculations ///
-        $var1=$last_july_salary+$total_excluded_increases;
-        if($var1>=$row_employees2ss43a['maximum_of_basic_and_excluded_inc'])
-        {
-          $var1=$row_employees2ss43a['maximum_of_basic_and_excluded_inc'];
-        }
-        else {
-          $var1=$last_july_salary+$total_excluded_increases;
-        }
-
-
-        $ten_percent_of_production=$row_employees2ss43['current_production_inc_le'];
-        if($ten_percent_of_production>=$row_employees2ss43a['maximum_of_10_perc_of_production'])
-        {
-          $var22=$row_employees2ss43a['maximum_of_10_perc_of_production'];
-        }
-        else {
-          $var22=$ten_percent_of_production;
-        }
-
-        $var3=($var1+$var22)*5;
-
-
-
-        if($var3>=$row_employees2ss43a['max_of_mandatory_period'])
-        {
-          $mandatory_period_amount=$row_employees2ss43a['max_of_mandatory_period'];
-        }
-        else {
-          $mandatory_period_amount=$var3;
-        }
-
-
-
-
-$date1 = new DateTime($row_employees2ss43a['days_count_from_date']);
-$date2 = new DateTime($_GET['end_date']);
-$count_days  = $date2->diff($date1)->format('%a');
-
-
-
-        $agr_e7tesab_dof3a=  ($last_july_salary+($total_excluded_increases*$count_days/720));
-
-        //// limiting the agr e7tesab el dof3a ////
-        if($agr_e7tesab_dof3a>=$row_employees2ss43a['maximum_of_basic_and_excluded_inc_and_days'])
-        {
-          $agr_e7tesab_dof3a=$row_employees2ss43a['maximum_of_basic_and_excluded_inc_and_days'];
-        }
-        else {
-        $agr_e7tesab_dof3a=$agr_e7tesab_dof3a;
-        }
-
-        $personal_balance=$row_employees2ss['EMP_P']+$row_employees2ss['EMP_P_INV']+$row_employees2ss['CO_P']+$row_employees2ss['CO_P_INV'];
-
-
-
-?>
-
-
-
-<table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
-  <thead>
-    <tr>
-
-      <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vLastJulyBasicSalary; ?></th>
-      <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExcludedSpInc; ?></th>
-      <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotalDaysSinceLastJuly; ?></th>
-
-        </tr>
-
-  </thead>
-
-    <tbody class="ui-sortable">
-
-      <tr class="o_data_row" >
-
-        <td class="o_data_cell"><?php
-        echo number_format($last_july_salary, 2, '.', ',');
-        ?></td>
-
-
-
-        <td class="o_data_cell"><?php
-  echo number_format($total_excluded_increases, 2, '.', ',');
-       ?></td>
-
-        <td class="o_data_cell"><?php
-        echo $count_days; ?></td>
-
-      </tr>
-
-
-    </tbody>
-    </table>
-
-
-
-
-                                <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
-
-                                    <thead>
-      <tr>
-
-        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'أجر احتساب قيمة الدفعة'; ?></th>
-
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'سداد قيمة المدة الحكمية'; ?></th>
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'الأجر الاجمالي الشهري الفعلي'; ?></th>
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'الأجر الاجمالي الشهري الحكمي'; ?></th>
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'شريحة المعاش'; ?></th>
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'مخصص الدفعات الدورية'; ?></th>
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'الدفعة الشهرية الدورية'; ?></th>
-
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>>
-
-            <?php echo 'تسويات سابقة حتى'; ?></th>
-
-                                        </tr>
-                                    </thead>
-
-  <tbody class="ui-sortable">
-
-        <tr class="o_data_row" >
-
-          <td class="o_data_cell"><?php
-          echo number_format($agr_e7tesab_dof3a, 2, '.', ',');
-          $agr_e7tesab_dof3a=$agr_e7tesab_dof3a;
-          ?>
-          </td>
-
-
-             <td class="o_data_cell"><?php
-          echo number_format($mandatory_period_amount, 2, '.', ',');
-          $mandatory_period_amount=$mandatory_period_amount;
-
-          ?>
-          </td>
-
-
-
-
-             <td class="o_data_cell"><?php
-          echo number_format($last_july_salary, 2, '.', ',');
-          $last_july_salary=$last_july_salary;
-          ?>
-          </td>
-
-             <td class="o_data_cell"><?php
-          echo number_format($agr_e7tesab_dof3a*4, 2, '.', ',');
-          $alagr_el_shahry_el_hokmy=$agr_e7tesab_dof3a*4;
-          ?>
-          </td>
-
-             <td class="o_data_cell"><?php
-          echo number_format($alagr_el_shahry_el_hokmy-$max_of_social_salary, 2, '.', ',');
-          $share7at_elm3ash=$alagr_el_shahry_el_hokmy-$max_of_social_salary;
-          ?>
-
-
-
-<?php
-//// Check the payment rates according to the table included in the settings///
-
-//// select all end type service ////
-mysql_select_db($database_localhost, $localhost);
-$query_employees32ee = "SELECT * FROM sp_monthly_payment_rate WHERE '$share7at_elm3ash'>=avg_slr_from AND '$share7at_elm3ash'< avg_slr_to_less_than ORDER BY avg_slr_from";
-$employees32ee = mysql_query($query_employees32ee, $localhost) or die(mysql_error());
-$row_employees32ee = mysql_fetch_assoc($employees32ee);
-
-do {
-
-
-  if($share7at_elm3ash>=$row_employees32ee['avg_slr_from'] && $share7at_elm3ash<$row_employees32ee['avg_slr_to_less_than'])
-{
-  $el_dof3a_el_shahreya= $row_employees32ee['monthly_payment_le'];
-}
-
-} while ($row_employees32ee = mysql_fetch_assoc($employees32ee));
-
-
-
-
-
- ?>
-
-          </td>
-
-
-          <td class="o_data_cell"><?php
-
-  $mokasas_el_dof3at=($personal_balance+$mandatory_period_amount)*2;
-
-          echo number_format($mokasas_el_dof3at, 2, '.', ',');
-          $mokasas_el_dof3at=$mokasas_el_dof3at;
-              ?>
-
-       </td>
-
-             <td class="o_data_cell"><?php
-          echo number_format($el_dof3a_el_shahreya, 2, '.', ',');
-          $vEmpoPortion=$el_dof3a_el_shahreya;
-          ?>
-          </td>
-
-             <td class="o_data_cell"><?php
-          echo number_format(0, 2, '.', ',');
-          $tasweyat=0;
-          ?>
-          </td>
-
-      </tr>
-
-
-
-  </tbody>
-</table>
-
-<form target="_blank" method="get" action="../../../saving_insurance/reports/form_2_periodical_pension/">
-
-<?php $dddd=$personal_balance+$mandatory_period_amount; ?>
-
-<input name="employee_name" value="<?php echo $row_employees2['name_arabic']; ?>" type="hidden">
-<input name="company_name" value="<?php echo $row_employees2['sp_company_name_ar']; ?>" type="hidden">
-<input name="company_code" value="<?php echo $row_employees2['sp_company_code']; ?>" type="hidden">
-<input name="address" value="<?php echo $row_employees2['address_ar']; ?>" type="hidden">
-<input name="emp_id" value="<?php echo $_GET['emp_id']; ?>" type="hidden">
-<input name="emp_dob" value="<?php echo $_GET['emp_dob']; ?>" type="hidden">
-<input name="end_date" value="<?php echo $_GET['end_date'] ; ?>" type="hidden">
-<input name="end_type" value="<?php echo $_GET['end_type']; ?>" type="hidden">
-<input name="sector_join_date" value="<?php echo $_GET['sector_join_date']; ?>" type="hidden">
-<input name="alagr_el_shahry_el_hokmy" value="<?php echo $alagr_el_shahry_el_hokmy; ?>" type="hidden">
-<input name="mandatory_period_amount" value="<?php echo $mandatory_period_amount; ?>" type="hidden">
-<input name="agr_e7tesab_dof3a" value="<?php echo $agr_e7tesab_dof3a; ?>" type="hidden">
-<input name="count_days" value="<?php echo $count_days; ?>" type="hidden">
-<input name="membership_start" value="<?php echo $_GET['membership_start']; ?>" type="hidden">
-<input name="end_service_type" value="<?php echo $row_employees32a['sp_end_server_type_a'] ; ?>" type="hidden">
-<input name="account_balance" value="<?php echo $personal_balance; ?>" type="hidden">
-<input name="sector_exp" value="<?php echo $sector_exp; ?>" type="hidden">
-<input name="account_balance" value="<?php echo $personal_balance; ?>" type="hidden">
-<input name="share7at_elm3ash" value="<?php echo $share7at_elm3ash ; ?>" type="hidden">
-<input name="max_of_social_salary" value="<?php echo $max_of_social_salary; ?>" type="hidden">
-<input name="acc_and_mand" value="<?php echo $dddd; ?>" type="hidden">
-<input name="mokasas_el_dof3at" value="<?php echo $mokasas_el_dof3at ; ?>" type="hidden">
-<input name="el_dof3a_el_shahreya" value="<?php echo $el_dof3a_el_shahreya; ?>" type="hidden">
-<input name="report" value="1" type="hidden">
-
-
-
-
-<button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="submit" class="btn dont_print_me"><?php echo $vForm2CP; ?></button>
-
-
-</form>
-
-								<?php
+//        $id=$_GET['emp_id'];
+//        mysql_select_db($database_localhost, $localhost);
+//        $query_employees2ss4 = "SELECT (SUM(emp_portion_le)) AS EMP_P, (SUM(inv_emp_portion_le)) AS EMP_P_INV, (SUM(co_portion_le)) AS CO_P, (SUM(inv_co_portion_le)) AS CO_P_INV FROM sp_transaction, sp_installment_period WHERE sp_installment_period.sp_installment_period_id=sp_transaction.sp_installment_period_id AND employee_id='$id' AND sp_installment_period_closed='1'";
+//        $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
+//        $row_employees2ss4 = mysql_fetch_assoc($employees2ss4);
+//        $totalRows_employees2ss4 = mysql_num_rows($employees2ss4);
+
+        $titleURL=$_GET['title'];
+        $selectTitle = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_perc_title WHERE sp_perc_title_id = $titleURL", $localhost));
+
+        $WageCommision=$selectTitle['basic_Remuneration'];
+        $Wage=2466.54;
+        $VirtualPremium=107.17;
+
+        $IncludedCommision=$selectTitle['special_guaranteed_premiums'];
+        $Included=4637.90;
+
+        $ExcludedCommision=$selectTitle['special_unsecured_premiums'];
+        $Excluded=776.07;
+
+        $PrecIncentive=$selectTitle['percentage']/100;
+        
+        $MaxMonth = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_max_mounth", $localhost));
+        $MaxMonth=$MaxMonth['month'];
+        ?>
+
+
+
+        <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
+        <thead>
+            <tr>
+                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vDescription; ?></th>
+                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFeesDeterCommisson; ?></th>
+                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vActualWage; ?></th>
+                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vWageSP; ?></th>
+            </tr>
+
+        </thead>
+
+        <tbody class="ui-sortable">
+
+            <tr class="o_data_row" >
+
+                <td class="o_data_cell"><?php echo $vBasicWage;?></td>
+
+                <td class="o_data_cell"><?php
+                echo number_format($WageCommision, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                echo number_format($Wage, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                    $WageCompare=($Wage>$WageCommision)?$WageCommision:$Wage;
+                    $WageCompare=$WageCompare+$VirtualPremium;
+                echo number_format($WageCompare, 2, '.', ',');
+                ?></td>
+
+            </tr>
+
+            <tr class="o_data_row" >
+
+                <td class="o_data_cell"><?php echo $vIncludedSpInc;?></td>
+
+                <td class="o_data_cell"><?php
+                echo number_format($IncludedCommision, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                echo number_format($Included, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                    $IncludedCompare=($Included>$IncludedCommision)?$IncludedCommision:$Included;
+                echo number_format($IncludedCompare, 2, '.', ',');
+                ?></td>
+
+            </tr>
+
+            <tr class="o_data_row" >
+
+                <td class="o_data_cell"><?php echo $vExcludedSpInc;?></td>
+
+                <td class="o_data_cell"><?php
+                echo number_format($ExcludedCommision, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                echo number_format($Excluded, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                    $ExcludedCompare=($Excluded>$ExcludedCommision)?$ExcludedCommision:$Excluded;
+                echo number_format($IncludedCompare, 2, '.', ',');
+                ?></td>
+
+            </tr>
+
+            <tr class="o_data_row">
+
+                <td class="o_data_cell"><?php echo $vcp_total_monthly_salary_le;?></td>
+
+                <td class="o_data_cell"><?php
+                    $TotalCommision=$ExcludedCommision+$WageCommision+$IncludedCommision;
+                    echo number_format($TotalCommision, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                    $Total=$Excluded+$Wage+$Included;
+                    echo number_format($Total, 2, '.', ',');
+                ?></td>
+                <td class="o_data_cell"><?php
+                    $TotalCompare=($Total>$TotalCommision)?$TotalCommision:$Total;
+                    $TotalCompare=$TotalCompare+$VirtualPremium;
+                echo number_format($TotalCompare, 2, '.', ',');
+                ?></td>
+
+            </tr>
+
+
+        </tbody>
+        </table>
+        <hr>
+        <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed" style="width: 50%;margin: 20px auto;">
+            <tbody class="ui-sortable">
+                <tr class="o_data_row" >
+                    <td class="o_data_cell">
+                        <?php echo $vBasicSalary.' : ';?>
+                    </td>
+                    <td class="o_data_cell">
+                        <?php
+                        $BasicSalary=$WageCompare+$IncludedCompare;
+                        echo $BasicSalary;
+                        ?>
+                    </td>
+                </tr>
+
+                <tr class="o_data_row" >
+                    <td class="o_data_cell">
+                        <?php echo $vExcludedSpInc.' : ';?>
+                    </td>
+                    <td class="o_data_cell">
+                        <?php
+                        echo $ExcludedCompare;
+                        ?>
+                    </td>
+                </tr>
+
+                <tr class="o_data_row" >
+                    <td class="o_data_cell">
+                        <?php echo $vTheValueOfTheIncentive.' : ';?>
+                    </td>
+                    <td class="o_data_cell">
+                        <?php
+                        $ValueIncentive=$BasicSalary*$PrecIncentive;
+                        echo $ValueIncentive;
+                        ?>
+                    </td>
+                </tr>
+
+                <tr class="o_data_row" >
+                    <td class="o_data_cell">
+                        <?php echo $vTotal3.' : ';?>
+                    </td>
+                    <td class="o_data_cell">
+                        <?php
+                        $Total3=$ValueIncentive+$ExcludedCompare+$BasicSalary;
+                        echo $Total3;
+                        ?>
+                    </td>
+                </tr>
+
+                <tr class="o_data_row" >
+                    <td class="o_data_cell">
+                        <?php echo $vTheValueOfTheReward.' : ';?>
+                    </td>
+                    <td class="o_data_cell">
+                        <?php
+                        $ValueReward=$Total3*$MaxMonth;
+                        echo $ValueReward;
+                        ?>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <?php
         }
         ////
         ///////////////////////////////////////////////
