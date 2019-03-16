@@ -526,7 +526,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
         $Excluded=776.07;
 
         $PrecIncentive=$selectTitle['percentage']/100;
-        
+
         $MaxMonth = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_max_mounth", $localhost));
         $MaxMonth=$MaxMonth['month'];
         ?>
