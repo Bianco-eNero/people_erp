@@ -142,14 +142,19 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <tr>
 
         <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vPayroll; ?></th>
-					<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vName; ?></th>
-						<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vDateOfBirth; ?></th>
-							<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vBasicSalary; ?></th>
-								<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExcludedSpInc; ?></th>
-									<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vProductionIncentive; ?></th>
-										<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo ''; ?></th>
-											<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo ''; ?></th>
-				<th class="o_column_sortable"></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vName; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vBasicSalary; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExcludedSpInc; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vProductionIncentive; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vMonthlyProductionBonus; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vAnnualProductionBonus; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vRepAll; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExperienceIncentive; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vSpecialtyAllowance; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $v15th_bonus; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCommitmentSection; ?></th>
+        <th class="o_column_sortable"></th>
       </tr>
 
 		</thead>
@@ -159,21 +164,21 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <?php do { ?>
         <tr class="o_data_row" >
 
-          <td class="o_data_cell"><?php echo $row_Recordset1['employee_id']; ?></td>
-          <td class="o_data_cell"><?php
-						if($_SESSION['language']=='AR')
-						 {
-							 echo $row_Recordset1['name_arabic'];
-						 	}
-							if($_SESSION['language']=='EN')
-							 {
-								 echo $row_Recordset1['name_english'];
-							 	}
-							 ?></td>
-                    <td class="o_data_cell"><?php echo $row_Recordset1['birth_date']; ?></td>
+                 <td class="o_data_cell"><?php echo $row_Recordset1['employee_id']; ?></td>
+                  <td class="o_data_cell">
+                      <?php if($_SESSION['language']=='AR'){echo $row_Recordset1['name_arabic'];}else{ echo $row_Recordset1['name_english'];}?>
+                  </td>
                     <td class="o_data_cell"><?php echo $row_Recordset1['cp_basic_salary_total_last_july']; ?></td>
 					<td class="o_data_cell"><?php echo $row_Recordset1['total_excluded_increases_le']; ?></td>
 					<td class="o_data_cell"><?php echo $row_Recordset1['current_production_inc_le']; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
+					<td class="o_data_cell"><?php echo '0.00'; ?></td>
 					<td class="o_data_cell">
                         <a href="../../../../application/human_resource/saving_insurance/reports/personal_account_detailed/?id=<?php echo $row_Recordset1['employee_id']; ?>&report=1" target="_blank">
                             <i class="fas fa-file" title="<?php echo $vPersonalAccountDetailed; ?>"></i>

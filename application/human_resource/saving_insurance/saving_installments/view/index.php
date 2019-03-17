@@ -216,27 +216,20 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <thead>
       <tr>
 
-        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCompanyCode; ?></th>
-        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vMemberNumber; ?></th>
-        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vPayroll; ?></th>
-					<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vName; ?></th>
-							 <?php if($row_Recordset1['sp_installment_period_id']>'33') { ?>
-							<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vBasicSalary; ?></th>
-								<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExcludedSpInc; ?></th>
-									<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vProductionIncentive; ?></th>
-										<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vMembershipSalary; ?></th>
-										<?php } ?>
-											<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vStartBalanceLe; ?></th>
-												<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
-											<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCumulatedInvReturs; ?></th>
-												<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-													<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCumulatedInvReturs; ?></th>
-														<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vClosingBalance; ?></th>
-															<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEgpcPortion; ?></th>
-
-
-										<th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo ''; ?></th>
-				<th class="o_column_sortable"></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vPayroll; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vName; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vBasicSalary; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExcludedSpInc; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vProductionIncentive; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vMonthlyProductionBonus; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vAnnualProductionBonus; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vRepAll; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vExperienceIncentive; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vSpecialtyAllowance; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $v15th_bonus; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
+          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCommitmentSection; ?></th>
+          <th class="o_column_sortable"></th>
       </tr>
 
 		</thead>
@@ -270,50 +263,23 @@ $Recordset344 = $website->query($query_Recordset344);
 
 				?>
         <tr class="o_data_row">
+            <td class="o_data_cell"><?php echo $row_Recordset1['employee_id']; ?></td>
+            <td class="o_data_cell">
+                <?php if($_SESSION['language']=='AR'){echo $row_Recordset1['name_arabic'];}else{ echo $row_Recordset1['name_english'];}?>
+            </td>
+            <td class="o_data_cell"><?php echo $row_Recordset1['cp_basic_salary_total_last_july']; ?></td>
+            <td class="o_data_cell"><?php echo $row_Recordset1['total_excluded_increases_le']; ?></td>
+            <td class="o_data_cell"><?php echo $row_Recordset1['current_production_inc_le']; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo '0.00'; ?></td>
+            <td class="o_data_cell"><?php echo number_format(0, 2, '.', ','); ?></td>
 
-          <td class="o_data_cell"><?php echo $row_Recordset1['sp_company_code']; ?></td>
-          <td class="o_data_cell"><?php echo $row_Recordset1['sp_number']; ?></td>
-          <td class="o_data_cell"><?php echo $row_Recordset1['employee_id']; ?></td>
-          <td class="o_data_cell"><?php
-						if($_SESSION['language']=='AR')
-						 {
-							 echo $row_Recordset1['name_arabic'];
-						 	}
-							if($_SESSION['language']=='EN')
-							 {
-								 echo $row_Recordset1['name_english'];
-							 	}
-							 ?></td>
-							 <?php if($row_Recordset1['sp_installment_period_id']>'33') { ?>
-          <td class="o_data_cell"><?php echo number_format($row_Recordset1['sp_basic_salary_total_last_july'], 2, '.', ','); ?></td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['total_excluded_increases_le'], 2, '.', ','); ?></td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['current_production_inc_le'], 2, '.', ','); ?></td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['sp_calculation_salary'], 2, '.', ','); ?></td>
-				<?php } ?>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['start_banace_le'], 2, '.', ','); ?></td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['emp_portion_le'], 2, '.', ','); ?></td>
-					<td class="o_data_cell">
-
-
-
-						<?php echo number_format($row_Recordset1['inv_emp_portion_le'], 2, '.', ','); ?>
-
-			</td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['co_portion_le'], 2, '.', ','); ?></td>
-					<td class="o_data_cell">
-
-						<?php echo number_format($row_Recordset1['inv_co_portion_le'], 2, '.', ','); ?>
-
-			</td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['start_banace_le']+$row_Recordset1['emp_portion_le']+$row_Recordset1['inv_emp_portion_le']+$row_Recordset1['co_portion_le']+$row_Recordset1['inv_co_portion_le'], 2, '.', ','); ?></td>
-					<td class="o_data_cell"><?php echo number_format($row_Recordset1['egpc_portion_le'], 2, '.', ','); ?></td>
-
-
-
-
-					<td class="o_data_cell"></td>
-					<td class="o_data_cell"></td>
-        </tr>
+		</tr>
 
 
             <?php } while ($row_Recordset1 = mysqli_fetch_assoc($Recordset1)); ?>

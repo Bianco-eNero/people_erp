@@ -2350,4 +2350,7 @@ $vWageSP='Wage, which is calculated on the basis of employees\' end of service b
 $vBasicWage='Basic Wage';
 $vTheValueOfTheIncentive='The Value Of The Incentive';
 $vTheValueOfTheReward='The Value Of The Reward';
+$vCommitmentSection='Importing In Constancy commitments section';
+$vMonthlyProductionBonus='Monthly Production Bonus';
+$vAnnualProductionBonus='Annual Production Bonus';
 ?>

@@ -511,182 +511,183 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 //        $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
 //        $row_employees2ss4 = mysql_fetch_assoc($employees2ss4);
 //        $totalRows_employees2ss4 = mysql_num_rows($employees2ss4);
+        if($diff->y > 22){
+            $titleURL=$_GET['title'];
+            $selectTitle = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_perc_title WHERE sp_perc_title_id = $titleURL", $localhost));
 
-        $titleURL=$_GET['title'];
-        $selectTitle = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_perc_title WHERE sp_perc_title_id = $titleURL", $localhost));
+            $WageCommision=$selectTitle['basic_Remuneration'];
+            $Wage=2466.54;
+            $VirtualPremium=107.17;
 
-        $WageCommision=$selectTitle['basic_Remuneration'];
-        $Wage=2466.54;
-        $VirtualPremium=107.17;
+            $IncludedCommision=$selectTitle['special_guaranteed_premiums'];
+            $Included=4637.90;
 
-        $IncludedCommision=$selectTitle['special_guaranteed_premiums'];
-        $Included=4637.90;
+            $ExcludedCommision=$selectTitle['special_unsecured_premiums'];
+            $Excluded=776.07;
 
-        $ExcludedCommision=$selectTitle['special_unsecured_premiums'];
-        $Excluded=776.07;
+            $PrecIncentive=$selectTitle['percentage']/100;
 
-        $PrecIncentive=$selectTitle['percentage']/100;
-
-        $MaxMonth = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_max_mounth", $localhost));
-        $MaxMonth=$MaxMonth['month'];
-        ?>
-
-
-
-        <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
-        <thead>
-            <tr>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vDescription; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFeesDeterCommisson; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vActualWage; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vWageSP; ?></th>
-            </tr>
-
-        </thead>
-
-        <tbody class="ui-sortable">
-
-            <tr class="o_data_row" >
-
-                <td class="o_data_cell"><?php echo $vBasicWage;?></td>
-
-                <td class="o_data_cell"><?php
-                echo number_format($WageCommision, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                echo number_format($Wage, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                    $WageCompare=($Wage>$WageCommision)?$WageCommision:$Wage;
-                    $WageCompare=$WageCompare+$VirtualPremium;
-                echo number_format($WageCompare, 2, '.', ',');
-                ?></td>
-
-            </tr>
-
-            <tr class="o_data_row" >
-
-                <td class="o_data_cell"><?php echo $vIncludedSpInc;?></td>
-
-                <td class="o_data_cell"><?php
-                echo number_format($IncludedCommision, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                echo number_format($Included, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                    $IncludedCompare=($Included>$IncludedCommision)?$IncludedCommision:$Included;
-                echo number_format($IncludedCompare, 2, '.', ',');
-                ?></td>
-
-            </tr>
-
-            <tr class="o_data_row" >
-
-                <td class="o_data_cell"><?php echo $vExcludedSpInc;?></td>
-
-                <td class="o_data_cell"><?php
-                echo number_format($ExcludedCommision, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                echo number_format($Excluded, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                    $ExcludedCompare=($Excluded>$ExcludedCommision)?$ExcludedCommision:$Excluded;
-                echo number_format($IncludedCompare, 2, '.', ',');
-                ?></td>
-
-            </tr>
-
-            <tr class="o_data_row">
-
-                <td class="o_data_cell"><?php echo $vcp_total_monthly_salary_le;?></td>
-
-                <td class="o_data_cell"><?php
-                    $TotalCommision=$ExcludedCommision+$WageCommision+$IncludedCommision;
-                    echo number_format($TotalCommision, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                    $Total=$Excluded+$Wage+$Included;
-                    echo number_format($Total, 2, '.', ',');
-                ?></td>
-                <td class="o_data_cell"><?php
-                    $TotalCompare=($Total>$TotalCommision)?$TotalCommision:$Total;
-                    $TotalCompare=$TotalCompare+$VirtualPremium;
-                echo number_format($TotalCompare, 2, '.', ',');
-                ?></td>
-
-            </tr>
+            $MaxMonth = mysql_fetch_assoc(mysql_query("SELECT * FROM sp_max_mounth", $localhost));
+            $MaxMonth=$MaxMonth['month'];
+            ?>
 
 
-        </tbody>
-        </table>
-        <hr>
-        <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed" style="width: 50%;margin: 20px auto;">
+
+            <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
+            <thead>
+                <tr>
+                    <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vDescription; ?></th>
+                    <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFeesDeterCommisson; ?></th>
+                    <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vActualWage; ?></th>
+                    <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vWageSP; ?></th>
+                </tr>
+
+            </thead>
+
             <tbody class="ui-sortable">
+
                 <tr class="o_data_row" >
-                    <td class="o_data_cell">
-                        <?php echo $vBasicSalary.' : ';?>
-                    </td>
-                    <td class="o_data_cell">
-                        <?php
-                        $BasicSalary=$WageCompare+$IncludedCompare;
-                        echo $BasicSalary;
-                        ?>
-                    </td>
+
+                    <td class="o_data_cell"><?php echo $vBasicWage;?></td>
+
+                    <td class="o_data_cell"><?php
+                    echo number_format($WageCommision, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                    echo number_format($Wage, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                        $WageCompare=($Wage>$WageCommision)?$WageCommision:$Wage;
+                        $WageCompare=$WageCompare+$VirtualPremium;
+                    echo number_format($WageCompare, 2, '.', ',');
+                    ?></td>
+
                 </tr>
 
                 <tr class="o_data_row" >
-                    <td class="o_data_cell">
-                        <?php echo $vExcludedSpInc.' : ';?>
-                    </td>
-                    <td class="o_data_cell">
-                        <?php
-                        echo $ExcludedCompare;
-                        ?>
-                    </td>
+
+                    <td class="o_data_cell"><?php echo $vIncludedSpInc;?></td>
+
+                    <td class="o_data_cell"><?php
+                    echo number_format($IncludedCommision, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                    echo number_format($Included, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                        $IncludedCompare=($Included>$IncludedCommision)?$IncludedCommision:$Included;
+                    echo number_format($IncludedCompare, 2, '.', ',');
+                    ?></td>
+
                 </tr>
 
                 <tr class="o_data_row" >
-                    <td class="o_data_cell">
-                        <?php echo $vTheValueOfTheIncentive.' : ';?>
-                    </td>
-                    <td class="o_data_cell">
-                        <?php
-                        $ValueIncentive=$BasicSalary*$PrecIncentive;
-                        echo $ValueIncentive;
-                        ?>
-                    </td>
+
+                    <td class="o_data_cell"><?php echo $vExcludedSpInc;?></td>
+
+                    <td class="o_data_cell"><?php
+                    echo number_format($ExcludedCommision, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                    echo number_format($Excluded, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                        $ExcludedCompare=($Excluded>$ExcludedCommision)?$ExcludedCommision:$Excluded;
+                    echo number_format($IncludedCompare, 2, '.', ',');
+                    ?></td>
+
                 </tr>
 
-                <tr class="o_data_row" >
-                    <td class="o_data_cell">
-                        <?php echo $vTotal3.' : ';?>
-                    </td>
-                    <td class="o_data_cell">
-                        <?php
-                        $Total3=$ValueIncentive+$ExcludedCompare+$BasicSalary;
-                        echo $Total3;
-                        ?>
-                    </td>
+                <tr class="o_data_row">
+
+                    <td class="o_data_cell"><?php echo $vcp_total_monthly_salary_le;?></td>
+
+                    <td class="o_data_cell"><?php
+                        $TotalCommision=$ExcludedCommision+$WageCommision+$IncludedCommision;
+                        echo number_format($TotalCommision, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                        $Total=$Excluded+$Wage+$Included;
+                        echo number_format($Total, 2, '.', ',');
+                    ?></td>
+                    <td class="o_data_cell"><?php
+                        $TotalCompare=($Total>$TotalCommision)?$TotalCommision:$Total;
+                        $TotalCompare=$TotalCompare+$VirtualPremium;
+                    echo number_format($TotalCompare, 2, '.', ',');
+                    ?></td>
+
                 </tr>
 
-                <tr class="o_data_row" >
-                    <td class="o_data_cell">
-                        <?php echo $vTheValueOfTheReward.' : ';?>
-                    </td>
-                    <td class="o_data_cell">
-                        <?php
-                        $ValueReward=$Total3*$MaxMonth;
-                        echo $ValueReward;
-                        ?>
-                    </td>
-                </tr>
 
             </tbody>
-        </table>
+            </table>
+            <hr>
+            <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed" style="width: 50%;margin: 20px auto;">
+                <tbody class="ui-sortable">
+                    <tr class="o_data_row" >
+                        <td class="o_data_cell">
+                            <?php echo $vBasicSalary.' : ';?>
+                        </td>
+                        <td class="o_data_cell">
+                            <?php
+                            $BasicSalary=$WageCompare+$IncludedCompare;
+                            echo $BasicSalary;
+                            ?>
+                        </td>
+                    </tr>
+
+                    <tr class="o_data_row" >
+                        <td class="o_data_cell">
+                            <?php echo $vExcludedSpInc.' : ';?>
+                        </td>
+                        <td class="o_data_cell">
+                            <?php
+                            echo $ExcludedCompare;
+                            ?>
+                        </td>
+                    </tr>
+
+                    <tr class="o_data_row" >
+                        <td class="o_data_cell">
+                            <?php echo $vTheValueOfTheIncentive.' : ';?>
+                        </td>
+                        <td class="o_data_cell">
+                            <?php
+                            $ValueIncentive=$BasicSalary*$PrecIncentive;
+                            echo $ValueIncentive;
+                            ?>
+                        </td>
+                    </tr>
+
+                    <tr class="o_data_row" >
+                        <td class="o_data_cell">
+                            <?php echo $vTotal3.' : ';?>
+                        </td>
+                        <td class="o_data_cell">
+                            <?php
+                            $Total3=$ValueIncentive+$ExcludedCompare+$BasicSalary;
+                            echo $Total3;
+                            ?>
+                        </td>
+                    </tr>
+
+                    <tr class="o_data_row" >
+                        <td class="o_data_cell">
+                            <?php echo $vTheValueOfTheReward.' : ';?>
+                        </td>
+                        <td class="o_data_cell">
+                            <?php
+                            $ValueReward=$Total3*$MaxMonth;
+                            echo $ValueReward;
+                            ?>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
         <?php
         }
+    }
         ////
         ///////////////////////////////////////////////
         //// end 6 Reaching retirement		 /////////////////////////
