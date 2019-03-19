@@ -331,7 +331,7 @@ if(isset($_GET['delete_now']))
 
 							//// select the tabs second time ////
 				mysqli_select_db($website,$database_website);
-				$query_tab2 = "SELECT * FROM crud_add_form_tab WHERE crud_case_id='$case_id' ORDER BY crud_add_form_tab_asc";
+				$query_tab2 = "SELECT * FROM crud_add_form_tab WHERE crud_case_id='$case_id'  ORDER BY crud_add_form_tab_asc";
 				$tab2 = mysqli_query($website , $query_tab2) or die(mysqli_error($website));
 				$row_tab2 = mysqli_fetch_assoc($tab2);
 				$totalRows_tab2 = mysqli_num_rows($tab2);
@@ -548,17 +548,29 @@ do {
 		  	<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ->
 			<!-- ////////////////////////////////////// Start The form Control (2) (Select) //////////////////////////////////////////////// -->
 			<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-				<?php if($row_add['field_type']=='select') { ?>
+				<?php if($row_add['field_type']=='select') {
+				    ?>
 				<select style="width:100%; height:30px" class="select2 select2-hidden-accessible droid-arabic-kufi col-md-6" tabindex="-1" aria-hidden="true" name="<?php echo $row_add['field_name']; ?>">
 
 				<?php do { ?>
 
-				<?php  ////// Start  Select recordset (select_table_id_field ,   select_table_en_field , select_table_ar_field)  ////
-				$query_Recordset_select = "SELECT * FROM $row_add[select_table]";
-				$Recordset_select = mysqli_query($website , $query_Recordset_select) or die(mysqli_error($website));
-				$row_Recordset_select = mysqli_fetch_assoc($Recordset_select);
-				$totalRows_Recordset_select = mysqli_num_rows($Recordset_select);
-					////// End  Select recordset (select_table_id_field ,   select_table_en_field , select_table_ar_field)  ////
+				<?php
+                if ($row_add['select_table']=='crud_add_form_tab'){
+                    ////// Start  Select recordset (select_table_id_field ,   select_table_en_field , select_table_ar_field)  ////
+                    $case_filter_id=$_GET['case_filter'];
+                    $query_Recordset_select = "SELECT * FROM crud_add_form_tab WHERE crud_case_id='$case_filter_id' ";
+                    $Recordset_select = mysqli_query($website , $query_Recordset_select) or die(mysqli_error($website));
+                    $row_Recordset_select = mysqli_fetch_assoc($Recordset_select);
+                    $totalRows_Recordset_select = mysqli_num_rows($Recordset_select);
+                    ////// End  Select recordset (select_table_id_field ,   select_table_en_field , select_table_ar_field)  ////
+                }else{
+                    ////// Start  Select recordset (select_table_id_field ,   select_table_en_field , select_table_ar_field)  ////
+                    $query_Recordset_select = "SELECT * FROM $row_add[select_table]";
+                    $Recordset_select = mysqli_query($website , $query_Recordset_select) or die(mysqli_error($website));
+                    $row_Recordset_select = mysqli_fetch_assoc($Recordset_select);
+                    $totalRows_Recordset_select = mysqli_num_rows($Recordset_select);
+                    ////// End  Select recordset (select_table_id_field ,   select_table_en_field , select_table_ar_field)  ////
+                }
 				?>
 
 					<optgroup style="font-family: Tahoma, Lucida Sans Unicode, Lucida Sans, DejaVu Sans, Verdana,' sans-serif'; font-size: 18px" class="droid-arabic-kufi" label="">

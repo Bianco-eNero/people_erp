@@ -514,7 +514,7 @@ if(isset($_GET['delete_now']))
                                                     //// start the form controls loops ////
                                                     do { ?>
 
-                                                        <table   border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: : 3px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
+                                                        <table border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: : 3px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
                                                             <tbody>
                                                             <tr>
 

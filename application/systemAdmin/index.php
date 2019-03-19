@@ -127,6 +127,17 @@ $use_bootstrap='1';
                         <div class="col-lg-4 mbr-col-md-4">
                             <div class="wrap">
                                 <div class="ico-wrap">
+                                    <span style="color:white" class="mbr-iconfont fa-screwdriver fas"></span>
+                                </div>
+                                <div class="text-wrap vcenter">
+                                    <h1 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"> <a href="../admin/crud/?case_id=6&case_filter=&ref=" style="color:white"><span class="arabic" style="font-size:20px"><?php echo 'CRUD '; ?> </span></a></h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 mbr-col-md-4">
+                            <div class="wrap">
+                                <div class="ico-wrap">
                                     <span style="color:white" class="mbr-iconfont fa-cog fas"></span>
                                 </div>
                                 <div class="text-wrap vcenter">
