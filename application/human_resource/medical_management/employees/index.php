@@ -174,7 +174,6 @@ if(isset($_GET['delete_now']))
 	//// end of header script ////
 		?>
 
-
 </head>
 	<body style="height:100%">
 		<section class="employees">
@@ -309,6 +308,7 @@ if(isset($_GET['delete_now']))
 					//// select the first control ////
 				mysqli_select_db($website,$database_website);
 				$query_add_1 = "SELECT * FROM crud_add_form WHERE crud_case_id='$case_id' ORDER BY field_asc LIMIT 0,1";
+				//echo '<script>alert("'.$case_id.'");</script>';
 				$add_1 = mysqli_query($website , $query_add_1) or die(mysqli_error($website));
 				$row_add_1 = mysqli_fetch_assoc($add_1);
 				$totalRows_add_1 = mysqli_num_rows($add_1);
@@ -367,9 +367,13 @@ if(isset($_GET['delete_now']))
 						<section class="title">
 							<?php if(isset($row_curr['photo']) && $row_curr['photo']<>"") { ?>
 							<figure style="">
-								<img src="file:///Macintosh HD/Applications/MAMP/assets/images/placeholder.png" />
+								<img src="/assets/images/placeholder.png" />
 							</figure>
-							<?php } ?>
+						<?php } else {?>
+							<figure style="">
+								<img src="/assets/images/placeholder.png" />
+							</figure>
+						<?php } ?>
 							<fieldset>
 								<label for="name"><?php
 								if($_SESSION['language']=='AR')
@@ -392,7 +396,8 @@ if(isset($_GET['delete_now']))
 								{
 								echo $row_add_1['title_en'];
 								}
-								?>" value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; } } ?>"/><br />
+								?>" value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; } }
+								 ?>"/><br />
 
 
 							  <input value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_2['table_field_ar']]; } else { echo $row_curr[$row_add_2['table_field_en']]; } } ?>"  name="<?php echo $row_add_2['field_name']; ?>" type="text" id="part-time" placeholder="<?php
@@ -428,6 +433,7 @@ if(isset($_GET['delete_now']))
 	if(isset($row_sub_cases['case_main_id']) && !isset($_GET['add_now']))
 	{
 ?>
+
 <div class="container">
 	<div class="row">
 
@@ -484,7 +490,6 @@ if(isset($_GET['delete_now']))
 							 } while ($row_sub_cases = mysqli_fetch_assoc($sub_cases));
 							 ?>
 						 </div>
-
 				 </div>
 				 <?php
 						}
@@ -595,7 +600,7 @@ do {
 					//// start the form controls loops ////
 					do { ?>
 
-<table   border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: 10px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
+<table   style="float: <?php if($_SESSION['language']=='AR') echo 'right'; else if($_SESSION['language']=='EN') echo 'left'; ?>" border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: 10px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
   <tbody>
     <tr>
 
@@ -939,9 +944,9 @@ $count++;
 						  	  if($row_table_rows['photo']=='1')
 					          		{
 							  		?>
-						  			<a href="#" onclick="popupCenter('<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
+						  			<a href="#" onclick="popupCenter('<?php echo $server; ?>assets/images/emp_pics/<?php echo $row_view['employee_id']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
 
-						  			<img src="<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>" alt="" width="118" height="123">
+						  			<img src="<?php echo $server; ?>assets/images/emp_pics/<?php echo $row_view['employee_id']; ?>" alt="" width="118" height="123">
 
 						 			</a>
 							  		<?php
@@ -983,9 +988,9 @@ $count++;
 								  	if($row_table_rows['photo']=='1')
 									{
 							  		?>
-						  			<a href="#" onclick="popupCenter('<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
+						  			<a href="#" onclick="popupCenter('<?php echo $server; ?>assets/images/emp_pics/<?php echo $row_view['employee_id']; ?>.bmp', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
 
-							  		<img src="<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>" alt="" width="118" height="123">
+							  		    <img src="<?php echo $server; ?>assets/images/emp_pics/<?php echo $row_view['employee_id']; ?>.bmp" onerror="this.src='avatar.png';"  alt="<?php echo $row_view['name_english']?>" width="50" height="50">
 
 						  			</a>
 							  		<?php

@@ -124,14 +124,13 @@ $use_bootstrap='1';
 
                     <div class="row mbr-justify-content-center">
 
-
-                        <div class="col-lg-4 mbr-col-md-4" style="display: none">
+                        <div class="col-lg-4 mbr-col-md-4">
                             <div class="wrap">
                                 <div class="ico-wrap">
-                                    <span style="color:white" class="mbr-iconfont fa- fas"></span>
+                                    <span style="color:white" class="mbr-iconfont fa-cog fas"></span>
                                 </div>
                                 <div class="text-wrap vcenter">
-                                    <h1 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"> <a href="observation/index.php?case_id=91&case_filter=" style="color:white"><span class="arabic" style="font-size:20px"><?php echo  str_replace('ال', '', $vObservation); ?> </span></a></h1>
+                                    <h1 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"> <a href="settings/" style="color:white"><span class="arabic" style="font-size:20px"><?php echo  $vSettings; ?> </span></a></h1>
                                 </div>
                             </div>
                         </div>
