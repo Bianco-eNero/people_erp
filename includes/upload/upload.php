@@ -1,4 +1,14 @@
 <?php
+/*
+?record_id=1&control_id=9999&object_id=1&table=organization&field=photo&id_field=organization
+*/
+$record_id=$_GET['record_id'];
+$control_id=$_GET['control_id'];
+$object_id=$_GET['object_id'];
+$table=$_GET['table'];
+$field=$_GET['field'];
+$id_field=$_GET['id_field'];
+
 $ds = DIRECTORY_SEPARATOR;  //1
  
 $storeFolder = 'uploads';   //2

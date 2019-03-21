@@ -39,7 +39,7 @@ $use_bootstrap='1';
         .mi { color: #099; }
     </style>
 </head>
-<body style="height:100%" <?php if($_SESSION['language']=='AR') { ?>class="smart-rtl" <?php } ?>>
+<body style="height:100%" class="smart-rtl" >
 <section class="employees">
 
     <main class="main" style="height:82%">
@@ -104,19 +104,15 @@ include('../../assets/footer_smart.php');
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
     $(document).ready(function() {
-
         pageSetUp();
-
         Dropzone.autoDiscover = false;
         $("#mydropzone").dropzone({
             //url: "/file/post",
             addRemoveLinks : true,
-            maxFilesize: 0.5,
+            maxFilesize: 10,
             dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"><i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span></span><span>&nbsp&nbsp<h4 class="display-inline"> (Or Click)</h4></span>',
             dictResponseError: 'Error uploading file!'
         });
-
-
     })
 
 </script>
