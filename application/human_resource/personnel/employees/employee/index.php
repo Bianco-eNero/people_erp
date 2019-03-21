@@ -24,7 +24,6 @@ if ( isset($_GET['id']) ){
     exit();
 }
 
-
 $use_bootstrap='1';
 
 
@@ -37,9 +36,6 @@ $query_Recordset1 = "SELECT * FROM employee WHERE organization='$organization' A
 $Recordset1 = mysqli_query($website ,$query_Recordset1) or die(mysqli_error($Recordset1));
 $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 //// End of include the settings table ///
-
-
-
 ?>
 
 
@@ -53,19 +49,7 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
     //// end of header script ////
     ?>
 
-        <!--
-			<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-										<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-										<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-										<!------ Include the above in your HEAD tag ---------->
-
-        
-        <!--
-										<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        -->
-        
-		<script type="text/javascript">
+    <script type="text/javascript">
         <!--
         function MM_jumpMenu2(targ,selObj,restore){ //v3.0
             eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
@@ -1263,49 +1247,76 @@ $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
                     </script>
                 </div>
 
-                <div class="inbox-footer">
+                <!-- End Content -->
 
-                    <div class="row">
-
-                        <div class="col-xs-6 col-sm-1">
-
-                            <div class="txt-color-white hidden-desktop visible-mobile">
-                                3.5GB of <strong>10GB</strong>
-
-                                <div class="progress progress-micro">
-                                    <div class="progress-bar progress-primary" style="width: 34%;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-6 col-sm-11 text-right">
-                            <div class="txt-color-white inline-block">
-                                <i class="txt-color-blueLight hidden-mobile">Last account activity <i class="fa fa-clock-o"></i> 52 mins ago |</i> Displaying <strong>44 of 259</strong>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                </div>
-
-
-                </div>
-											<!-- End Content -->
-				   				<br><br><br><br><br><br><br><br><br><br>
-                
-                </div>
 
             </section>
 
-										</section>
+            <!-- PAGE RELATED PLUGIN(S) -->
+            <script src="../../../../../assets/smart_theme/js/plugin/dropzone/dropzone.min.js"></script>
 
-				</section>
-			</main>
-		</section>
-        <?php
-         include('../../../../../assets/footer_smart.php');
-        ?>
-	</body>
+            <script type="text/javascript">
+
+                // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+                $(document).ready(function() {
+
+                    //enable / disable
+                    $('#enable').click(function () {
+                        $('#user .editable').editable('toggleDisabled');
+                    });
+                    pageSetUp();
+
+                    Dropzone.autoDiscover = false;
+                    $("#mydropzone").dropzone({
+                        //url: "/file/post",
+                        addRemoveLinks : true,
+                        maxFilesize: 0.5,
+                        dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"><i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span></span><span>&nbsp&nbsp<h4 class="display-inline"> (Or Click)</h4></span>',
+                        dictResponseError: 'Error uploading file!'
+                    });
+
+                })
+                // myDropzone is the configuration for the element that has an id attribute
+                // with the value my-dropzone (or myDropzone)
+                Dropzone.options.myDropzone = {
+                    init: function() {
+                        this.on("addedfile", function(file) {
+
+                            // Create the remove button
+                            var removeButton = Dropzone.createElement("<button>Remove file</button>");
+
+
+                            // Capture the Dropzone instance as closure.
+                            var _this = this;
+
+                            // Listen to the click event
+                            removeButton.addEventListener("click", function(e) {
+                                // Make sure the button click doesn't submit the form:
+                                e.preventDefault();
+                                e.stopPropagation();
+
+                                // Remove the file preview.
+                                _this.removeFile(file);
+                                // If you want to the delete the file on the server as well,
+                                // you can do the AJAX request here.
+                            });
+
+                            // Add the button to the file preview element.
+                            file.previewElement.appendChild(removeButton);
+                        });
+                    }
+                };
+            </script>
+
+
+
+
+        </section>
+    </main>
+</section>
+<?php
+include('../../../../../assets/footer_smart.php');
+?>
+</body>
 </html>

@@ -367,8 +367,8 @@ if(isset($_GET['delete_now']))
 						<section class="title">
 							<?php if(isset($row_curr['photo']) && $row_curr['photo']<>"") { ?>
 							<figure style="">
-								<img src="/assets/images/placeholder.png" />
-							</figure>
+                                <img src="/assets/images/placeholder.png" />
+                            </figure>
 						<?php } else {?>
 							<figure style="">
 								<img src="/assets/images/placeholder.png" />
@@ -397,7 +397,8 @@ if(isset($_GET['delete_now']))
 								echo $row_add_1['title_en'];
 								}
 								?>" value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; } }
-								 ?>"/><br />
+								 ?>"/>
+                                <br />
 
 
 							  <input value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_2['table_field_ar']]; } else { echo $row_curr[$row_add_2['table_field_en']]; } } ?>"  name="<?php echo $row_add_2['field_name']; ?>" type="text" id="part-time" placeholder="<?php
@@ -440,7 +441,7 @@ if(isset($_GET['delete_now']))
 		<?php
 
 		do {
-						?>
+		    ?>
 
 
 
