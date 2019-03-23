@@ -21,6 +21,22 @@ $use_bootstrap='1';
 $cooo=$_SESSION['current_company'];
 
 
+//// Select the CRUD Case /////
+$case_id=$_GET['case_id'];
+
+mysqli_select_db($website,$database_website);
+$query_crud_case = "SELECT * FROM crud_case WHERE crud_case_id='$case_id'";
+$crud_case = mysqli_query($website , $query_crud_case) or die(mysqli_error($website));
+$row_crud_case = mysqli_fetch_assoc($crud_case);
+$totalRows_crud_case = mysqli_num_rows($crud_case);
+//// end Select the CRUD Case /////
+
+
+//// start pagination variables ////
+$limit=$row_crud_case['records_per_page'];
+$page=( isset($_GET['page']) )? (($_GET['page']-1)*$limit) : 0;
+//// end pagination variables ////
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////// Start Preparation ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,16 +59,7 @@ $main_function='main';
 
 
 
-//// Select the CRUD Case /////
-$case_id=$_GET['case_id'];
-//$case_id='2';
 
-mysqli_select_db($website,$database_website);
-$query_crud_case = "SELECT * FROM crud_case WHERE crud_case_id='$case_id'";
-$crud_case = mysqli_query($website , $query_crud_case) or die(mysqli_error($website));
-$row_crud_case = mysqli_fetch_assoc($crud_case);
-$totalRows_crud_case = mysqli_num_rows($crud_case);
-//// end Select the CRUD Case /////
 
 //// View Script (Table) /////
 mysqli_select_db($website,$database_website);
@@ -80,6 +87,13 @@ $curr = mysqli_query($website , $query_curr) or die(mysqli_error($website));
 $row_curr = mysqli_fetch_assoc($curr);
 $totalRows_curr = mysqli_num_rows($curr);
 //// end View Script (Table) /////
+
+mysqli_select_db($website,$database_website );
+$query_no_of_items= $insertSQLNo ;
+$no_of_items = mysqli_query($website , $query_no_of_items) or die(mysqli_error($website));
+$row_no_of_items= mysqli_fetch_assoc($no_of_items);
+
+
 
 //// Add Statement ////
 if(isset($_GET['add']) || isset($_GET['duplicate']))
@@ -163,8 +177,6 @@ if(isset($_GET['delete_now']))
 
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -252,29 +264,132 @@ if(isset($_GET['delete_now']))
 
 
 							 <span class="">
-								<a title="CASE TABLE ROWS" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/table_row/?case_id=8&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>"  >
+								<a target="_blank" title="CASE TABLE ROWS" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/table_row/?case_id=8&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>"  >
 								 <button class="" id=""><i class="fa fa-th"></i></button>
 							 </a>
 							 </span>
 
 							 <span class="">
-								<a title="CASE TABLE HEADER" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/table_header/?case_id=7&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>"  >
+								<a target="_blank" title="CASE TABLE HEADER" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/table_header/?case_id=7&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>"  >
 								 <button class="" id=""><i class="fa fa-th-list"></i></button>
 							 </a>
 							 </span>
 
 							 <span class="">
-								<a title="CASE FORM" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/form/?case_id=9&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>" >
+								<a target="_blank" title="CASE FORM" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/form/?case_id=9&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>" >
 								 <button class="" id=""><i class="fa fa-book-open"></i></button>
 							 </a>
 							 </span>
 
 
 							 <span class="">
-								<a title="VIEW CASE" style="text-decoration: none" href="?case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
+								<a target="_blank" title="VIEW CASE" style="text-decoration: none" href="?case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
 								 <button class="" id=""><i class="fa fa-glasses"></i></button>
 							 </a>
 							 </span>
+
+                            <span class="">
+								<a target="_blank" title="SUB CASES" style="text-decoration: none" data-toggle="modal" data-target="#exampleModal">
+								 <button class="" id=""><i class="fas fa-folder-plus"></i></button>
+							 </a>
+							 </span>
+
+
+                            <!--------------------start Modal for sub cases update by joe----------------->
+
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" style="float: right;">SUB CASES</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left ;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php
+
+                                            ///// If has Sub Cases inside ////
+
+                                            $insertSQL9='SELECT * FROM crud_case WHERE case_main_id="'.$case_id.'"';
+
+                                            mysqli_select_db($website,$database_website);
+                                            $query_sub_cases = $insertSQL9;
+                                            $sub_cases = mysqli_query($website , $query_sub_cases) or die(mysqli_error($website));
+                                            $row_sub_cases = mysqli_fetch_assoc($sub_cases);
+                                            $totalRows_sub_cases = mysqli_num_rows($sub_cases);
+
+                                            if(isset($row_sub_cases['case_main_id']) && !isset($_GET['add_now']))
+                                            {
+                                                ?>
+
+                                                <div class="container">
+                                                    <div class="row">
+
+                                                        <?php
+
+                                                        do {
+                                                            ?>
+
+
+
+
+                                                                <div class="tile-progress" style="background-color:#06786C">
+                                                                    <div class="tile-header" style="padding-top: 10px; padding-bottom: 10px;text-align: center;cursor: pointer">
+                                                                        <h4 class="text-center">
+
+                                                                            <?php if($row_sub_cases['open_sub_in_popup']=='1') { ?>
+                                                                            <a style="text-decoration: none; color: white"  onclick="popupCenter('<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
+
+                                                                            if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; }
+
+                                                                            ?>&this_is_pop=1', 'myPop1',850,700);">
+                                                                                <?php }
+                                                                                else { ?>
+                                                                                <a style="text-decoration: none; color: white" target="_blank" href="<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
+
+                                                                                if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; }
+
+                                                                                ?>" >
+                                                                                    <?php } ?>
+                                                                                    
+
+                                                                                    <i class="fas fa-arrow-alt-circle-up fa-lg fa-fw"></i>
+
+                                                                                    <span class=""> <?php
+                                                                                        if($_SESSION['language']=='AR')
+                                                                                        {
+                                                                                            echo $row_sub_cases['crud_case_title'];
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            echo $row_sub_cases['crud_case_title_en'];
+                                                                                        }
+                                                                                        ?> </span> </a>
+                                                                        </h4>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            <?php
+                                                        } while ($row_sub_cases = mysqli_fetch_assoc($sub_cases));
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ///// end of having sub cases inside ////
+                                            ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $vClose?></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--------------------end Modal for sub cases update by joe----------------->
 
 
 							 <span class="print">
@@ -367,12 +482,17 @@ if(isset($_GET['delete_now']))
 						<section class="title">
 							<?php if(isset($row_curr['photo']) && $row_curr['photo']<>"") { ?>
 							<figure style="">
-                                <img src="/assets/images/placeholder.png" />
+
+                                <img src="<?php echo $server; ?>assets/images/emp_pics/<?php echo $row_curr[$row_add_2['table_field_ar']] ?>.bmp"  onerror="this.src='avatar.png';"  alt="<?php echo $row_view['name_english']?>" width="50" height="50">
+
+
                             </figure>
 						<?php } else {?>
 							<figure style="">
-								<img src="/assets/images/placeholder.png" />
-							</figure>
+
+                                <img src="<?php echo $server; ?>assets/images/emp_pics/<?php echo $row_curr[$row_add_2['table_field_ar']] ?>.bmp"  onerror="this.src='avatar.png';"  alt="<?php echo $row_view['name_english']?>" width="50" height="50">
+
+                            </figure>
 						<?php } ?>
 							<fieldset>
 								<label for="name"><?php
@@ -445,11 +565,10 @@ if(isset($_GET['delete_now']))
 
 
 
-        <div class="col-sm-2">
+        <div class="col-sm-6" >
     		<div class="tile-progress" style="background-color:#06786C">
-    			<div class="tile-header" style="padding-top: 10px; padding-bottom: 10px;
-    text-align: center;">
-    				<h4>
+    			<div class="tile-header" style="padding-top: 10px; padding-bottom: 10px;text-align: center;cursor: pointer">
+    				<h4 class="text-center">
 
 						<?php if($row_sub_cases['open_sub_in_popup']=='1') { ?>
 						<a style="text-decoration: none; color: white"  onclick="popupCenter('<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
@@ -467,18 +586,13 @@ if(isset($_GET['delete_now']))
 						<?php } ?>
 
 
-
-						<i class="fa fa-lg fa-arrow-circle-o-up"></i>
+                            <i class="fas fa-arrow-alt-circle-up fa-lg fa-fw"></i>
 
 						<span class=""> <?php
 						if($_SESSION['language']=='AR')
-						{
-						echo $row_sub_cases['crud_case_title'];
-						}
+						{ echo $row_sub_cases['crud_case_title']; }
 						else
-						{
-						echo $row_sub_cases['crud_case_title_en'];
-						}
+						{ echo $row_sub_cases['crud_case_title_en']; }
 						 ?> </span> </a>
 					</h4>
     			</div>
@@ -498,7 +612,7 @@ if(isset($_GET['delete_now']))
 						?>
 
 
-						<div class="tabs">
+						<div class="tabs" style="margin-bottom: 15px">
 							<?php if($row_crud_case['has_tabs']=='1') { ?>
   <div class="tab-button-outer">
     <ul id="tab-button">
@@ -601,7 +715,7 @@ do {
 					//// start the form controls loops ////
 					do { ?>
 
-<table   style="float: <?php if($_SESSION['language']=='AR') echo 'right'; else if($_SESSION['language']=='EN') echo 'left'; ?>" border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: 10px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
+<table   style="margin-bottom: 10px;float: <?php if($_SESSION['language']=='AR') echo 'right'; else if($_SESSION['language']=='EN') echo 'left'; ?>" border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: 10px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
   <tbody>
     <tr>
 
@@ -857,6 +971,29 @@ $count++;
 				<?php if(!isset($_GET['add_now']) && !isset($_GET['edit_now']) && !isset($_GET['duplicate_now']) && !isset($_GET['view_now']))
 				{
 				?>
+
+                    <nav aria-label="Page navigation" class="dont_print_me" style="display: block;margin: auto;width: max-content;">
+                        <ul class="pagination">
+							<?php
+							$countPage=10;
+							$last_page=ceil($row_no_of_items['numberItem']/$limit);
+							if(isset($_GET['page']) && $_GET['page']!=1 ) {
+								echo'<li><a href="?case_id='.$case_id.'&case_filter='.$case_filter.'&ref=&page=1">First</a></li>';
+								echo '<li><a href="#" disabled tabindex="-1" >...</a></li>';
+							}
+							for ( $i=( isset($_GET['page'])&& $_GET['page']>5 )? $_GET['page']-5 : 1 ; ($i<$last_page && $countPage!=0) ; $i++){
+								echo'<li><a href="?case_id='.$case_id.'&case_filter='.$case_filter.'&ref=&page='.$i.'">'.$i.'</a></li>';
+								$countPage--;
+							}
+							if( $_GET['page']!=$last_page && $last_page!= 1 ) {
+								echo '<li><a href="#" disabled tabindex="-1" >...</a></li>';
+								echo '<li><a href="?case_id='.$case_id.'&case_filter='.$case_filter.'&ref=&page=' . $last_page . '">last</a></li>';
+							}
+							?>
+
+                        </ul>
+                    </nav>
+
 				<section class="employee-create">
 
 				<div class="" style="width: 100%; padding-left: 5px;  padding-right: 5px; padding:0px">
@@ -1070,7 +1207,7 @@ $count++;
 
 								   ?>&view_now=1">
 
-							  <i class="fa fa-search fa-1x" title"View Details"></i>
+							  <i class="fa fa-eye fa-1x" title="View Details"></i>
 						  </a>
 
 
@@ -1122,6 +1259,8 @@ $count++;
 <br><br><br><br><br><br>
 
 
-		</section>
+
+
+                </section>
 	</body>
 </html>

@@ -29,7 +29,6 @@ if (!empty($_FILES)) {
     $targetFile =  $targetPath. $_FILES['file']['name'];  //5
 
     move_uploaded_file($tempFile,$targetFile); //6
-
 }
 ?>
 <!--- See more at: http://www.startutorial.com/articles/view/how-to-build-a-file-upload-form-using-dropzonejs-and-php#sthash.APTCQ8nP.dpuf-->

@@ -61,12 +61,15 @@ $insertSQL5='DELETE FROM '.$table.' WHERE '.$id_field.'="'.$id.'"';
 if(isset($_GET['case_filter']) && $_GET['case_filter']<>"")
 {
 $case_filter=$_GET['case_filter'];
-$insertSQL6='SELECT * FROM '.$table.' WHERE '.$fkey.'="'.$case_filter.'"';
+$insertSQL6="SELECT * FROM $table WHERE organization='$cooo' AND $fkey='$case_filter' LIMIT $page,$limit";
+$insertSQLNo="SELECT count($id_field) as numberEmpolyee FROM $table WHERE organization='$cooo' AND $fkey='$case_filter'  ";
 }
 else
 {
 ///// vew for table
-$insertSQL6='SELECT * FROM '.$table.' WHERE organization="'.$cooo.'"';
+$insertSQL6="SELECT * FROM $table WHERE organization='$cooo' LIMIT $page,$limit";
+$insertSQLNo="SELECT count($id_field) as numberItem FROM $table WHERE organization='$cooo' ";
+
 }
 
 
