@@ -281,7 +281,6 @@ if(isset($_GET['delete_now']))
 							 </a>
 							 </span>
 
-
 							 <span class="">
 								<a target="_blank" title="VIEW CASE" style="text-decoration: none" href="?case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
 								 <button class="" id=""><i class="fa fa-glasses"></i></button>

@@ -18,6 +18,14 @@ if ($_SESSION['language']=='EN')
 //// End Language ////
 
 $use_bootstrap='1';
+if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['table'])&& isset($_GET['field'])&& isset($_GET['id_field'])) {
+    $_SESSION['record_id'] = $_GET['record_id'];
+    $_SESSION['control_id'] = $_GET['control_id'];
+    $_SESSION['object_id'] = $_GET['object_id'];
+    $_SESSION['table'] = $_GET['table'];
+    $_SESSION['field'] = $_GET['field'];
+    $_SESSION['id_field'] = $_GET['id_field'];
+}
 
 ?>
 

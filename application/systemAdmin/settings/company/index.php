@@ -366,7 +366,9 @@ if(isset($_GET['delete_now']))
                         <section class="title">
                             <?php if(isset($row_curr['photo']) && $row_curr['photo']<>"") { ?>
                                 <figure style="">
-                                    <img src="file:///Macintosh HD/Applications/MAMP/assets/images/placeholder.png" />
+                                    <!---update by joe 20/3/2019 -->
+
+                                    <img src="<?php echo $server; ?>assets/images/logos/<?php echo $row_curr['photo']; ?>" />
                                 </figure>
                             <?php } ?>
                             <fieldset>
@@ -514,7 +516,7 @@ if(isset($_GET['delete_now']))
                                                     //// start the form controls loops ////
                                                     do { ?>
 
-                                                        <table border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: : 3px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
+                                                        <table   border="0" cellspacing="4" cellpadding="4" style=" margin-top: 3px; margin-bottom: : 3px" class="col-sm-<?php echo $row_add['title_width']+$row_add['field_width']; ?>">
                                                             <tbody>
                                                             <tr>
 
@@ -607,7 +609,8 @@ if(isset($_GET['delete_now']))
                                                                             </a>
 
                                                                             <?php if(isset($row_curr['photo']) && $row_curr['photo']<>"") { ?>
-                                                                                <a href="#" onclick="popupCenter('<?php echo $server; ?>includes/upload/files/<?php echo $row_curr['photo']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
+                                                                                <!---update by joe 20/3/2019-->
+                                                                                <a href="#" onclick="popupCenter('<?php echo $server; ?>assets/images/logos/<?php echo $row_curr['photo']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
                                                                                     <i class="fa fa-image" style="color: black"></i>
                                                                                 </a>
                                                                             <?php } ?>
@@ -838,7 +841,8 @@ if(isset($_GET['delete_now']))
                                                             ?>
                                                             <a href="#" onclick="popupCenter('<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
 
-                                                                <img src="<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>" alt="" width="118" height="123">
+                                                              <!---update by joe 20/3/2019 -->
+                                                                <img src="<?php echo $server; ?>assets/images/logos/<?php echo $row_view['photo']; ?>" alt="" width="118" height="123">
 
                                                             </a>
                                                             <?php
@@ -882,7 +886,9 @@ if(isset($_GET['delete_now']))
                                                             ?>
                                                             <a href="#" onclick="popupCenter('<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>', 'myPop1',800,900);" class="droid-arabic-kufi" style="color:white">
 
-                                                                <img src="<?php echo $server; ?>includes/upload/files/<?php echo $row_view['photo']; ?>" alt="" width="118" height="123">
+                                                                <!---update by joe 20/3/2019 -->
+
+                                                                <img src="<?php echo $server; ?>assets/images/logos/<?php echo $row_view['photo']; ?>" alt="" width="118" height="123">
 
                                                             </a>
                                                             <?php
