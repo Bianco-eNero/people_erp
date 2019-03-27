@@ -220,7 +220,7 @@ if(isset($_GET['delete_now']))
 							?></span> </h1>
 
 							<fieldset>
-								<a class="focus" href="?add_now=1&case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter']; ?>&ref=" style="text-decoration:none;"><input type="submit" name="create" id="create" value="<?php echo $vAdd; ?>" class="focus" /></a>
+								<a class="focus" href="?add_now=1&case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter']; ?>&ref=<?php echo $_GET['ref'];?>" style="text-decoration:none;"><input type="submit" name="create" id="create" value="<?php echo $vAdd; ?>" class="focus" /></a>
 
 
 							</fieldset>
@@ -362,6 +362,7 @@ if(isset($_GET['delete_now']))
 						<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
 					<input type="hidden" name="case_id" value="<?php echo $_GET['case_id']; ?>">
 					<input type="hidden" name="case_filter" value="<?php echo $_GET['case_filter']; ?>">
+					<input type="hidden" name="ref" value="<?php echo $_GET['ref']; ?>">
 
 
 					<section class="employee-create">

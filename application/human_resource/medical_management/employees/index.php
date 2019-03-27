@@ -281,6 +281,13 @@ if(isset($_GET['delete_now']))
 							 </a>
 							 </span>
 
+                            <span class="">
+								<a title="CASE TABS" style="text-decoration: none" href="<?php echo $server; ?>application/admin/crud/tabs/?case_id=49&id=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_id'] ;?>"  >
+								 <button class="" id=""><i class="fa fa-folder-minus"></i></button>
+							 </a>
+							 </span>
+
+
 							 <span class="">
 								<a target="_blank" title="VIEW CASE" style="text-decoration: none" href="?case_id=<?php echo $_GET['case_id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
 								 <button class="" id=""><i class="fa fa-glasses"></i></button>
@@ -555,7 +562,7 @@ if(isset($_GET['delete_now']))
 ?>
 
 <div class="container">
-	<div class="row">
+	<div class="row" style="margin: 0 5px 5px 0">
 
 		<?php
 
@@ -564,20 +571,21 @@ if(isset($_GET['delete_now']))
 
 
 
-        <div class="col-sm-6" >
-    		<div class="tile-progress" style="background-color:#06786C">
-    			<div class="tile-header" style="padding-top: 10px; padding-bottom: 10px;text-align: center;cursor: pointer">
-    				<h4 class="text-center">
+<!--        <div>-->
+<!--    		<div>-->
+<!--    			<div class="tile-header" style="padding-top: 10px; padding-bottom: 10px;text-align: center;cursor: pointer">-->
+<!--    				<h4 class="text-center">-->
+
 
 						<?php if($row_sub_cases['open_sub_in_popup']=='1') { ?>
-						<a style="text-decoration: none; color: white"  onclick="popupCenter('<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
+						<a  class="btn btn-info" style="text-decoration: none; color: white"  onclick="popupCenter('<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
 
 								if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; }
 
 								   ?>&this_is_pop=1', 'myPop1',850,700);">
 						<?php }
 						else { ?>
-						<a style="text-decoration: none; color: white" target="_blank" href="<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
+						<a  class="btn btn-info" style="text-decoration: none; color: white" target="_blank" href="<?php echo $server; ?>application/go/?page=<?php echo $row_sub_cases['case_code'] ; ?>&has_sub_case=1&case_filter=<?php echo $_GET['id']; ?>&ref=<?php
 
 							if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; }
 
@@ -593,11 +601,11 @@ if(isset($_GET['delete_now']))
 						else
 						{ echo $row_sub_cases['crud_case_title_en']; }
 						 ?> </span> </a>
-					</h4>
-    			</div>
-
-    		</div>
-    	</div>
+<!--					</h4>-->
+<!--    			</div>-->
+<!---->
+<!--    		</div>-->
+<!--    	</div>-->
 
 
 						<?php
@@ -1166,7 +1174,7 @@ $count++;
 					  <td style=" font-weight: 600; min-width: 90" class="dont_print_me">
 
 						<a href="?id=<?php echo $row_view[$row_table_rows_id['row_field_ar']]; ?>&edit_now=1&case_id=<?php echo $_GET['case_id']; ?>&selected_case=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
-							<i class="fa fa-edit fa-1x"></i>
+							<i class="fa fa-cog"></i>
 						  </a>
 
 						  &nbsp;

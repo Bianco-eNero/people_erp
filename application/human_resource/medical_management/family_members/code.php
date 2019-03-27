@@ -26,12 +26,12 @@ VALUES
 
 //// englis insert ////
 $insertSQL2='INSERT INTO '.$table.'
-(relation_type, birth_date ,  family_name, national_id_number, education, emp_id, job)
+(relation_type, birth_date ,  family_name_en, national_id_number, education, emp_id, job)
 VALUES
 (
   "'.$_GET['vrelation_type'].'",
   "'.$_GET['vbirth_date'].'",
-  "'.$_GET['vfamily_name_en'].'",
+  "'.$_GET['vfamily_name'].'",
   "'.$_GET['vnational_id_number'].'",
   "'.$_GET['veducation'].'",
   "'.$_GET['vemp_id'].'",
