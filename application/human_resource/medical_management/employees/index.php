@@ -361,7 +361,8 @@ if(isset($_GET['delete_now']))
                                                                                     <?php } ?>
                                                                                     
 
-                                                                                    <i class="fas fa-arrow-alt-circle-up fa-lg fa-fw"></i>
+<!--<i class="fas fa-arrow-alt-circle-up fa-lg fa-fw"></i>-->
+                                                                                    <i class="<?php echo $row_sub_cases['case_icon'];?> fa-lg fa-fw fa-lg fa-fw"></i>
 
                                                                                     <span class=""> <?php
                                                                                         if($_SESSION['language']=='AR')
@@ -593,9 +594,10 @@ if(isset($_GET['delete_now']))
 						<?php } ?>
 
 
-                            <i class="fas fa-arrow-alt-circle-up fa-lg fa-fw"></i>
+                            <!--<i class="fas fa-arrow-alt-circle-up fa-lg fa-fw"></i>-->
+                            <i class="<?php echo $row_sub_cases['case_icon'];?> fa-lg fa-fw"></i>
 
-						<span class=""> <?php
+                            <span class=""> <?php
 						if($_SESSION['language']=='AR')
 						{ echo $row_sub_cases['crud_case_title']; }
 						else
@@ -1174,7 +1176,7 @@ $count++;
 					  <td style=" font-weight: 600; min-width: 90" class="dont_print_me">
 
 						<a href="?id=<?php echo $row_view[$row_table_rows_id['row_field_ar']]; ?>&edit_now=1&case_id=<?php echo $_GET['case_id']; ?>&selected_case=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
-							<i class="fa fa-cog"></i>
+							<i class="fa fa-edit"></i>
 						  </a>
 
 						  &nbsp;

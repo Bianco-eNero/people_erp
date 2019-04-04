@@ -168,12 +168,11 @@ if(isset($_GET['delete_now']))
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php
+        <?php
 	//// include header script ////
 	include('../../../assets/header.php');
-	//// end of header script ////
+        //// end of header script ////
 		?>
-
 
 </head>
 	<body style="height:100%">
@@ -745,11 +744,22 @@ $count++;
 				?>
 
 
+
 				<!-- //////////////////////////////////////////////// Start Table //////////////////////////////////////////////// -->
 				<?php if(!isset($_GET['add_now']) && !isset($_GET['edit_now']) && !isset($_GET['duplicate_now']) && !isset($_GET['view_now']))
 				{
 				?>
-				<section class="employee-create">
+
+                    <div style="width: 10%;margin: 5px auto;">
+                        <button class="btn btn-primary" type="button" onclick="myFunction1()">
+                            <i class="fa fa-th-list"></i>
+                        </button>
+                        <button class="btn btn-primary" type="button" onclick="myFunction()" >
+                            <i class="fa fa-th"></i>
+                        </button>
+                    </div>
+
+				<section class="employee-create" id="table" >
 
 				<div class="" style="width: 100%; padding-left: 5px;  padding-right: 5px; padding:0px">
 
@@ -991,9 +1001,59 @@ $count++;
 				}
 				?>
 				<!-- //////////////////////////////////////////////// End Table //////////////////////////////////////////////// -->
+                    <style>
+                        *{font-weight: 100}
+                        .row{margin: 0;padding: 0;}
+                        #content{ border: solid 1px #dadada; background: #fff; box-shadow: #eaeaea 4px 4px 20px 0; }
+                        .icon-bar{ height: 135px;background: #875a7b;position: relative; }
+                        .dot { height: 15px; width: 15px; background-color: #bbb; border-radius: 50%; display: inline-block; }
+                        .panel-heading{padding: 5px;margin: 0;}
+                        .panel{ margin: 20px; box-shadow: #e6e3e3 1px 1px 20px 0px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+                        .mybtn{ width: 50%; height: 40px; margin: 0 auto; display: block; }
+                    </style>
+
+                    <div id="window" style="display:none;">
 
 
-				<?php
+                    <div id="content">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading row">
+                                <div class="col-md-2" style="<?php if($_SESSION['language']=='AR') { echo 'float:right'; }else{ echo 'float:left'; }?>">
+                                    <h3 class="text-center" style="margin: 5px"><?php echo $vList;?></h3>
+                                </div>
+                                <div class="col-md-8" style="<?php if($_SESSION['language']=='AR') { echo 'float:right'; }else{ echo 'float:left'; }?>">
+                                    <h3 class="text-center" style="margin: 5px"><?php echo $vType.' :';?>
+                                        <span style="margin: 15px;"><span class="dot" style="background: #900"></span> <?php echo $vUnSafeCondition;?> </span>
+                                        <span style="margin: 15px;"><span class="dot" style="background: #cc6600"></span> <?php echo $vUnSafeAction;?> </span>
+                                        <span style="margin: 15px;"><span class="dot" style="background: #0c6d96"></span> <?php echo $vOthers;?> </span>
+                                    </h3>
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="fas fa-align-justify fa-fw fa-2x" style="display: block;margin: 0 auto;"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row" style="border-left: #cc6600 1px solid;">
+                                    <div class="col-md-8" style="<?php if($_SESSION['language']=='AR') { echo 'float:right'; }else{ echo 'float:left'; }?>">
+                                        <h1><?php echo $vSubject.' :';?></h1>
+                                        <h4><?php echo $vObserver.' :';?></h4>
+                                        <h4><?php echo $vSite.' :';?></h4>
+                                        <h4><?php echo $vDescription.' :';?></h4>
+                                    </div>
+                                    <div class="col-md-4" style="<?php if($_SESSION['language']=='AR') { echo 'float:right'; }else{ echo 'float:left'; }?>">
+                                        <button class="btn btn-primary mybtn"><?php echo $vStatus;?></button>
+                                        <p><?php echo $vObserverAt.' :';?></p>
+                                        <p><?php echo $vDepartment.' :';?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+
+                    <?php
 				if(!isset($_GET['add_now']) &&  !isset($_GET['edit']))
 				{
 					?>
@@ -1006,5 +1066,34 @@ $count++;
 
 
 		</section>
-	</body>
+            </main>
+        </section>
+
+    <script>
+     function myFunction() {
+         var x = document.getElementById("window");
+         var y = document.getElementById("table");
+         if (x.style.display === "none") {
+             x.style.display = "block";
+             y.style.display = "none"
+         } else {
+             x.style.display = "block";
+
+         }
+     }
+     function myFunction1() {
+         var y = document.getElementById("table");
+         var x = document.getElementById("window");
+         if (y.style.display === "none") {
+             y.style.display = "block";
+             x.style.display = "none";
+         } else {
+             y.style.display = "block";
+
+         }
+     }
+     </script>
+
+
+    </body>
 </html>

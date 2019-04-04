@@ -24,7 +24,7 @@ VALUES
 "'.$_GET['vunder_group_name'].'",
 "'.$_GET['vcrud_add_form_tab_id'].'",
 "'.$_GET['vnote'].'" 
-)';	
+)';
 
 //// englis insert ////
 $insertSQL2='INSERT INTO crud_add_form 

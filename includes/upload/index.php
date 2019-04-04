@@ -29,7 +29,6 @@ if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['tab
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +39,8 @@ if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['tab
     //// end of header script ////
     ?>
 
+
+
     <style>
         *{ font-weight:100;}
         .s2 { color: #D14; }
@@ -47,7 +48,7 @@ if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['tab
         .mi { color: #099; }
     </style>
 </head>
-<body style="height:100%" class="smart-rtl" >
+<body style="height:100%" class="smart-rtl"  >
 <section class="employees">
 
     <main class="main" style="height:82%">
@@ -121,9 +122,13 @@ include('../../assets/footer_smart.php');
             dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"><i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span></span><span>&nbsp&nbsp<h4 class="display-inline"> (Or Click)</h4></span>',
             dictResponseError: 'Error uploading file!'
         });
-    })
-
+    });
 </script>
+<?php  if ( !isset($_GET['table']) || !isset($_GET['field']) ){?>
+    <script  type="text/javascript">
+        self.close();
+    </script>
+<?php } ?>
 
 </body>
 </html>

@@ -105,7 +105,7 @@ if(isset($_GET['add']) || isset($_GET['duplicate']))
 
 
 	echo '<script type="text/javascript">
-           window.location = "index.php?case_id='.$_GET['case_id'].'&case_filter='.$_GET['case_filter'].'"
+           window.location = "index.php?case_id='.$_GET['case_id'].'&case_filter='.$_GET['case_filter'].'&ref='.$_GET['ref'].'"
       </script>';
 }
 //// End Add Statement ////
@@ -137,7 +137,7 @@ if(isset($_GET['edit']))
 
 
 	echo '<script type="text/javascript">
-           window.location = "index.php?case_id='.$_GET['case_id'].'&case_filter='.$_GET['case_filter'].'"
+           window.location = "index.php?case_id='.$_GET['case_id'].'&case_filter='.$_GET['case_filter'].'&ref='.$_GET['ref'].'"
       </script>';
 }
 //// End Edit Statement ////
@@ -155,7 +155,7 @@ if(isset($_GET['delete_now']))
     $Result5 = mysqli_query($website , $insertSQL5) or die(mysqli_error($website));
 
   	echo '<script type="text/javascript">
-           window.location = "index.php?case_id='.$_GET['case_id'].'&case_filter='.$_GET['case_filter'].'"
+           window.location = "index.php?case_id='.$_GET['case_id'].'&case_filter='.$_GET['case_filter'].'&ref='.$_GET['ref'].'"
       </script>';
 }
 //// End Delete Statement ////
@@ -358,11 +358,11 @@ if(isset($_GET['delete_now']))
 				?>
 				<form  method="GET" target="_self" name="add">
 
-						<input type="hidden" value="<?php echo $organization; ?>" name="organization">
+						<input type="hidden" name="organization" value="<?php echo $organization; ?>">
 						<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-					<input type="hidden" name="case_id" value="<?php echo $_GET['case_id']; ?>">
-					<input type="hidden" name="case_filter" value="<?php echo $_GET['case_filter']; ?>">
-					<input type="hidden" name="ref" value="<?php echo $_GET['ref']; ?>">
+                        <input type="hidden" name="case_id" value="<?php echo $_GET['case_id']; ?>">
+                        <input type="hidden" name="case_filter" value="<?php echo $_GET['case_filter']; ?>">
+                        <input type="hidden" name="ref" value="<?php echo $_GET['ref']; ?>">
 
 
 					<section class="employee-create">
@@ -386,7 +386,7 @@ if(isset($_GET['delete_now']))
 								echo $row_add_1['title_en'];
 								}
 								?></label><br />
-								<input   name="<?php echo $row_add_1['field_name']; ?>" type="text" id="name" placeholder="<?php
+								<input  required name="<?php echo $row_add_1['field_name']; ?>" type="text" id="name" placeholder="<?php
 								if($_SESSION['language']=='AR')
 								{
 								echo $row_add_1['title_ar'];
@@ -399,7 +399,7 @@ if(isset($_GET['delete_now']))
 								?>" value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_1['table_field_ar']]; } else { echo $row_curr[$row_add_1['table_field_en']]; } } ?>"/><br />
 
 
-							  <input value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_2['table_field_ar']]; } else { echo $row_curr[$row_add_2['table_field_en']]; } } ?>"  name="<?php echo $row_add_2['field_name']; ?>" type="text" id="part-time" placeholder="<?php
+							  <input value="<?php if($_GET['edit_now']=='1' || $_GET['duplicate_now']=='1' || $_GET['view_now']=='1') { if($_SESSION['language']=='AR') { echo $row_curr[$row_add_2['table_field_ar']]; } else { echo $row_curr[$row_add_2['table_field_en']]; } } ?>" required name="<?php echo $row_add_2['field_name']; ?>" type="text" id="part-time" placeholder="<?php
 								if($_SESSION['language']=='AR')
 								{
 								echo $row_add_2['title_ar'];
@@ -545,7 +545,7 @@ do {
 							//// if the fisrt lab, scape forst two fields for the above labells and tects /////
 							if($count=='1') {
 							mysqli_select_db($website,$database_website);
-							$query_add = "SELECT * FROM crud_add_form WHERE crud_case_id='$case_id' AND crud_add_form_tab_id='$selected_tab'  ORDER BY field_asc ASC LIMIT 0,1000";
+							$query_add = "SELECT * FROM crud_add_form WHERE crud_case_id='$case_id' AND crud_add_form_tab_id='$selected_tab'  ORDER BY field_asc ASC LIMIT 2,1000";
 							$add = mysqli_query($website , $query_add) or die(mysqli_error($website));
 							$row_add = mysqli_fetch_assoc($add);
 							$totalRows_add = mysqli_num_rows($add);
@@ -848,18 +848,9 @@ $count++;
 
 				<section class="employee-create">
 
-					<?php if(isset($_GET['ref']) && $_GET['ref']<>'')
-
-				{
-					?>
-					<h2>
-					<?php
-					echo $_GET['ref'];
-					?>
-					</h2>
-					<?php
-				}
-					?>
+					<?php if(isset($_GET['ref']) && $_GET['ref']<>'') { ?>
+					    <h2> <?php echo $_GET['ref']; ?> </h2>
+					<?php } ?>
 					<br>
 
 
@@ -1031,13 +1022,13 @@ $count++;
 					  <!-- //////////////////////////////////////////////// Start The Butons //////////////////////////////////////////////// -->
 					  <td style=" font-weight: 600; min-width: 90" class="dont_print_me">
 
-						<a href="?id=<?php echo $row_view[$row_table_rows_id['row_field_ar']]; ?>&edit_now=1&case_id=<?php echo $_GET['case_id']; ?>&selected_case=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
+						<a href="?id=<?php echo $row_view[$row_table_rows_id['row_field_ar']]; ?>&edit_now=1&case_id=<?php echo $_GET['case_id']; ?>&selected_case=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>&ref=<?php echo $_GET['ref'] ; ?>">
 							<i class="fa fa-edit fa-1x"></i>
 						  </a>
 
 						  &nbsp;
 
-						  <a href="?id=<?php echo $row_view[$row_table_rows_id['row_field_ar']]; ?>&duplicate_now=1&case_id=<?php echo $_GET['case_id']; ?>&selected_case=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>">
+						  <a href="?id=<?php echo $row_view[$row_table_rows_id['row_field_ar']]; ?>&duplicate_now=1&case_id=<?php echo $_GET['case_id']; ?>&selected_case=<?php echo $_GET['id']; ?>&case_filter=<?php echo $_GET['case_filter'] ; ?>&ref=<?php echo $_GET['ref'] ; ?>">
 							<i class="fa fa-clone fa-1x"></i>
 						  </a>
 
