@@ -477,6 +477,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
 <?php } ?>
 
+
 <?php
 
     /////////////////////////////////////////////////////////////////
@@ -485,6 +486,10 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
     if($_GET['end_type']=='1' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = '1' WHERE employee_id= '$id'", $localhost);
 ?>
 <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -610,6 +615,10 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
         if($_GET['end_type']=='2' && $_GET['calculate']=='1')
         {
+
+            $id=$_GET['emp_id'];
+            mysql_select_db($database_localhost, $localhost);
+            mysql_query("UPDATE employee SET cp_active = '2' WHERE employee_id= '$id'", $localhost);
     ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -618,14 +627,14 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
       <thead>
         <tr>
 
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
             <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-                  <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
 
-            </tr>
+        </tr>
 
       </thead>
 
@@ -646,14 +655,14 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format(0, 2, '.', ',');
-            $vCompPortion='0';
+            echo number_format($vCompanyPortionNew, 2, '.', ',');
+            $vCompPortion=$vCompanyPortionNew;
             ?>
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format(0, 2, '.', ',');
-            $vCompPortionInv='0';
+            echo number_format($vCompanyPortionInvNew, 2, '.', ',');
+            $vCompPortionInv=$vCompanyPortionInvNew;
             ?>
             </td>
 
@@ -778,6 +787,10 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
     if($_GET['end_type']=='3' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = '3' WHERE employee_id= '$id'", $localhost);
 ?>
 
 								<?php
@@ -801,6 +814,10 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
     if($_GET['end_type']=='4' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = '4' WHERE employee_id= '$id'", $localhost);
 ?>
 
 <?php
@@ -936,7 +953,7 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
 
 
-                          <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
+<table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
 
                               <thead>
 <tr>
@@ -1071,13 +1088,32 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
         if($_GET['end_type']=='5' && $_GET['calculate']=='1')
         {
+            $id=$_GET['emp_id'];
+            mysql_select_db($database_localhost, $localhost);
+            mysql_query("UPDATE employee SET cp_active = '5' WHERE employee_id= '$id' ", $localhost);
 
-          $id=$_GET['emp_id'];
           mysql_select_db($database_localhost, $localhost);
         $query_employees2ss4 = "SELECT (SUM(emp_portion_le)) AS EMP_P, (SUM(inv_emp_portion_le)) AS EMP_P_INV, (SUM(co_portion_le)) AS CO_P, (SUM(inv_co_portion_le)) AS CO_P_INV FROM cp_transaction, cp_installment_period WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND employee_id='$id' AND cp_installment_period_closed='1'";
         $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
         $row_employees2ss4 = mysql_fetch_assoc($employees2ss4);
         $totalRows_employees2ss4 = mysql_num_rows($employees2ss4);
+
+            /////////////////////////////////////////////
+            //// get the age at the end service date ////
+            //////////////////////////////////////////////
+
+            $endPeriod=date($_GET['end_date']);
+            $year = date('Y', strtotime($endPeriod));
+            $month = date('m', strtotime($endPeriod));
+            $startPeriod1=$year.'-01-01';
+            $startPeriod2=$year.'-07-01';
+
+            //// calculate Period ////
+            if ( $month < 7 ){$Period= date_diff(date_create($startPeriod1), date_create($endPeriod))->days; }
+            else { $Period= date_diff(date_create($startPeriod2), date_create($endPeriod))->days; }
+
+            $precPeriod= $Period/180;
+
 
     ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
@@ -1087,14 +1123,14 @@ echo number_format($total_excluded_increases, 2, '.', ',');
       <thead>
         <tr>
 
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
             <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-                  <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
 
-            </tr>
+        </tr>
 
       </thead>
 
@@ -1165,7 +1201,10 @@ echo number_format($total_excluded_increases, 2, '.', ',');
     if($_GET['end_type']=='6' && $_GET['calculate']=='1')
     {
 
-      $id=$_GET['emp_id'];
+        $id=$_GET['emp_id'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = '6' WHERE employee_id= '$id'", $localhost);
+
       mysql_select_db($database_localhost, $localhost);
     $query_employees2ss4 = "SELECT (SUM(emp_portion_le)) AS EMP_P, (SUM(inv_emp_portion_le)) AS EMP_P_INV, (SUM(co_portion_le)) AS CO_P, (SUM(inv_co_portion_le)) AS CO_P_INV FROM cp_transaction, cp_installment_period WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND employee_id='$id' AND cp_installment_period_closed='1'";
     $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
@@ -1486,6 +1525,10 @@ do {
 
     if($_GET['end_type']=='7' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = '7' WHERE employee_id= '$id'", $localhost);
 ?>
 
 								<?php
@@ -1507,6 +1550,10 @@ do {
 
       if($_GET['end_type']=='8' && $_GET['calculate']=='1')
       {
+
+          $id=$_GET['emp_id'];
+          mysql_select_db($database_localhost, $localhost);
+          mysql_query("UPDATE employee SET cp_active = '8' WHERE employee_id= '$id'", $localhost);
   ?>
   <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1517,12 +1564,12 @@ do {
 
         <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
         <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
 
-          </tr>
+      </tr>
 
     </thead>
 
@@ -1711,6 +1758,10 @@ do {
 
         if($_GET['end_type']=='9' && $_GET['calculate']=='1')
         {
+
+            $id=$_GET['emp_id'];
+            mysql_select_db($database_localhost, $localhost);
+            mysql_query("UPDATE employee SET cp_active = '9' WHERE employee_id= '$id'", $localhost);
     ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1795,6 +1846,10 @@ do {
 
     if($_GET['end_type']=='10' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = '10' WHERE employee_id= '$id'", $localhost);
 ?>
 <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1897,7 +1952,6 @@ do {
 
 
     <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="submit" class="btn dont_print_me"><?php echo $vForm1CP; ?></button>
-
 
     </form>
 
