@@ -429,8 +429,8 @@ if(!isset($_GET['id'])){
                                             <?php } while ($row_emp_career = mysqli_fetch_assoc($emp_career)); ?>
 
 
-
-                                            <tr>
+                                            <?php if ( !isset($_GET['end_type']) ){ ?>
+                                                <tr>
                                                 <td width="140" height="47"><div align="right" class="style87" dir="rtl">
                                                         <div align="right"></div>
                                                     </div></td>
@@ -472,7 +472,98 @@ if(!isset($_GET['id'])){
                                                 <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
                                             </tr>
 
-                                            <?php if($row_Recordset1['cp_active']!= 0){?>
+                                            <?php } ?>
+
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '1' ){ ?>
+                                            <tr>
+                                                <td width="140" height="47"><div align="right" class="style87" dir="rtl">
+                                                        <div align="right"></div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
+                                                        <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
+                                                                <?php  echo number_format($emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
+                                                            </b>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format(0, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format(0, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
+                                                        <div align="right" class="style87" dir="rtl">
+                                                            <div align="right">
+                                                                <div align="center" class="style86 style108" style="font-size:12px">
+                                                                    <div align="right"><strong>الاجمالي</strong></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
+                                            </tr>
+
+<?php } ?>
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '2' ){ ?>
+                                            <tr>
+                                                <td width="140" height="47"><div align="right" class="style87" dir="rtl">
+                                                        <div align="right"></div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
+                                                        <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
+                                                                <?php  echo number_format($emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
+                                                            </b>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format(0, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format(0, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
+                                                        <div align="right">
+                                                            <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
+                                                        <div align="right" class="style87" dir="rtl">
+                                                            <div align="right">
+                                                                <div align="center" class="style86 style108" style="font-size:12px">
+                                                                    <div align="right"><strong>الاجمالي</strong></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div></td>
+                                                <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
+                                            </tr>
+
+                                            <?php } ?>
+
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '5' ){ ?>
                                                 <tr>
                                                     <td width="140" height="47"><div align="right" class="style87" dir="rtl">
                                                             <div align="right"></div>
@@ -507,14 +598,148 @@ if(!isset($_GET['id'])){
                                                             <div align="right" class="style87" dir="rtl">
                                                                 <div align="right">
                                                                     <div align="center" class="style86 style108" style="font-size:12px">
-                                                                        <div align="right"><strong>التعويضات</strong></div>
+                                                                        <div align="right"><strong>الاجمالي</strong></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div></td>
                                                     <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
                                                 </tr>
-                                            <?php }?>
+
+                                            <?php } ?>
+
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '8' ){ ?>
+                                                <tr>
+                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
+                                                            <div align="right"></div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
+                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
+                                                                    <?php  echo number_format($emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
+                                                                </b>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format(0, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format(0, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format(0, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
+                                                            <div align="right" class="style87" dir="rtl">
+                                                                <div align="right">
+                                                                    <div align="center" class="style86 style108" style="font-size:12px">
+                                                                        <div align="right"><strong>الاجمالي</strong></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
+                                                </tr>
+
+                                            <?php } ?>
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '9' ){ ?>
+                                                <tr>
+                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
+                                                            <div align="right"></div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
+                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
+                                                                    <?php  echo number_format($inv_co_portion_le+$co_portion_le+$emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
+                                                                </b>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format($inv_co_portion_le, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format($co_portion_le, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
+                                                            <div align="right" class="style87" dir="rtl">
+                                                                <div align="right">
+                                                                    <div align="center" class="style86 style108" style="font-size:12px">
+                                                                        <div align="right"><strong>الاجمالي</strong></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
+                                                </tr>
+
+                                            <?php } ?>
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '10' ){ ?>
+                                                <tr>
+                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
+                                                            <div align="right"></div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
+                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
+                                                                    <?php  echo number_format($emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
+                                                                </b>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format(0, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format(0, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format(0, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
+                                                            <div align="right">
+                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
+                                                            <div align="right" class="style87" dir="rtl">
+                                                                <div align="right">
+                                                                    <div align="center" class="style86 style108" style="font-size:12px">
+                                                                        <div align="right"><strong>الاجمالي</strong></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div></td>
+                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
+                                                </tr>
+
+                                            <?php } ?>
 
                                         </table>
                                     </td>

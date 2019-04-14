@@ -453,6 +453,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
                         echo number_format($row_employees2ss['EMP_P']+$row_employees2ss['EMP_P_INV']+$row_employees2ss['CO_P']+$row_employees2ss['CO_P_INV'], 2, '.', ','); ?></td>
 
 
+
                       </tr>
 
 
@@ -471,11 +472,16 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     <?php if(isset($_GET['emp_id']) && isset($_GET['end_type']) && $_GET['end_date']<>"") { ?>
 
 
-    <a href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1">
+<a href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1">
   <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="button" class="btn dont_print_me"><?php echo $vCalculate; ?></button>
 </a>
 
+        <a href="../../reports/personal_account_detailed/index.php?report=1&id=<?php echo $_GET['emp_id']?>&end_type=<?php echo $_GET['end_type']?>" target="_blank">
+  <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="button" class="btn dont_print_me"><?php echo $vPersonalAccounts; ?></button>
+</a>
+
 <?php } ?>
+
 
 <?php
 
@@ -485,7 +491,35 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
     if($_GET['end_type']=='1' && $_GET['calculate']=='1')
     {
-?>
+
+        $id=$_GET['emp_id'];
+	    $endPeriod=date($_GET['end_date']);
+	    $year = date('Y', strtotime($endPeriod));
+	    $month = date('m', strtotime($endPeriod));
+
+
+	    //// calculate Period ////
+	    if ( $month < 7 ){
+		    $startPeriod=$year.'-01-01';
+		    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+	    }else {
+		    $startPeriod=$year.'-07-01';
+		    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+	    }
+	    $precPeriod = $Period/180;
+
+	    //select last cp_installment_period
+	    mysql_select_db($database_localhost, $localhost);
+	    $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+	    $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+	    //select last cp_transaction
+	    mysql_select_db($database_localhost, $localhost);
+	    $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+
+	    $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+	    $tolal_inv_emp_portion_le=$vEmployeePortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+	    ?>
 <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
 
@@ -493,14 +527,15 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
   <thead>
     <tr>
 
-      <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
-      <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
         <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vOtherDistrubtions; ?></th>
 
-        </tr>
+    </tr>
 
   </thead>
 
@@ -543,12 +578,19 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
         echo number_format($vTotalAllowedAmount, 2, '.', ',');
           ?>
         </td>
+
+          <td class="o_data_cell"><?php
+		      echo '+'.number_format($row_employees2['cp_other_payment'], 2, '.', ',');
+		      ?>
+          </td>
       </tr>
 
 
     </tbody>
     </table>
 
+
+        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew;?>
 
     <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
@@ -590,7 +632,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     </form>
 
 
-
+        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
   <?php
     }
     ///////////////////////////////////////////////
@@ -610,6 +652,34 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
         if($_GET['end_type']=='2' && $_GET['calculate']=='1')
         {
+
+	        $id=$_GET['emp_id'];
+	        $endPeriod=date($_GET['end_date']);
+	        $year = date('Y', strtotime($endPeriod));
+	        $month = date('m', strtotime($endPeriod));
+
+
+	        //// calculate Period ////
+	        if ( $month < 7 ){
+		        $startPeriod=$year.'-01-01';
+		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+	        }else {
+		        $startPeriod=$year.'-07-01';
+		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+	        }
+	        $precPeriod = $Period/180;
+
+	        //select last cp_installment_period
+	        mysql_select_db($database_localhost, $localhost);
+	        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+	        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+	        //select last cp_transaction
+	        mysql_select_db($database_localhost, $localhost);
+	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+
+	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+	        $tolal_inv_emp_portion_le=$vEmployeePortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
     ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -618,14 +688,16 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
       <thead>
         <tr>
 
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
             <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-                  <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vOtherDistrubtions; ?></th>
 
-            </tr>
+
+        </tr>
 
       </thead>
 
@@ -714,11 +786,18 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
             echo number_format($vTotalAllowedAmount*$vFactorCalculated, 2, '.', ',');
               ?>
             </td>
+
+              <td class="o_data_cell"><?php
+		          echo '+'.number_format($row_employees2['cp_other_payment'], 2, '.', ',');
+		          ?>
+              </td>
           </tr>
 
 
         </tbody>
         </table>
+
+            <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew;?>
 
         <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
@@ -759,6 +838,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
         </form>
 
+            <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
       <?php
         }
@@ -778,6 +858,9 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
     if($_GET['end_type']=='3' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
+
 ?>
 
 								<?php
@@ -801,6 +884,8 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
     if($_GET['end_type']=='4' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
 ?>
 
 <?php
@@ -936,7 +1021,7 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
 
 
-                          <table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
+<table class="o_list_view table table-sm table-hover table-striped o_list_view_ungrouped table-responsive-sm table-condensed">
 
                               <thead>
 <tr>
@@ -1050,6 +1135,7 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
 
 </form>
+        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 
 								<?php
@@ -1071,15 +1157,55 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
         if($_GET['end_type']=='5' && $_GET['calculate']=='1')
         {
+            $id=$_GET['emp_id'];
 
-          $id=$_GET['emp_id'];
           mysql_select_db($database_localhost, $localhost);
         $query_employees2ss4 = "SELECT (SUM(emp_portion_le)) AS EMP_P, (SUM(inv_emp_portion_le)) AS EMP_P_INV, (SUM(co_portion_le)) AS CO_P, (SUM(inv_co_portion_le)) AS CO_P_INV FROM cp_transaction, cp_installment_period WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND employee_id='$id' AND cp_installment_period_closed='1'";
         $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
         $row_employees2ss4 = mysql_fetch_assoc($employees2ss4);
         $totalRows_employees2ss4 = mysql_num_rows($employees2ss4);
 
-    ?>
+            /////////////////////////////////////////////
+            //// get the age at the end service date ////
+            //////////////////////////////////////////////
+
+            $endPeriod=date($_GET['end_date']);
+            $year = date('Y', strtotime($endPeriod));
+            $month = date('m', strtotime($endPeriod));
+
+
+            //// calculate Period ////
+            if ( $month < 7 ){
+                $startPeriod=$year.'-01-01';
+                $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+            }else {
+	            $startPeriod=$year.'-07-01';
+	            $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+            }
+	        $precPeriod = $Period/180;
+
+            //select last cp_installment_period
+	        mysql_select_db($database_localhost, $localhost);
+	        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+	        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+	        //select last cp_transaction
+	        mysql_select_db($database_localhost, $localhost);
+	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+	        $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+	        $tolal_inv_co_portion_le=$row_employees2ss4['CO_P_INV']+$last_inv_co_portion_le*($precPeriod-1);
+
+	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+	        $tolal_inv_emp_portion_le=$row_employees2ss4['EMP_P_INV']+$last_inv_emp_portion_le*($precPeriod-1);
+
+	        echo '<div style="display:none">';
+	        echo $tolal_inv_co_portion_le;
+	        echo '<br>';
+	        echo $tolal_inv_emp_portion_le;
+	        echo '<br>';
+	        echo $precPeriod;
+	        echo '</div>';
+	        ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
 
@@ -1087,14 +1213,15 @@ echo number_format($total_excluded_increases, 2, '.', ',');
       <thead>
         <tr>
 
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
             <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-                  <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vOtherDistrubtions; ?></th>
 
-            </tr>
+        </tr>
 
       </thead>
 
@@ -1138,12 +1265,19 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
             ?>
             </td>
+
+              <td class="o_data_cell"><?php
+		          echo '+'.number_format($row_employees2['cp_other_payment'], 2, '.', ',');
+		          ?>
+              </td>
+
           </tr>
 
 
         </tbody>
         </table>
 
+            <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
       <?php
         }
@@ -1159,13 +1293,14 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 								<?php
 
     /////////////////////////////////////////////////////////////////
-    //// case (6) : Reaching retirement		 ////
+        //// case (6) : Reaching retirement		 ////
     /////////////////////////////////////////////////////////////////
 
     if($_GET['end_type']=='6' && $_GET['calculate']=='1')
     {
 
-      $id=$_GET['emp_id'];
+        $id=$_GET['emp_id'];
+
       mysql_select_db($database_localhost, $localhost);
     $query_employees2ss4 = "SELECT (SUM(emp_portion_le)) AS EMP_P, (SUM(inv_emp_portion_le)) AS EMP_P_INV, (SUM(co_portion_le)) AS CO_P, (SUM(inv_co_portion_le)) AS CO_P_INV FROM cp_transaction, cp_installment_period WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND employee_id='$id' AND cp_installment_period_closed='1'";
     $employees2ss4 = mysql_query($query_employees2ss4, $localhost) or die(mysql_error());
@@ -1464,6 +1599,7 @@ do {
 
 
 </form>
+        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 								<?php
         }
@@ -1486,10 +1622,14 @@ do {
 
     if($_GET['end_type']=='7' && $_GET['calculate']=='1')
     {
+
+        $id=$_GET['emp_id'];
 ?>
+        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 								<?php
         }
+
         ////
         ///////////////////////////////////////////////
         //// end 7 Death after retirement			 /////////////////////////
@@ -1507,6 +1647,8 @@ do {
 
       if($_GET['end_type']=='8' && $_GET['calculate']=='1')
       {
+
+          $id=$_GET['emp_id'];
   ?>
   <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1517,12 +1659,12 @@ do {
 
         <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortion; ?></th>
         <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vEmployeePortionInv; ?></th>
-          <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
-            <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
-              <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
-                <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortion; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
+        <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
 
-          </tr>
+      </tr>
 
     </thead>
 
@@ -1572,6 +1714,8 @@ do {
 
       </tbody>
       </table>
+
+          <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+$vEmployeePortionInvNew;?>
 
       <?php
       $id=$_GET['emp_id'];
@@ -1694,6 +1838,7 @@ do {
 
 
               </form>
+          <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
     <?php
       }
@@ -1711,7 +1856,43 @@ do {
 
         if($_GET['end_type']=='9' && $_GET['calculate']=='1')
         {
-    ?>
+
+            $id=$_GET['emp_id'];
+	        /////////////////////////////////////////////
+	        //// get the age at the end service date ////
+	        //////////////////////////////////////////////
+
+	        $endPeriod=date($_GET['end_date']);
+	        $year = date('Y', strtotime($endPeriod));
+	        $month = date('m', strtotime($endPeriod));
+
+
+	        //// calculate Period ////
+	        if ( $month < 7 ){
+		        $startPeriod=$year.'-01-01';
+		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+	        }else {
+		        $startPeriod=$year.'-07-01';
+		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+	        }
+	        $precPeriod = $Period/180;
+
+	        //select last cp_installment_period
+	        mysql_select_db($database_localhost, $localhost);
+	        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+	        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+	        //select last cp_transaction
+	        mysql_select_db($database_localhost, $localhost);
+	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+	        $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+	        $tolal_inv_co_portion_le=$vEmployeePortionInvNew+$last_inv_co_portion_le*($precPeriod-1);
+
+	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+	        $tolal_inv_emp_portion_le=$vCompanyPortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+
+
+	        ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
 
@@ -1725,6 +1906,7 @@ do {
               <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vCoPortionInv; ?></th>
                 <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vFactor; ?></th>
                   <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vTotal; ?></th>
+                  <th class="o_column_sortable" <?php if($_SESSION['language']=='AR') { ?>style="text-align:right" <?php } ?>><?php echo $vOtherDistrubtions; ?></th>
 
             </tr>
 
@@ -1770,6 +1952,10 @@ do {
 
             ?>
             </td>
+            <td class="o_data_cell"><?php
+            echo '+'.number_format($row_employees2['cp_other_payment'], 2, '.', ',');
+            ?>
+            </td>
           </tr>
 
 
@@ -1777,6 +1963,8 @@ do {
         </table>
 
 
+
+            <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 
       <?php
@@ -1795,6 +1983,7 @@ do {
 
     if($_GET['end_type']=='10' && $_GET['calculate']=='1')
     {
+
 ?>
 <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1861,7 +2050,7 @@ do {
 
     </tbody>
     </table>
-
+        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+$vEmployeePortionInvNew;?>
     <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
     <?php $dddd=$personal_balance+$mandatory_period_amount; ?>
@@ -1898,9 +2087,9 @@ do {
 
     <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="submit" class="btn dont_print_me"><?php echo $vForm1CP; ?></button>
 
-
     </form>
 
+        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
   <?php
     }
@@ -1908,6 +2097,21 @@ do {
     //// end 10 TERMINATION  /////////////////////////
     //////////////////////////////////////////////
 	/////
+    if(isset( $_GET['end_type'] ) && $_GET['logout']=='1')
+    {
+
+        $id=$_GET['emp_id'];$end_type=$_GET['end_type'];
+        mysql_select_db($database_localhost, $localhost);
+        mysql_query("UPDATE employee SET cp_active = $end_type WHERE employee_id= '$id'", $localhost);
+        if (!empty($cp_other_payment)){
+            $total_active=mysql_fetch_assoc( mysql_query("SELECT count(emp_id) as no_active FROM employee WHERE cp_active= '0' ", $localhost) );
+            $prev_other_payment= mysql_fetch_assoc( mysql_query("SELECT cp_other_payment FROM employee WHERE employee_id= '$id' ", $localhost) );
+            $cp_other_payment=$cp_other_payment / $total_active['no_active'];
+            if (!empty($prev_other_payment['cp_other_payment'])){ $cp_other_payment=$cp_other_payment+$prev_other_payment['cp_other_payment']; }
+            mysql_query("UPDATE employee SET cp_other_payment = $cp_other_payment WHERE cp_active= '0' ", $localhost);
+            
+        }
+    }
   ?>
 
 </div>
