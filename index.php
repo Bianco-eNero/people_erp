@@ -54,6 +54,7 @@ $_SESSION['current_company_name_ar']=$row_current_user['organization_arabic'];
 $_SESSION['current_company_name_en']=$row_current_user['organization_english'];
 $_SESSION['system_admin']=$row_current_user['system_admin'];
 $_SESSION['company_admin']=$row_current_user['company_admin'];
+$_SESSION['medical_active']=$row_current_user['medical_active'];
 
 $var1=$row_current_user['organization1'];
 $var2=$row_current_user['organization_arabic'];

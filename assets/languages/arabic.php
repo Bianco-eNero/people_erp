@@ -2666,5 +2666,5 @@ $vTheValueOfTheReward='قيمة المكافأة';
 $vCommitmentSection='توريد الي صندوق ضمان الوفاء بالتزامات';
 $vMonthlyProductionBonus='منحة الإنتاج الشهرية';
 $vAnnualProductionBonus='منحة الإنتاج السنوية';
-
+$vHospitalTransfers='تحويل المستشفى';
 ?>

@@ -2353,4 +2353,6 @@ $vTheValueOfTheReward='The Value Of The Reward';
 $vCommitmentSection='Importing In Constancy commitments section';
 $vMonthlyProductionBonus='Monthly Production Bonus';
 $vAnnualProductionBonus='Annual Production Bonus';
+$vHospitalTransfers='Hospital Transfers';
+
 ?>

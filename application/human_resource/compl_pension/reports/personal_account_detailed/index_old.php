@@ -349,39 +349,7 @@ if(!isset($_GET['id'])){
 
                                             $counter='1';
 
-                                            //start data for end type
-                                            if (isset($_GET['end_type'])){
-
-                                                $id=$_GET['id'];
-
-                                                /////////////////////////////////////////////
-                                                //// get the age at the end service date ////
-                                                //////////////////////////////////////////////
-
-                                                $endPeriod=date($_GET['end_date']);
-                                                $year = date('Y', strtotime($endPeriod));
-                                                $month = date('m', strtotime($endPeriod));
-
-
-                                                //// calculate Period ////
-                                                if ( $month < 7 ){
-                                                    $startPeriod=$year.'-01-01';
-                                                    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-                                                }else {
-                                                    $startPeriod=$year.'-07-01';
-                                                    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-                                                }
-                                                $precPeriod = $Period/180;
-
-                                                //select last cp_installment_period
-                                                mysqli_select_db($website,$database_website );
-                                                $row_last_cp_installment = mysqli_fetch_assoc( $website->query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
-                                                $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
-
-                                            }
-                                            //end data for end type
-                                            do {?>
-
+                                            do { ?>
                                                 <tr>
                                                     <td width="140"><div align="right" class="style87" dir="rtl">
                                                             <div align="right">
@@ -416,12 +384,7 @@ if(!isset($_GET['id'])){
                                                         </div></td>
                                                     <td width="80"><div align="right" class="style87" dir="rtl">
                                                             <div align="right">
-                                                                <?php  if ($last_cp_installment==$row_emp_career['cp_installment_period_id']){
-                                                                    $row_emp_career['inv_co_portion_le']=$row_emp_career['inv_co_portion_le']*$precPeriod;
-                                                                    echo number_format($row_emp_career['inv_co_portion_le'], 2, '.', ',');
-                                                                }else {
-                                                                    echo number_format($row_emp_career['inv_co_portion_le'], 2, '.', ',');
-                                                                }?>
+                                                                <?php  echo number_format($row_emp_career['inv_co_portion_le'], 2, '.', ','); ?>
                                                             </div><?php $inv_co_portion_le= $inv_co_portion_le+$row_emp_career['inv_co_portion_le']; ?>
                                                         </div></td>
                                                     <td width="80"><div align="right" class="style87" dir="rtl">
@@ -431,14 +394,7 @@ if(!isset($_GET['id'])){
                                                         </div></td>
                                                     <td width="80"><div align="right" class="style87" dir="rtl">
                                                             <div align="right">
-                                                                <?php
-                                                                if ($last_cp_installment==$row_emp_career['cp_installment_period_id']){
-                                                                    $row_emp_career['inv_emp_portion_le']=$row_emp_career['inv_emp_portion_le']*$precPeriod;
-                                                                    echo number_format($row_emp_career['inv_emp_portion_le'], 2, '.', ',');
-                                                                }else {
-                                                                    echo number_format($row_emp_career['inv_emp_portion_le'], 2, '.', ',');
-                                                                }
-                                                                ?>
+                                                                <?php  echo number_format($row_emp_career['inv_emp_portion_le'], 2, '.', ','); ?>
                                                             </div><?php $inv_emp_portion_le= $inv_emp_portion_le+$row_emp_career['inv_emp_portion_le']; ?>
                                                         </div></td>
                                                     <td width="80"><div align="right" class="style87" dir="rtl">
@@ -456,6 +412,8 @@ if(!isset($_GET['id'])){
                                                             {
                                                                 echo number_format($next_start_balance-$row_emp_career['emp_portion_le']-$row_emp_career['inv_emp_portion_le']-$row_emp_career['co_portion_le']-$row_emp_career['inv_co_portion_le'], 2, '.', ',');
                                                             }
+
+
 
                                                             ?></div></td>
                                                     <td width="200"><div dir="rtl" align="right" class="style73"><span class="style5"><?php echo $row_emp_career['cp_installment_period_desc']; ?></span></div></td>
@@ -514,11 +472,46 @@ if(!isset($_GET['id'])){
                                                 <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
                                             </tr>
 
-                                            <?php } ?>
+                                            <?php }else{
 
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '1' ){
+                                                $id=$_GET['id'];
 
-                                                ?>
+                                                /////////////////////////////////////////////
+                                                //// get the age at the end service date ////
+                                                //////////////////////////////////////////////
+
+                                                $endPeriod=date($_GET['end_date']);
+                                                $year = date('Y', strtotime($endPeriod));
+                                                $month = date('m', strtotime($endPeriod));
+
+
+                                                //// calculate Period ////
+                                                if ( $month < 7 ){
+                                                    $startPeriod=$year.'-01-01';
+                                                    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+                                                }else {
+                                                    $startPeriod=$year.'-07-01';
+                                                    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+                                                }
+                                                $precPeriod = $Period/180;
+
+                                                //select last cp_installment_period
+                                                mysqli_select_db($website,$database_website );
+                                                $row_last_cp_installment = mysqli_fetch_assoc( $website->query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+                                                $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+                                                //select last cp_transaction
+                                                mysqli_select_db($website,$database_website );
+                                                $row_last_cp_transaction = mysqli_fetch_assoc( $website->query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+                                                $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+                                                $tolal_inv_co_portion_le=$inv_co_portion_le+$last_inv_co_portion_le*($precPeriod-1);
+
+                                                $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+                                                $tolal_inv_emp_portion_le=$inv_emp_portion_le+$last_inv_emp_portion_le*($precPeriod-1);
+
+                                            } ?>
+
+                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '1' ){ ?>
                                             <tr>
                                                 <td width="140" height="47"><div align="right" class="style87" dir="rtl">
                                                         <div align="right"></div>

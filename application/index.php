@@ -56,10 +56,12 @@ $use_bootstrap='0';
 	margin: auto;" <?php } else { ?>style="padding-left: 0px;
     padding-right: 0px;
 	margin: auto;" <?php } ?> >
-						<li><a href="<?php echo $server; ?>application/human_resource/" class="arabic"><img src="<?php echo $server; ?>assets/images/employees.png" /><br /><?php echo $vHumanResource; ?></a></li>
+                        <?php if($_SESSION['medical_active']==0) {?>
+                        <li><a href="<?php echo $server; ?>application/human_resource/" class="arabic"><img src="<?php echo $server; ?>assets/images/employees.png" /><br /><?php echo $vHumanResource; ?></a></li>
 						<li style="display: none"><a href="<?php echo $server; ?>application/safety/" class="arabic"><img src="<?php echo $server; ?>assets/images/helmet.png" /><br /><?php echo $vSafety; ?></a></li>
 						<li style="display: none"><a href="<?php echo $server; ?>application/my/" class="arabic"><img src="<?php echo $server; ?>assets/images/apps.png" /><br /><?php echo $v5adamaty; ?></a></li>
-						<?php
+                        <?php }?>
+                        <?php
                         if($_SESSION['system_admin']!=0) {?>
                             <li ><a href="<?php echo $server; ?>application/systemAdmin/" class="arabic"><img src="<?php echo $server; ?>assets/images/settings.png" /><br /><?php echo $vSystemAdmin; ?></a></li>
                         <?php }?>
@@ -67,7 +69,13 @@ $use_bootstrap='0';
                         <?php if($_SESSION['company_admin']!=0) {?>
                             <li ><a href="<?php echo $server; ?>application/companyAdmin/" class="arabic"><img src="<?php echo $server; ?>assets/images/settings.png" /><br /><?php echo $vCompanyAdmin; ?></a></li>
                         <?php }?>
-                        <li style="display:none"><a href="../discuss"><img src="<?php echo $server; ?>assets/images/discuss.png" /><br />Discuss</a></li>
+                        <?php if($_SESSION['medical_active']==1) {?>
+                            <li ><a href="<?php echo $server; ?>application/medical/clinicAdmin/" class="arabic"><img src="<?php echo $server; ?>assets/images/discuss.png" /><br /><?php echo $vMedicalSystem; ?></a></li>
+                        <?php }?>
+                        <?php if($_SESSION['medical_active']==2) {?>
+                            <li ><a href="<?php echo $server; ?>application/medical/doctor/" class="arabic"><img src="<?php echo $server; ?>assets/images/discuss.png" /><br /><?php echo $vMedicalSystem; ?></a></li>
+                        <?php }?>
+                        <li style="display:none"><a href="../discus"><img src="<?php echo $server; ?>assets/images/discuss.png" /><br />Discuss</a></li>
 						<li style="display:none"><a href="../apps"><img src="<?php echo $server; ?>assets/images/apps.png" /><br />Apps</a></li>
 						<li style="display:none"><a href="../settings"><img src="<?php echo $server; ?>assets/images/settings.png" /><br />Settings</a></li>
 					</ul>

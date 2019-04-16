@@ -476,7 +476,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
   <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="button" class="btn dont_print_me"><?php echo $vCalculate; ?></button>
 </a>
 
-        <a href="../../reports/personal_account_detailed/index.php?report=1&id=<?php echo $_GET['emp_id']?>&end_type=<?php echo $_GET['end_type']?>" target="_blank">
+        <a href="../../reports/personal_account_detailed/index.php?report=1&id=<?php echo $_GET['emp_id']?>&end_type=<?php echo $_GET['end_type']?>&end_date=<?php echo $_GET['end_date']?>" target="_blank">
   <button style="margin: 10px; font-size: 16px; background-color: orange; color: white" type="button" class="btn dont_print_me"><?php echo $vPersonalAccounts; ?></button>
 </a>
 
@@ -550,8 +550,8 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
         </td>
 
         <td class="o_data_cell"><?php
-        echo number_format($vEmployeePortionInvNew, 2, '.', ',');
-        $vEmpoPortionInv=$vEmployeePortionInvNew;
+        echo number_format($tolal_inv_emp_portion_le, 2, '.', ',');
+        $vEmpoPortionInv=$tolal_inv_emp_portion_le;
         ?>
         </td>
 
@@ -590,7 +590,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     </table>
 
 
-        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew;?>
+        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+($last_inv_emp_portion_le-$tolal_inv_emp_portion_le);?>
 
     <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
@@ -712,8 +712,8 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($vEmployeePortionInvNew, 2, '.', ',');
-            $vEmpoPortionInv=$vEmployeePortionInvNew;
+            echo number_format($tolal_inv_emp_portion_le, 2, '.', ',');
+            $vEmpoPortionInv=$tolal_inv_emp_portion_le;
             ?>
             </td>
 
@@ -797,7 +797,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
         </tbody>
         </table>
 
-            <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew;?>
+            <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+($last_inv_emp_portion_le-$tolal_inv_emp_portion_le);?>
 
         <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
@@ -1197,14 +1197,6 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
 	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
 	        $tolal_inv_emp_portion_le=$row_employees2ss4['EMP_P_INV']+$last_inv_emp_portion_le*($precPeriod-1);
-
-	        echo '<div style="display:none">';
-	        echo $tolal_inv_co_portion_le;
-	        echo '<br>';
-	        echo $tolal_inv_emp_portion_le;
-	        echo '<br>';
-	        echo $precPeriod;
-	        echo '</div>';
 	        ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1236,8 +1228,8 @@ echo number_format($total_excluded_increases, 2, '.', ',');
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($row_employees2ss4['EMP_P_INV'], 2, '.', ',');
-            $vEmpoPortionInv=$row_employees2ss4['EMP_P_INV'];
+            echo number_format($tolal_inv_emp_portion_le, 2, '.', ',');
+            $vEmpoPortionInv=$tolal_inv_emp_portion_le;
             ?>
             </td>
 
@@ -1248,8 +1240,8 @@ echo number_format($total_excluded_increases, 2, '.', ',');
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($row_employees2ss4['CO_P_INV'], 2, '.', ',');
-            $vCompPortionInv=$row_employees2ss4['CO_P_INV'];
+            echo number_format($tolal_inv_co_portion_le, 2, '.', ',');
+            $vCompPortionInv=$tolal_inv_co_portion_le;
             ?>
             </td>
 
@@ -1278,7 +1270,7 @@ echo number_format($total_excluded_increases, 2, '.', ',');
         </table>
 
             <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
-
+            <?php $cp_other_payment=($row_employees2ss4['CO_P_INV']-$tolal_inv_co_portion_le)+($row_employees2ss4['EMP_P_INV']-$tolal_inv_emp_portion_le);?>
       <?php
         }
             ///////////////////////////////////////////////
@@ -1923,8 +1915,8 @@ do {
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($vEmployeePortionInvNew, 2, '.', ',');
-            $vEmpoPortionInv=$vEmployeePortionInvNew;
+            echo number_format($tolal_inv_co_portion_le, 2, '.', ',');
+            $vEmpoPortionInv=$tolal_inv_co_portion_le;
             ?>
             </td>
 
@@ -1935,8 +1927,8 @@ do {
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($vCompanyPortionInvNew, 2, '.', ',');
-            $vCompPortionInv=$vCompanyPortionInvNew;
+            echo number_format($tolal_inv_emp_portion_le, 2, '.', ',');
+            $vCompPortionInv=$tolal_inv_emp_portion_le;
             ?>
             </td>
 
@@ -1965,7 +1957,8 @@ do {
 
 
             <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
-
+            <?php $cp_other_payment=($vEmployeePortionInvNew-$tolal_inv_co_portion_le)+($vCompanyPortionInvNew-$tolal_inv_emp_portion_le);
+            ?>
 
       <?php
         }

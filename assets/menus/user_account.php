@@ -44,11 +44,9 @@
 
 					  </ul>
 
-
-
-
-
 </section>
+
+
 <section style="<?php if($_SESSION['language']=='AR') { ?> float: left <?php } else { ?>float: right <?php } ?>; margin-top:10px">
 	<form method="get" action="<?php echo $server; ?>application/go/">
         <?php
@@ -76,6 +74,50 @@
 
 
 	</form>
+
+    <div class="feedback-btn" title="<?php echo $vBack;?>"  onclick="window.history.back()">
+        <i class="feedback-txt fas <?php if( !isset($smart)&& $smart!=1 || $_SESSION['language']=='EN' ){echo 'fa-angle-left';}else{echo 'fa-angle-right';}?> fa-4x"></i>
+        <style>
+            .feedback-btn {
+                position: fixed;
+                z-index: 1;
+                background: #875A7B;
+                top: 45%;
+                left: 0;
+                border-right: 2px solid #fff;
+                border-top: 2px solid #fff;
+                border-bottom: 2px solid #fff;
+                box-shadow: 1px 1px 3px #000;
+                border-top-right-radius: 12px;
+                border-bottom-right-radius: 12px;
+                cursor: pointer;
+                transition: 0.2s ease-out;
+                font-size: 10px;
+            }
+
+            .feedback-btn:hover {
+                width: 50px;
+            }
+
+            .feedback-txt {
+                color: #fff;
+                left: 0;
+            }
+
+            .feedback-btn:hover .feedback-txt {
+            <?php if($_SESSION['language']=='AR'){
+               echo 'margin: 0 18px;';
+
+            }else{
+
+                echo' margin: 0 10px; ';
+             }
+            ?>
+            }
+        </style>
+    </div>
+
+
 </section>
 
 </div>
