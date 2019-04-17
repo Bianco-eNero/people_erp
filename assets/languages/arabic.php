@@ -2667,4 +2667,16 @@ $vCommitmentSection='توريد الي صندوق ضمان الوفاء بالت
 $vMonthlyProductionBonus='منحة الإنتاج الشهرية';
 $vAnnualProductionBonus='منحة الإنتاج السنوية';
 $vHospitalTransfers='تحويل المستشفى';
+//me5a
+$vPatient='المريض';
+$vFileNo='رقم الملف';
+$vChronicDiseace='مرض مزمن';
+$vPreMeasurements='القياسات السابقة';
+$vPressure='الضغط';
+$vTemperature='درجة الحرارة';
+$vPulseRate='معدل النبض';
+$vWeight='وزن';
+$vLength='الطول';
+$vSugar='السكر';
+$vMeasurement='قياسات';
 ?>

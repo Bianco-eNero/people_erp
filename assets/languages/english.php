@@ -1982,9 +1982,9 @@ $vComPen='Complementary Pension';
 $vPersonalAccounts='Personal Accounts';
 $vFiles='Files';
 $vPayments='Payments';;
-  $vSelectBenefit='Select Benefit';
+$vSelectBenefit='Select Benefit';
 $vPersonalData2='Personal Data';
-  $vBenefitItems='Benefits Items';
+$vBenefitItems='Benefits Items';
 $vNewMessages='New Messages';
 
 $vOptions='Options';
@@ -2354,5 +2354,18 @@ $vCommitmentSection='Importing In Constancy commitments section';
 $vMonthlyProductionBonus='Monthly Production Bonus';
 $vAnnualProductionBonus='Annual Production Bonus';
 $vHospitalTransfers='Hospital Transfers';
+//me5a
+$vPatient='Patient';
+$vFileNo='File No';
+$vChronicDiseace='Chronic Diseace';
+$vPreMeasurements='Pre-measurements';
+$vPressure='Pressure';
+$vTemperature='Temperature';
+$vWeight='Weight';
+$vLength='Length';
+$vSugar='Sugar';
+$vPulseRate='Pulse Rate';
+$vMeasurement='Measurement';
+
 
 ?>
