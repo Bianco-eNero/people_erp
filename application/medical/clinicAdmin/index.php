@@ -37,6 +37,9 @@ $use_bootstrap='1';
 
     <style>
         *{font-weight: 100}
+        .pagination>.active>a{color:#000;}
+        .pagination>.active>a:hover,.pagination>.active>a:active,.pagination>.active>a:focus{color:#875a7b;}
+        .dataTables_info{display: none}
     </style>
 </head>
 <body style="height:100%" <?php if($_SESSION['language']=='AR') { ?>class="smart-rtl" <?php } ?>>
@@ -220,17 +223,18 @@ $use_bootstrap='1';
                                 </div>
                             </fieldset>
                         </form>
-                        <br>
+                        <hr>
+                        <h4 style="color: #875a7b;"><?php echo $vOnHoldCases;?></h4>
                         <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
                             <thead>
                             <tr>
                                 <th data-hide="phone">#</th>
-                                <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> <?php echo $vCode;?></th>
-                                <th data-hide="phone"><i class="fa fa-fw fa-phone text-muted hidden-md hidden-sm hidden-xs"></i> <?php echo $vName;?></th>
-                                <th><?php echo $vClinic;?></th>
-                                <th data-hide="phone,tablet"><i class="fa fa-fw fa-map-marker txt-color-blue hidden-md hidden-sm hidden-xs"></i> <?php echo $vDoctors;?></th>
+                                <th data-class="expand"><?php echo $vCode;?></th>
+                                <th><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> <?php echo $vName;?></th>
+                                <th data-hide="phone,tablet"><?php echo $vClinic;?></th>
+                                <th data-hide="phone,tablet"><?php echo $vDoctors;?></th>
                                 <th data-hide="phone,tablet"><?php echo $vMeasurement;?></th>
-                                <th data-hide="phone,tablet"><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i> <?php echo $vFiles;?></th>
+                                <th data-hide="phone,tablet"><?php echo $vFiles;?></th>
                             </tr>
                             </thead>
                             <tbody>

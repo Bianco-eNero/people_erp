@@ -1,19 +1,19 @@
 <?php
 //// include config script ////
-include('../../../assets/config.php');
+include('../../../../assets/config.php');
 //// end of config script ////
 
 //// Include Language ////
-include('../../../assets/languages/language_switch.php');
+include('../../../../assets/languages/language_switch.php');
 
 if ($_SESSION['language']=='AR')
 {
-    include ('../../../assets/languages/arabic.php');
+    include ('../../../../assets/languages/arabic.php');
 }
 
 if ($_SESSION['language']=='EN')
 {
-    include ('../../../assets/languages/english.php');
+    include ('../../../../assets/languages/english.php');
 }
 //// End Language ////
 
@@ -29,8 +29,8 @@ $use_bootstrap='1';
 <head>
     <?php
     //// include header script ////
-    include('../../../assets/header.php');
-    include('../../../assets/header_smart.php');
+    include('../../../../assets/header.php');
+    include('../../../../assets/header_smart.php');
     //// end of header script ////
     ?>
 
@@ -54,7 +54,7 @@ $use_bootstrap='1';
             <ul>
                 <?php
                 //// include compl pnsion header ////
-                include('../../../assets/menus/header/medical.php')
+                include('../../../../assets/menus/header/medical.php')
                 ?>
             </ul>
         </nav>
@@ -62,7 +62,7 @@ $use_bootstrap='1';
             <ul>
                 <?php
                 $select_company=0;$smart=1;
-                include('../../../assets/menus/user_account.php');
+                include('../../../../assets/menus/user_account.php');
                 ?>
             </ul>
         </section>
@@ -73,7 +73,7 @@ $use_bootstrap='1';
         <section class="control">
             <section class="action">
                 <h1><?php echo $vHome; ?></h1>
-                <form method="post" action="../../../application/human_resource/compl_pension/create" style="display:none">
+                <form method="post" action="../../../../application/human_resource/compl_pension/create" style="display:none">
                     <fieldset>
                         <input type="submit" name="create" id="create" value="CREATE" class="focus" />
                         <input type="submit" name="import" id="import" value="IMPORT" class="no-focus" />
@@ -109,7 +109,7 @@ $use_bootstrap='1';
             </section>
 
         </section>
-        <section class="body" style="height:100% ; padding: 10px 40px ;">
+        <section class="body" style="height:100%">
 
 
 
@@ -117,48 +117,13 @@ $use_bootstrap='1';
             <section>
                 <div class="container_">
                     <!-- Start Content -->
-               <div id="content">
-                <form class="row" method="get" action="index.php" >
-                    <fieldset class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="select-1"><?php echo $vClinic ?></label>
-                        <div class="col-md-6">
-                            <select class="form-control" id="select-1">
-                                <option>Amsterdam</option>
-                                <option>Atlanta</option>
-                                <option>Baltimore</option>
-                                <option>Boston</option>
-                                <option>Buenos Aires</option>
-                            </select>
 
-                        </div>
-                    </div>
-                    </fieldset>
-                </form>
-                    <fieldset class="col-md-6" style="border: 1px solid;">
-                    <legend style="color: #875A7B;"><h1> <?php echo $vMedicalCases ;?>()</h1></legend>
-                    <div class="row">
-                        <h5 class="col-md-6"> <?php echo $vVisitTime ?> <span> :352 </span></h5>
-                        <h5 class="col-md-6"> <?php echo $vPatientCode ?> <span> :352 </span></h5>
-                    </div>
-                    <div class="row">
-                        <h5 class="col-md-6"> <?php echo $vPatientName ?> <span> :352 </span></h5>
-                        <h5 class="col-md-6"> <?php echo $vPatientType ?> <span> :352 </span></h5>
-                    </div>
-                    <div class="row">
-                        <h5 class="col-md-6"> <?php echo $vUploadedDocuments ?> <span> :352 </span></h5>
-                    </div>
-                    </fieldset>
-<div class="row">
-                   <div class="col-md-6">
-                       <button  class="col-md-2" style="background-color: #993366; color: white; padding: 5px ; margin: 5px;" class="col-md"><?php echo $vExamination ?> </button>
-                   </div>
-</div>
+
 
                     <!-- End Content -->
                     <br><br><br><br><br><br><br><br><br>
-               </div>
-            </div>
+
+                </div>
 
             </section>
 
@@ -166,7 +131,7 @@ $use_bootstrap='1';
     </main>
 </section>
 <?php
-include('../../../assets/footer_smart.php');
+include('../../../../assets/footer_smart.php');
 ?>
 </body>
 </html>

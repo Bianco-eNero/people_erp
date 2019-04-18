@@ -2679,4 +2679,15 @@ $vWeight='وزن';
 $vLength='الطول';
 $vSugar='السكر';
 $vMeasurement='قياسات';
+$vOnHoldCases='في حالات الانتظار';
+//joe
+$vClinic='عيادة';
+$vVisitTime = 'وقت الزيارة';
+$vPatientCode = 'كود المريض';
+$vPatientName = 'اسم المريض';
+$vPatientType = 'نوع المريض';
+$vUploadedDocuments = 'المستندات المحملة';
+$vExamination = 'فحص';
+
+
 ?>

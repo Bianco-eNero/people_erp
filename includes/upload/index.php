@@ -18,15 +18,16 @@ if ($_SESSION['language']=='EN')
 //// End Language ////
 
 $use_bootstrap='1';
-if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['table'])&& isset($_GET['field'])&& isset($_GET['id_field'])) {
-    $_SESSION['record_id'] = $_GET['record_id'];
-    $_SESSION['control_id'] = $_GET['control_id'];
-    $_SESSION['object_id'] = $_GET['object_id'];
-    $_SESSION['table'] = $_GET['table'];
-    $_SESSION['field'] = $_GET['field'];
-    $_SESSION['id_field'] = $_GET['id_field'];
-}
-
+/*
+    if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['table'])&& isset($_GET['field'])&& isset($_GET['id_field'])) {
+        $_SESSION['record_id'] = $_GET['record_id'];
+        $_SESSION['control_id'] = $_GET['control_id'];
+        $_SESSION['object_id'] = $_GET['object_id'];
+        $_SESSION['table'] = $_GET['table'];
+        $_SESSION['field'] = $_GET['field'];
+        $_SESSION['id_field'] = $_GET['id_field'];
+    }
+*/
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +84,16 @@ if ( isset($_GET['control_id']) && isset($_GET['object_id']) && isset($_GET['tab
                         <!-- widget content -->
                         <div class="widget-body">
 
-                            <form action="upload.php" class="dropzone" id="mydropzone"></form>
+                            <form action="upload.php" class="dropzone" id="mydropzone">
+                                <input name="table" value="<?php echo $_GET['table'];?>" type="hidden">
+                                <input name="record_id" value="<?php echo $_GET['record_id'];?>" type="hidden">
+                                <input name="control_id" value="<?php echo $_GET['control_id'];?>" type="hidden">
+                                <input name="object_id" value="<?php echo $_GET['object_id'];?>" type="hidden">
+                                <input name="field" value="<?php echo $_GET['field'];?>" type="hidden">
+                                <input name="id_field" value="<?php echo $_GET['id_field'];?>" type="hidden">
+                                
+
+                            </form>
 
                         </div>
                         <!-- end widget content -->
