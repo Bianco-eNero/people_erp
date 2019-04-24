@@ -632,7 +632,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     </form>
 
 
-        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+        <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
   <?php
     }
     ///////////////////////////////////////////////
@@ -838,7 +838,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
 
         </form>
 
-            <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+            <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
       <?php
         }
@@ -1135,7 +1135,7 @@ echo number_format($total_excluded_increases, 2, '.', ',');
 
 
 </form>
-        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+        <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 
 								<?php
@@ -1269,7 +1269,7 @@ echo number_format($total_excluded_increases, 2, '.', ',');
         </tbody>
         </table>
 
-            <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+            <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
             <?php $cp_other_payment=($row_employees2ss4['CO_P_INV']-$tolal_inv_co_portion_le)+($row_employees2ss4['EMP_P_INV']-$tolal_inv_emp_portion_le);?>
       <?php
         }
@@ -1591,7 +1591,7 @@ do {
 
 
 </form>
-        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+        <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 								<?php
         }
@@ -1617,7 +1617,7 @@ do {
 
         $id=$_GET['emp_id'];
 ?>
-        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+        <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
 								<?php
         }
@@ -1830,7 +1830,7 @@ do {
 
 
               </form>
-          <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+          <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
     <?php
       }
@@ -1956,7 +1956,7 @@ do {
 
 
 
-            <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+            <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
             <?php $cp_other_payment=($vEmployeePortionInvNew-$tolal_inv_co_portion_le)+($vCompanyPortionInvNew-$tolal_inv_emp_portion_le);
             ?>
 
@@ -2082,7 +2082,7 @@ do {
 
     </form>
 
-        <a class="btn btn-danger" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
+        <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
 
   <?php
     }
@@ -2090,22 +2090,22 @@ do {
     //// end 10 TERMINATION  /////////////////////////
     //////////////////////////////////////////////
 	/////
-    if(isset( $_GET['end_type'] ) && $_GET['logout']=='1')
-    {
 
-        $id=$_GET['emp_id'];$end_type=$_GET['end_type'];
-        mysql_select_db($database_localhost, $localhost);
-        mysql_query("UPDATE employee SET cp_active = $end_type WHERE employee_id= '$id'", $localhost);
-        if (!empty($cp_other_payment)){
-            $total_active=mysql_fetch_assoc( mysql_query("SELECT count(emp_id) as no_active FROM employee WHERE cp_active= '0' ", $localhost) );
-            $prev_other_payment= mysql_fetch_assoc( mysql_query("SELECT cp_other_payment FROM employee WHERE employee_id= '$id' ", $localhost) );
-            $cp_other_payment=$cp_other_payment / $total_active['no_active'];
-            if (!empty($prev_other_payment['cp_other_payment'])){ $cp_other_payment=$cp_other_payment+$prev_other_payment['cp_other_payment']; }
-            mysql_query("UPDATE employee SET cp_other_payment = $cp_other_payment WHERE cp_active= '0' ", $localhost);
-            
-        }
-    }
   ?>
+						<?php if( $_GET['logout']=='1' ){
+							$id=$_GET['emp_id'];$end_type=$_GET['end_type'];$end_date=$_GET['end_date'];
+							mysql_select_db($database_localhost, $localhost);
+							mysql_query("UPDATE employee SET cp_active = '$end_type' , cp_end_date = '$end_date' WHERE employee_id= '$id'", $localhost);
+							if (!empty($cp_other_payment)){
+								$total_active=mysql_fetch_assoc( mysql_query("SELECT count(emp_id) as no_active FROM employee WHERE cp_active= '0' ", $localhost) );
+								$prev_other_payment= mysql_fetch_assoc( mysql_query("SELECT cp_other_payment FROM employee WHERE employee_id= '$id' ", $localhost) );
+								$cp_other_payment=$cp_other_payment / $total_active['no_active'];
+								if (!empty($prev_other_payment['cp_other_payment'])){ $cp_other_payment=$cp_other_payment+$prev_other_payment['cp_other_payment']; }
+								mysql_query("UPDATE employee SET cp_other_payment = $cp_other_payment WHERE cp_active= '0' ", $localhost);
+
+							}
+						}
+						?>
 
 </div>
 
@@ -2120,6 +2120,7 @@ do {
 		</section>
 
 <?php } ?>
+
 
 	</body>
 </html>

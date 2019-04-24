@@ -2688,6 +2688,8 @@ $vPatientName = 'اسم المريض';
 $vPatientType = 'نوع المريض';
 $vUploadedDocuments = 'المستندات المحملة';
 $vExamination = 'فحص';
-
-
+$vDiagnose = 'تشخيص';
+$vScan = 'اّشاعة';
+$vLab = 'تحليل';
+$vRemarks = 'ملاحظات';
 ?>

@@ -29,15 +29,36 @@ $use_bootstrap='1';
 <head>
     <?php
     //// include header script ////
-    include('../../../../assets/header.php');
     include('../../../../assets/header_smart.php');
 
     //// end of header script ////
     ?>
 
-
     <style>
+        @media print {
 
+            .tet2{
+
+                width: 40%;
+                display: inline-block;
+                overflow: hidden;
+
+            }
+            .tet{
+                width: 40%;
+                display: inline-block;
+                overflow: hidden;
+
+
+            }
+            .col-md-7{
+                overflow: hidden;
+                display: inline-block;
+                width: 10%;
+                float: right;
+            }
+
+        }
         *{font-weight: 100}
         .table thead tr th{background-color: #ccc;}
     </style>
@@ -62,11 +83,11 @@ $use_bootstrap='1';
                             <div class="col-md-2">
                                 <img src="<?php echo $server; ?>assets/images/logos/<?php echo $row_current_company['photo']; ?>" width="129" height="84" alt="">
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-5 tet2">
                                 <div class="col-md-5"><h4><?php echo 'Clinic Name:';?></h4></div><div class="col-md-7"><p><?php echo 'test';?></p></div>
                                 <div class="col-md-5"><h4><?php echo 'Employee ID:';?></h4></div><div class="col-md-7"><p><?php echo 'test';?></p></div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-5 tet">
                                 <div class="col-md-5"><h4><?php echo 'Date:';?></h4></div><div class="col-md-7"><p><?php echo 'test';?></p></div>
                                 <div class="col-md-5"><h4><?php echo 'Dr.';?></h4></div><div class="col-md-7"><p><?php echo 'name';?></p></div>
                                 <div class="col-md-5"><h4><?php echo 'Invoice No:';?></h4></div><div class="col-md-7"><p><?php echo 'test';?></p></div>

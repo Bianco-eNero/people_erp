@@ -257,7 +257,7 @@ if(!isset($_GET['id'])){
                                             $pi=$row_Recordset1['employee_id'];
 
                                             mysqli_select_db($website,$database_website );
-                                            $query_emp_career = "SELECT * FROM cp_transaction, cp_installment_period  WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND (cp_transaction.emp_portion_le+cp_transaction.co_portion_le) >'0' AND cp_transaction.employee_id='$pi' ORDER BY cp_installment_period.cp_installment_period_id";
+                                            $query_emp_career = "SELECT * FROM cp_transaction, cp_installment_period  WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND (cp_transaction.emp_portion_le+cp_transaction.co_portion_le) <> '0' AND cp_transaction.employee_id='$pi' ORDER BY cp_installment_period.cp_installment_period_id";
                                             $emp_career = $website->query($query_emp_career);
                                             $row_emp_career = mysqli_fetch_assoc($emp_career);
 
@@ -341,7 +341,7 @@ if(!isset($_GET['id'])){
                                             $pi=$row_Recordset1['employee_id'];
 
                                             mysqli_select_db($website,$database_website );
-                                            $query_emp_career = "SELECT * FROM cp_transaction, cp_installment_period  WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND (cp_transaction.emp_portion_le+cp_transaction.co_portion_le) >'0' AND cp_transaction.employee_id='$pi' ORDER BY cp_installment_period.cp_installment_period_id";
+                                            $query_emp_career = "SELECT * FROM cp_transaction, cp_installment_period  WHERE cp_installment_period.cp_installment_period_id=cp_transaction.cp_installment_period_id AND (cp_transaction.emp_portion_le+cp_transaction.co_portion_le) <> '0' AND cp_transaction.employee_id='$pi' ORDER BY cp_installment_period.cp_installment_period_id";
                                             $emp_career = $website->query($query_emp_career);
                                             $row_emp_career = mysqli_fetch_assoc($emp_career);
 
@@ -469,10 +469,7 @@ if(!isset($_GET['id'])){
 
 
                                             <?php } while ($row_emp_career = mysqli_fetch_assoc($emp_career)); ?>
-
-
-                                            <?php if ( !isset($_GET['end_type']) ){ ?>
-                                                <tr>
+                                             <tr>
                                                 <td width="140" height="47"><div align="right" class="style87" dir="rtl">
                                                         <div align="right"></div>
                                                     </div></td>
@@ -513,277 +510,136 @@ if(!isset($_GET['id'])){
                                                     </div></td>
                                                 <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
                                             </tr>
+                                <?php if ($row_Recordset1['cp_active'] != 0){
+                                    if ($row_Recordset1['cp_active']==1){
 
-                                            <?php } ?>
+                                        $khrogMnElnzam='فصل لسبب غير تأديبي';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=(-1)*$inv_emp_portion_le;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
 
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '1' ){
+                                    }elseif ($row_Recordset1['cp_active']==2){
 
-                                                ?>
-                                            <tr>
-                                                <td width="140" height="47"><div align="right" class="style87" dir="rtl">
-                                                        <div align="right"></div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
-                                                        <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
-                                                                <?php  echo number_format($emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
-                                                            </b>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format(0, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format(0, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
-                                                        <div align="right" class="style87" dir="rtl">
-                                                            <div align="right">
-                                                                <div align="center" class="style86 style108" style="font-size:12px">
-                                                                    <div align="right"><strong>الاجمالي</strong></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
-                                            </tr>
+                                        $khrogMnElnzam='استقالة';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=(-1)*$inv_emp_portion_le;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
 
-<?php } ?>
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '2' ){ ?>
-                                            <tr>
-                                                <td width="140" height="47"><div align="right" class="style87" dir="rtl">
-                                                        <div align="right"></div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
-                                                        <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
-                                                                <?php  echo number_format($emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
-                                                            </b>
+                                    }elseif ($row_Recordset1['cp_active']==3){
+
+	                                    $khrogMnElnzam='معاش مبكر';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=0;
+	                                    $emp_portion_le=0;
+
+                                    }elseif ($row_Recordset1['cp_active']==4){
+
+	                                    $khrogMnElnzam='وفاة أثناء الخدمة';
+	                                    $inv_co_portion_le=(-1)*$inv_co_portion_le;
+	                                    $co_portion_le=(-1)*$co_portion_le;
+	                                    $inv_emp_portion_le=(-1)*$inv_emp_portion_le;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
+
+                                    }elseif ($row_Recordset1['cp_active']==5){
+
+	                                    $khrogMnElnzam='عجز كلى';
+	                                    $inv_co_portion_le=(-1)*$inv_co_portion_le;
+	                                    $co_portion_le=(-1)*$co_portion_le;
+	                                    $inv_emp_portion_le=(-1)*$inv_emp_portion_le;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
+
+                                    }elseif ($row_Recordset1['cp_active']==6){
+
+	                                    $khrogMnElnzam='بلوغ سن التقاعد';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=0;
+	                                    $emp_portion_le=0;
+
+                                    }elseif ($row_Recordset1['cp_active']==7){
+
+	                                    $khrogMnElnzam='وفاة بعد انتهاء الخدمة';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=0;
+	                                    $emp_portion_le=0;
+
+                                    }elseif ($row_Recordset1['cp_active']==8){
+
+	                                    $khrogMnElnzam='الانسحاب من النظام';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=0;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
+
+
+                                    }elseif ($row_Recordset1['cp_active']==9){
+
+	                                    $khrogMnElnzam='النقل';
+	                                    $inv_co_portion_le=(-1)*$inv_co_portion_le;
+	                                    $co_portion_le=(-1)*$co_portion_le;
+	                                    $inv_emp_portion_le=(-1)*$inv_emp_portion_le;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
+
+                                    }elseif ($row_Recordset1['cp_active']==10){
+
+	                                    $khrogMnElnzam='فصل لسبب تأديبي';
+	                                    $inv_co_portion_le=0;
+	                                    $co_portion_le=0;
+	                                    $inv_emp_portion_le=0;
+	                                    $emp_portion_le=(-1)*$emp_portion_le;
+
+                                    }
+
+                                    ?>
+                                    <tr>
+                                        <td width="140" height="47"><div align="right" class="style87" dir="rtl">
+                                                <div align="right"></div>
+                                            </div></td>
+                                        <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
+                                                <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
+                                                        <?php  echo number_format($inv_co_portion_le+$co_portion_le+$emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
+                                                    </b>
+                                                </div>
+                                            </div></td>
+                                        <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
+                                                <div align="right">
+                                                    <?php  echo number_format($inv_co_portion_le, 2, '.', ','); ?>
+                                                </div>
+                                            </div></td>
+                                        <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
+                                                <div align="right">
+                                                    <?php  echo number_format($co_portion_le, 2, '.', ','); ?>
+                                                </div>
+                                            </div></td>
+                                        <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
+                                                <div align="right">
+                                                    <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
+                                                </div>
+                                            </div></td>
+                                        <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
+                                                <div align="right">
+                                                    <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
+                                                </div>
+                                            </div></td>
+                                        <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
+                                                <div align="right" class="style87" dir="rtl">
+                                                    <div align="right">
+                                                        <div align="center" class="style86 style108" style="font-size:12px">
+                                                            <div align="right">
+                                                                <strong><?php echo $khrogMnElnzam;?></strong>
+                                                                <small style="display: block"><?php echo $row_Recordset1['cp_end_date'];?></small>
+                                                            </div>
                                                         </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format(0, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format(0, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
-                                                        <div align="right">
-                                                            <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
-                                                        <div align="right" class="style87" dir="rtl">
-                                                            <div align="right">
-                                                                <div align="center" class="style86 style108" style="font-size:12px">
-                                                                    <div align="right"><strong>الاجمالي</strong></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div></td>
-                                                <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
-                                            </tr>
-
-                                            <?php } ?>
-
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '5' ){ ?>
-                                                <tr>
-                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right"></div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
-                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
-                                                                    <?php  echo number_format($inv_co_portion_le+$co_portion_le+$emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
-                                                                </b>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($inv_co_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($co_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right" class="style87" dir="rtl">
-                                                                <div align="right">
-                                                                    <div align="center" class="style86 style108" style="font-size:12px">
-                                                                        <div align="right"><strong>الاجمالي</strong></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
-                                                </tr>
-
-                                            <?php } ?>
-
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '8' ){ ?>
-                                                <tr>
-                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right"></div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
-                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
-                                                                    <?php  echo number_format($emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
-                                                                </b>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format(0, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format(0, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format(0, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right" class="style87" dir="rtl">
-                                                                <div align="right">
-                                                                    <div align="center" class="style86 style108" style="font-size:12px">
-                                                                        <div align="right"><strong>الاجمالي</strong></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
-                                                </tr>
-
-                                            <?php } ?>
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '9' ){ ?>
-                                                <tr>
-                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right"></div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
-                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
-                                                                    <?php  echo number_format($inv_co_portion_le+$co_portion_le+$emp_portion_le+$inv_emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
-                                                                </b>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($inv_co_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($co_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($inv_emp_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right" class="style87" dir="rtl">
-                                                                <div align="right">
-                                                                    <div align="center" class="style86 style108" style="font-size:12px">
-                                                                        <div align="right"><strong>الاجمالي</strong></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
-                                                </tr>
-
-                                            <?php } ?>
-                                            <?php if ( isset($_GET['end_type']) && $_GET['end_type'] == '10' ){ ?>
-                                                <tr>
-                                                    <td width="140" height="47"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right"></div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#CCCCCC" background="../../../../../assets/images/bg_1.jpg"><div align="right" class="style87 style2" dir="rtl" style="border-color:#CCCCCC; border-style:solid; border-width:1px; font-size:12px">
-                                                            <div align="right" style="background-image: image(../../../../../assets/images/bg_1.jpg)"><b>
-                                                                    <?php  echo number_format($emp_portion_le+$total_transferred_balance, 2, '.', ','); ?>
-                                                                </b>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style3" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format(0, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style4" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format(0, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style5" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format(0, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="80" bgcolor="#f3f3f3"><div align="right" class="style87 style6" dir="rtl">
-                                                            <div align="right">
-                                                                <?php  echo number_format($emp_portion_le, 2, '.', ','); ?>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="150" style="background-color: #D5D0D1"><div align="right" class="style87" dir="rtl">
-                                                            <div align="right" class="style87" dir="rtl">
-                                                                <div align="right">
-                                                                    <div align="center" class="style86 style108" style="font-size:12px">
-                                                                        <div align="right"><strong>الاجمالي</strong></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div></td>
-                                                    <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
-                                                </tr>
-
-                                            <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div></td>
+                                        <td width="200"><div dir="rtl" align="right" class="style73"></div></td>
+                                    </tr>
+                                <? } ?>
 
                                         </table>
                                     </td>

@@ -2377,6 +2377,10 @@ $vPatientName = 'Patient Name';
 $vPatientType = 'Patient Type';
 $vUploadedDocuments = 'Uploaded Documents';
 $vExamination = 'Examination';
+$vDiagnose = 'Diagnose';
+$vScan = 'Scan';
+$vLab = 'Lab';
+$vRemarks = 'Remarks';
 
 
 ?>
