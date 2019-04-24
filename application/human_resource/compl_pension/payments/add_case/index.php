@@ -493,32 +493,45 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     {
 
         $id=$_GET['emp_id'];
-	    $endPeriod=date($_GET['end_date']);
-	    $year = date('Y', strtotime($endPeriod));
-	    $month = date('m', strtotime($endPeriod));
 
+        /////////////////////////////////////////////
+        //// get the age at the end service date ////
+        //////////////////////////////////////////////
+        $endPeriod=date($_GET['end_date']);
+        $date = date('j', strtotime($endPeriod));
+        $lastDateOfMounth = date('t', strtotime($endPeriod));
+        $year = date('Y', strtotime($endPeriod));
+        $month = date('m', strtotime($endPeriod));
 
-	    //// calculate Period ////
-	    if ( $month < 7 ){
-		    $startPeriod=$year.'-01-01';
-		    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-	    }else {
-		    $startPeriod=$year.'-07-01';
-		    $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-	    }
-	    $precPeriod = $Period/180;
+        //// calculate Period ////
+        if ( $month < 7 ){
+            $Period= ($date == $lastDateOfMounth) ? $month : ($month-1) ;
+            $startPeriod=$year.'-01-01';
+        }else {
+            $Period= ($date == $lastDateOfMounth) ? ($month-6) : ($month-7) ;
+            $startPeriod=$year.'-07-01';
+        }
+        $precPeriod = $Period/6;
 
-	    //select last cp_installment_period
-	    mysql_select_db($database_localhost, $localhost);
-	    $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
-	    $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+        //select last cp_installment_period
+        mysql_select_db($database_localhost, $localhost);
+        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
 
-	    //select last cp_transaction
-	    mysql_select_db($database_localhost, $localhost);
-	    $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+        //select last cp_transaction
+        mysql_select_db($database_localhost, $localhost);
+        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le ,emp_portion_le ,co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+        $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+        $tolal_inv_co_portion_le=$vEmployeePortionInvNew+$last_inv_co_portion_le*($precPeriod-1);
 
-	    $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
-	    $tolal_inv_emp_portion_le=$vEmployeePortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+        $tolal_inv_emp_portion_le=$vCompanyPortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+
+        $last_emp_portion_le=$row_last_cp_transaction['emp_portion_le'];
+        $tolal_emp_portion_le=$vEmployeePortionNew+$last_emp_portion_le*($precPeriod-1);
+
+        $last_co_portion_le=$row_last_cp_transaction['co_portion_le'];
+        $tolal_co_portion_le=$vCompanyPortionNew+$last_co_portion_le*($precPeriod-1);
 	    ?>
 <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -544,14 +557,14 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
       <tr class="o_data_row" >
 
         <td class="o_data_cell"><?php
-        echo number_format($vEmployeePortionNew, 2, '.', ',');
+        echo number_format($tolal_emp_portion_le, 2, '.', ',');
         $vEmpoPortion=$vEmployeePortionNew;
         ?>
         </td>
 
         <td class="o_data_cell"><?php
-        echo number_format($tolal_inv_emp_portion_le, 2, '.', ',');
-        $vEmpoPortionInv=$tolal_inv_emp_portion_le;
+        echo number_format($tolal_inv_co_portion_le, 2, '.', ',');
+        $vEmpoPortionInv=$tolal_inv_co_portion_le;
         ?>
         </td>
 
@@ -590,7 +603,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
     </table>
 
 
-        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+($last_inv_emp_portion_le-$tolal_inv_emp_portion_le);?>
+        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+($vEmployeePortionNew-$tolal_emp_portion_le)+($vEmployeePortionInvNew-$tolal_inv_co_portion_le);?>
 
     <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
@@ -653,33 +666,46 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
         if($_GET['end_type']=='2' && $_GET['calculate']=='1')
         {
 
-	        $id=$_GET['emp_id'];
-	        $endPeriod=date($_GET['end_date']);
-	        $year = date('Y', strtotime($endPeriod));
-	        $month = date('m', strtotime($endPeriod));
 
+            $id=$_GET['emp_id'];
+            /////////////////////////////////////////////
+            //// get the age at the end service date ////
+            //////////////////////////////////////////////
+            $endPeriod=date($_GET['end_date']);
+            $date = date('j', strtotime($endPeriod));
+            $lastDateOfMounth = date('t', strtotime($endPeriod));
+            $year = date('Y', strtotime($endPeriod));
+            $month = date('m', strtotime($endPeriod));
 
-	        //// calculate Period ////
-	        if ( $month < 7 ){
-		        $startPeriod=$year.'-01-01';
-		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-	        }else {
-		        $startPeriod=$year.'-07-01';
-		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-	        }
-	        $precPeriod = $Period/180;
+            //// calculate Period ////
+            if ( $month < 7 ){
+                $Period= ($date == $lastDateOfMounth) ? $month : ($month-1) ;
+                $startPeriod=$year.'-01-01';
+            }else {
+                $Period= ($date == $lastDateOfMounth) ? ($month-6) : ($month-7) ;
+                $startPeriod=$year.'-07-01';
+            }
+            $precPeriod = $Period/6;
 
-	        //select last cp_installment_period
-	        mysql_select_db($database_localhost, $localhost);
-	        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
-	        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+            //select last cp_installment_period
+            mysql_select_db($database_localhost, $localhost);
+            $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+            $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
 
-	        //select last cp_transaction
-	        mysql_select_db($database_localhost, $localhost);
-	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+            //select last cp_transaction
+            mysql_select_db($database_localhost, $localhost);
+            $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le ,emp_portion_le ,co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+            $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+            $tolal_inv_co_portion_le=$vEmployeePortionInvNew+$last_inv_co_portion_le*($precPeriod-1);
 
-	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
-	        $tolal_inv_emp_portion_le=$vEmployeePortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+            $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+            $tolal_inv_emp_portion_le=$vCompanyPortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+
+            $last_emp_portion_le=$row_last_cp_transaction['emp_portion_le'];
+            $tolal_emp_portion_le=$vEmployeePortionNew+$last_emp_portion_le*($precPeriod-1);
+
+            $last_co_portion_le=$row_last_cp_transaction['co_portion_le'];
+            $tolal_co_portion_le=$vCompanyPortionNew+$last_co_portion_le*($precPeriod-1);
     ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -706,14 +732,14 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
           <tr class="o_data_row" >
 
             <td class="o_data_cell"><?php
-            echo number_format($vEmployeePortionNew, 2, '.', ',');
-            $vEmpoPortion=$vEmployeePortionNew;
+            echo number_format($tolal_emp_portion_le, 2, '.', ',');
+            $vEmpoPortion=$tolal_emp_portion_le;
             ?>
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($tolal_inv_emp_portion_le, 2, '.', ',');
-            $vEmpoPortionInv=$tolal_inv_emp_portion_le;
+            echo number_format($tolal_inv_co_portion_le, 2, '.', ',');
+            $vEmpoPortionInv=$tolal_inv_co_portion_le;
             ?>
             </td>
 
@@ -797,7 +823,7 @@ $totalRows_employees2ss = mysql_num_rows($employees2ss);
         </tbody>
         </table>
 
-            <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+($last_inv_emp_portion_le-$tolal_inv_emp_portion_le);?>
+            <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+($vEmployeePortionNew-$tolal_emp_portion_le)+($vEmployeePortionInvNew-$tolal_inv_co_portion_le);?>
 
         <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
@@ -1168,35 +1194,43 @@ echo number_format($total_excluded_increases, 2, '.', ',');
             /////////////////////////////////////////////
             //// get the age at the end service date ////
             //////////////////////////////////////////////
-
             $endPeriod=date($_GET['end_date']);
+            $date = date('j', strtotime($endPeriod));
+            $lastDateOfMounth = date('t', strtotime($endPeriod));
             $year = date('Y', strtotime($endPeriod));
             $month = date('m', strtotime($endPeriod));
 
-
             //// calculate Period ////
             if ( $month < 7 ){
+                $Period= ($date == $lastDateOfMounth) ? $month : ($month-1) ;
                 $startPeriod=$year.'-01-01';
-                $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
             }else {
-	            $startPeriod=$year.'-07-01';
-	            $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
+                $Period= ($date == $lastDateOfMounth) ? ($month-6) : ($month-7) ;
+                $startPeriod=$year.'-07-01';
             }
-	        $precPeriod = $Period/180;
+            $precPeriod = $Period/6;
+
 
             //select last cp_installment_period
-	        mysql_select_db($database_localhost, $localhost);
-	        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
-	        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+            mysql_select_db($database_localhost, $localhost);
+            $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+            $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
 
-	        //select last cp_transaction
-	        mysql_select_db($database_localhost, $localhost);
-	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
-	        $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
-	        $tolal_inv_co_portion_le=$row_employees2ss4['CO_P_INV']+$last_inv_co_portion_le*($precPeriod-1);
+            //select last cp_transaction
+            mysql_select_db($database_localhost, $localhost);
+            $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le ,emp_portion_le ,co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+            $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+            $tolal_inv_co_portion_le=$row_employees2ss4['CO_P_INV']+$last_inv_co_portion_le*($precPeriod-1);
 
-	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
-	        $tolal_inv_emp_portion_le=$row_employees2ss4['EMP_P_INV']+$last_inv_emp_portion_le*($precPeriod-1);
+            $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+            $tolal_inv_emp_portion_le=$row_employees2ss4['EMP_P_INV']+$last_inv_emp_portion_le*($precPeriod-1);
+
+            $last_emp_portion_le=$row_last_cp_transaction['emp_portion_le'];
+            $tolal_emp_portion_le=$vEmployeePortionNew+$last_emp_portion_le*($precPeriod-1);
+
+            $last_co_portion_le=$row_last_cp_transaction['co_portion_le'];
+            $tolal_co_portion_le=$vCompanyPortionNew+$last_co_portion_le*($precPeriod-1);
+
 	        ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
@@ -1222,8 +1256,8 @@ echo number_format($total_excluded_increases, 2, '.', ',');
           <tr class="o_data_row" >
 
             <td class="o_data_cell"><?php
-            echo number_format($vEmployeePortionNew, 2, '.', ',');
-            $vEmpoPortion=$vEmployeePortionNew;
+            echo number_format($tolal_emp_portion_le, 2, '.', ',');
+            $vEmpoPortion=$tolal_emp_portion_le;
             ?>
             </td>
 
@@ -1234,8 +1268,8 @@ echo number_format($total_excluded_increases, 2, '.', ',');
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($vCompanyPortionNew, 2, '.', ',');
-            $vCompPortion=$vCompanyPortionNew;
+            echo number_format($tolal_co_portion_le, 2, '.', ',');
+            $vCompPortion=$tolal_co_portion_le;
             ?>
             </td>
 
@@ -1270,7 +1304,8 @@ echo number_format($total_excluded_increases, 2, '.', ',');
         </table>
 
             <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
-            <?php $cp_other_payment=($row_employees2ss4['CO_P_INV']-$tolal_inv_co_portion_le)+($row_employees2ss4['EMP_P_INV']-$tolal_inv_emp_portion_le);?>
+            <?php $cp_other_payment=($row_employees2ss4['CO_P_INV']-$tolal_inv_co_portion_le)+($row_employees2ss4['EMP_P_INV']-$tolal_inv_emp_portion_le)+($vEmployeePortionNew-$tolal_emp_portion_le)+($vCompanyPortionNew-$tolal_co_portion_le);
+            ?>
       <?php
         }
             ///////////////////////////////////////////////
@@ -1641,7 +1676,46 @@ do {
       {
 
           $id=$_GET['emp_id'];
-  ?>
+          /////////////////////////////////////////////
+          //// get the age at the end service date ////
+          //////////////////////////////////////////////
+          $endPeriod=date($_GET['end_date']);
+          $date = date('j', strtotime($endPeriod));
+          $lastDateOfMounth = date('t', strtotime($endPeriod));
+          $year = date('Y', strtotime($endPeriod));
+          $month = date('m', strtotime($endPeriod));
+
+          //// calculate Period ////
+          if ( $month < 7 ){
+              $Period= ($date == $lastDateOfMounth) ? $month : ($month-1) ;
+              $startPeriod=$year.'-01-01';
+          }else {
+              $Period= ($date == $lastDateOfMounth) ? ($month-6) : ($month-7) ;
+              $startPeriod=$year.'-07-01';
+          }
+          $precPeriod = $Period/6;
+
+          //select last cp_installment_period
+          mysql_select_db($database_localhost, $localhost);
+          $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+          $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+          //select last cp_transaction
+          mysql_select_db($database_localhost, $localhost);
+          $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le ,emp_portion_le ,co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+          $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
+          $tolal_inv_co_portion_le=$vEmployeePortionInvNew+$last_inv_co_portion_le*($precPeriod-1);
+
+          $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
+          $tolal_inv_emp_portion_le=$vCompanyPortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
+
+          $last_emp_portion_le=$row_last_cp_transaction['emp_portion_le'];
+          $tolal_emp_portion_le=$vEmployeePortionNew+$last_emp_portion_le*($precPeriod-1);
+
+          $last_co_portion_le=$row_last_cp_transaction['co_portion_le'];
+          $tolal_co_portion_le=$vCompanyPortionNew+$last_co_portion_le*($precPeriod-1);
+
+          ?>
   <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
 
@@ -1665,8 +1739,8 @@ do {
         <tr class="o_data_row" >
 
           <td class="o_data_cell"><?php
-          echo number_format($vEmployeePortionNew, 2, '.', ',');
-          $vEmpoPortion=$vEmployeePortionNew;
+          echo number_format($tolal_emp_portion_le, 2, '.', ',');
+          $vEmpoPortion=$tolal_emp_portion_le;
           ?>
           </td>
 
@@ -1707,7 +1781,7 @@ do {
       </tbody>
       </table>
 
-          <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+$vEmployeePortionInvNew;?>
+          <?php $cp_other_payment=($vEmployeePortionNew-$tolal_emp_portion_le)+$vCompanyPortionInvNew+$vCompanyPortionNew+$vEmployeePortionInvNew;?>
 
       <?php
       $id=$_GET['emp_id'];
@@ -1853,21 +1927,21 @@ do {
 	        /////////////////////////////////////////////
 	        //// get the age at the end service date ////
 	        //////////////////////////////////////////////
+            $endPeriod=date($_GET['end_date']);
+            $date = date('j', strtotime($endPeriod));
+            $lastDateOfMounth = date('t', strtotime($endPeriod));
+            $year = date('Y', strtotime($endPeriod));
+            $month = date('m', strtotime($endPeriod));
 
-	        $endPeriod=date($_GET['end_date']);
-	        $year = date('Y', strtotime($endPeriod));
-	        $month = date('m', strtotime($endPeriod));
-
-
-	        //// calculate Period ////
-	        if ( $month < 7 ){
-		        $startPeriod=$year.'-01-01';
-		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-	        }else {
-		        $startPeriod=$year.'-07-01';
-		        $Period= date_diff(date_create($startPeriod), date_create($endPeriod))->days;
-	        }
-	        $precPeriod = $Period/180;
+            //// calculate Period ////
+            if ( $month < 7 ){
+                $Period= ($date == $lastDateOfMounth) ? $month : ($month-1) ;
+                $startPeriod=$year.'-01-01';
+            }else {
+                $Period= ($date == $lastDateOfMounth) ? ($month-6) : ($month-7) ;
+                $startPeriod=$year.'-07-01';
+            }
+            $precPeriod = $Period/6;
 
 	        //select last cp_installment_period
 	        mysql_select_db($database_localhost, $localhost);
@@ -1876,13 +1950,18 @@ do {
 
 	        //select last cp_transaction
 	        mysql_select_db($database_localhost, $localhost);
-	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+	        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le ,emp_portion_le ,co_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
 	        $last_inv_co_portion_le=$row_last_cp_transaction['inv_co_portion_le'];
 	        $tolal_inv_co_portion_le=$vEmployeePortionInvNew+$last_inv_co_portion_le*($precPeriod-1);
 
 	        $last_inv_emp_portion_le=$row_last_cp_transaction['inv_emp_portion_le'];
 	        $tolal_inv_emp_portion_le=$vCompanyPortionInvNew+$last_inv_emp_portion_le*($precPeriod-1);
 
+	        $last_emp_portion_le=$row_last_cp_transaction['emp_portion_le'];
+            $tolal_emp_portion_le=$vEmployeePortionNew+$last_emp_portion_le*($precPeriod-1);
+
+	        $last_co_portion_le=$row_last_cp_transaction['co_portion_le'];
+            $tolal_co_portion_le=$vCompanyPortionNew+$last_co_portion_le*($precPeriod-1);
 
 	        ?>
     <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
@@ -1909,7 +1988,7 @@ do {
           <tr class="o_data_row" >
 
             <td class="o_data_cell"><?php
-            echo number_format($vEmployeePortionNew, 2, '.', ',');
+            echo number_format($tolal_emp_portion_le, 2, '.', ',');
             $vEmpoPortion=$vEmployeePortionNew;
             ?>
             </td>
@@ -1921,8 +2000,8 @@ do {
             </td>
 
             <td class="o_data_cell"><?php
-            echo number_format($vCompanyPortionNew, 2, '.', ',');
-            $vCompPortion=$vCompanyPortionNew;
+            echo number_format($tolal_co_portion_le, 2, '.', ',');
+            $vCompPortion=$tolal_co_portion_le;
             ?>
             </td>
 
@@ -1957,7 +2036,8 @@ do {
 
 
             <a class="btn btn-danger" onclick="return confirm('<?php echo $vYouAreAboutToLogout; ?>');" href="index.php?emp_id=<?php echo $_GET['emp_id']; ?>&end_type=<?php echo $_GET['end_type']; ?>&sector_join_date=<?php echo $_GET['sector_join_date']; ?>&emp_dob=<?php echo $_GET['emp_dob']; ?>&membership_start=<?php echo $_GET['membership_start']; ?>&end_date=<?php echo $_GET['end_date'] ; ?>&calculate=1&logout=1"><?php echo $vLogout; ?></a>
-            <?php $cp_other_payment=($vEmployeePortionInvNew-$tolal_inv_co_portion_le)+($vCompanyPortionInvNew-$tolal_inv_emp_portion_le);
+            <?php
+            $cp_other_payment=($vCompanyPortionNew-$tolal_co_portion_le)+($vEmployeePortionNew-$tolal_emp_portion_le)+($vEmployeePortionInvNew-$tolal_inv_co_portion_le)+($vCompanyPortionInvNew-$tolal_inv_emp_portion_le);
             ?>
 
       <?php
@@ -1976,8 +2056,35 @@ do {
 
     if($_GET['end_type']=='10' && $_GET['calculate']=='1')
     {
+        $endPeriod=date($_GET['end_date']);
+        $date = date('j', strtotime($endPeriod));
+        $lastDateOfMounth = date('t', strtotime($endPeriod));
+        $year = date('Y', strtotime($endPeriod));
+        $month = date('m', strtotime($endPeriod));
 
-?>
+        //// calculate Period ////
+        if ( $month < 7 ){
+            $Period= ($date == $lastDateOfMounth) ? $month : ($month-1) ;
+            $startPeriod=$year.'-01-01';
+        }else {
+            $Period= ($date == $lastDateOfMounth) ? ($month-6) : ($month-7) ;
+            $startPeriod=$year.'-07-01';
+        }
+        $precPeriod = $Period/6;
+
+        //select last cp_installment_period
+        mysql_select_db($database_localhost, $localhost);
+        $row_last_cp_installment = mysql_fetch_assoc( mysql_query("SELECT cp_installment_period_id FROM cp_installment_period WHERE cp_installment_period_from = '$startPeriod'", $localhost) );
+        $last_cp_installment=$row_last_cp_installment['cp_installment_period_id'];
+
+        //select last cp_transaction
+        mysql_select_db($database_localhost, $localhost);
+        $row_last_cp_transaction = mysql_fetch_assoc( mysql_query("SELECT inv_emp_portion_le, inv_co_portion_le,emp_portion_le FROM cp_transaction WHERE cp_installment_period_id = '$last_cp_installment' AND employee_id = '$id'", $localhost) );
+        $last_emp_portion_le=$row_last_cp_transaction['emp_portion_le'];
+        $tolal_emp_portion_le=$vEmployeePortionNew+$last_emp_portion_le*($precPeriod-1);
+
+
+        ?>
 <h3><?php echo $vTotalAllowedAmountAsOnePayment; ?></h3>
 
 
@@ -2004,8 +2111,8 @@ do {
       <tr class="o_data_row" >
 
         <td class="o_data_cell"><?php
-        echo number_format($vEmployeePortionNew, 2, '.', ',');
-        $vEmpoPortion=$vEmployeePortionNew;
+        echo number_format($tolal_emp_portion_le, 2, '.', ',');
+        $vEmpoPortion=$tolal_emp_portion_le;
         ?>
         </td>
 
@@ -2043,7 +2150,7 @@ do {
 
     </tbody>
     </table>
-        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+$vEmployeePortionInvNew;?>
+        <?php $cp_other_payment=$vCompanyPortionInvNew+$vCompanyPortionNew+$vEmployeePortionInvNew+($vEmployeePortionNew-$tolal_emp_portion_le);?>
     <form target="_blank" method="get" action="../../../compl_pension/reports/form_1_one_payment/">
 
     <?php $dddd=$personal_balance+$mandatory_period_amount; ?>
